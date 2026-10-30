@@ -39,6 +39,17 @@ export function formatPhone(phone: string): string {
   return `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`;
 }
 
+/** Longest value accepted per field; the form's inputs use the same limits. */
+export const MAX_LENGTHS = { email: 254, phone: 20, firstName: 60, lastName: 60, street: 200, city: 60, landmark: 100, note: 500 } as const;
+
+const DETAIL_FIELDS = ["email", "phone", "firstName", "lastName", "street", "city", "pin", "state", "landmark", "note"] as const;
+
+/** The checkout fields from an untrusted request body: text values only, nothing else. */
+export function pickDetails(raw: unknown): Partial<CheckoutDetails> {
+  const source = raw && typeof raw === "object" && !Array.isArray(raw) ? (raw as Record<string, unknown>) : {};
+  return Object.fromEntries(DETAIL_FIELDS.map((f) => [f, typeof source[f] === "string" ? source[f] : undefined]));
+}
+
 /** Field-level validation shared by the checkout form and the API. Returns field → message. */
 export function validateDetails(d: Partial<CheckoutDetails>): Record<string, string> {
   const errors: Record<string, string> = {};
@@ -50,7 +61,9 @@ export function validateDetails(d: Partial<CheckoutDetails>): Record<string, str
   if (!d.city?.trim()) errors.city = "Enter your town or city.";
   if (!d.pin || !/^[1-9]\d{5}$/.test(d.pin)) errors.pin = "Enter a 6-digit PIN code.";
   if (!d.state || !INDIAN_STATES.includes(d.state)) errors.state = "Choose a state.";
-  if ((d.note?.length ?? 0) > 500) errors.note = "Keep the note under 500 characters.";
+  for (const [field, max] of Object.entries(MAX_LENGTHS) as [keyof typeof MAX_LENGTHS, number][]) {
+    if ((d[field]?.length ?? 0) > max) errors[field] ??= `Use ${max} characters or fewer.`;
+  }
   return errors;
 }
 

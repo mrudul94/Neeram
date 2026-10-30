@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent, type ReactNode } from "react";
 import { site } from "@/data/content";
-import { INDIAN_STATES, orderLinks, PAYMENT, validateDetails, type CheckoutDetails } from "@/lib/checkout";
+import { INDIAN_STATES, MAX_LENGTHS, orderLinks, PAYMENT, validateDetails, type CheckoutDetails } from "@/lib/checkout";
 import { formatPrice } from "@/lib/format";
 import { resolveLines, subtotal, useCart, useCartHydrated } from "@/store/cart";
 import { buttonClass, cx } from "../ui";
@@ -127,7 +127,13 @@ export function CheckoutForm() {
     }
   }
 
-  const err = (name: string) => ({ id: name, name, "aria-invalid": errors[name] ? true : undefined, "aria-describedby": errors[name] ? `${name}-error` : undefined });
+  const err = (name: string) => ({
+    id: name,
+    name,
+    maxLength: (MAX_LENGTHS as Record<string, number>)[name],
+    "aria-invalid": errors[name] ? true : undefined,
+    "aria-describedby": errors[name] ? `${name}-error` : undefined,
+  });
 
   return (
     <div className="mx-auto grid max-w-[90rem] md:grid-cols-[minmax(0,1fr)_minmax(0,0.75fr)]">
@@ -170,7 +176,7 @@ export function CheckoutForm() {
                 </select>
               </Field>
               <Field label="Landmark (optional)" name="landmark">
-                <input id="landmark" name="landmark" placeholder="Near…" className={input} />
+                <input id="landmark" name="landmark" maxLength={MAX_LENGTHS.landmark} placeholder="Near…" className={input} />
               </Field>
             </div>
           </Step>

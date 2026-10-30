@@ -1,5 +1,5 @@
 import { after } from "next/server";
-import { newOrderNumber, orderMessage, priceLines, validateDetails, type CheckoutDetails, type CheckoutLine } from "@/lib/checkout";
+import { newOrderNumber, orderMessage, pickDetails, priceLines, validateDetails, type CheckoutDetails, type CheckoutLine } from "@/lib/checkout";
 import { saveOrder } from "@/lib/records";
 
 /**
@@ -8,13 +8,13 @@ import { saveOrder } from "@/lib/records";
  * No payment is taken on the site: customers pay before delivery, after we confirm.
  */
 export async function POST(request: Request) {
-  let body: { lines?: CheckoutLine[]; details?: Partial<CheckoutDetails> };
+  let body: { lines?: CheckoutLine[]; details?: unknown };
   try {
     body = await request.json();
   } catch {
     return Response.json({ error: "Invalid request" }, { status: 400 });
   }
-  const details = body.details ?? {};
+  const details = pickDetails(body.details);
   const errors = validateDetails(details);
   if (Object.keys(errors).length) return Response.json({ error: "Please check the highlighted fields.", errors }, { status: 400 });
 

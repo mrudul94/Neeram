@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { newOrderNumber, orderLinks, orderMessage, priceLines, validateDetails, type CheckoutDetails } from "./checkout";
+import { MAX_LENGTHS, newOrderNumber, orderLinks, orderMessage, pickDetails, priceLines, validateDetails, type CheckoutDetails } from "./checkout";
 
 const valid: CheckoutDetails = {
   phone: "9876543210",
@@ -63,6 +63,36 @@ describe("validateDetails", () => {
 
   it("rejects a note over 500 characters", () => {
     expect(validateDetails({ ...valid, note: "a".repeat(501) })).toHaveProperty("note");
+  });
+
+  it.each(Object.entries(MAX_LENGTHS).filter(([field]) => !["email", "phone"].includes(field)))(
+    "rejects a %s longer than %i characters",
+    (field, max) => {
+      expect(validateDetails({ ...valid, [field]: "a".repeat(max) })).not.toHaveProperty(field);
+      expect(validateDetails({ ...valid, [field]: "a".repeat(max + 1) })).toHaveProperty(field);
+    },
+  );
+
+  it("rejects an email longer than 254 characters", () => {
+    expect(validateDetails({ ...valid, email: `${"a".repeat(250)}@example.com` })).toHaveProperty("email");
+  });
+
+  it("rejects an over-long phone even with valid digits in it", () => {
+    expect(validateDetails({ ...valid, phone: `${" ".repeat(30)}9876543210` })).toHaveProperty("phone");
+  });
+});
+
+describe("pickDetails", () => {
+  it("keeps only the checkout fields", () => {
+    expect(pickDetails({ ...valid, delivery: "standard", isAdmin: true })).toEqual(valid);
+  });
+
+  it("drops fields that aren't text", () => {
+    expect(pickDetails({ ...valid, firstName: 123, note: { a: 1 } })).toEqual({ ...valid, firstName: undefined, note: undefined });
+  });
+
+  it.each([null, "text", 42, ["a"]])("returns no fields for %j", (raw) => {
+    expect(Object.values(pickDetails(raw)).filter((v) => v !== undefined)).toEqual([]);
   });
 });
 
