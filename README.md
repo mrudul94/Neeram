@@ -12,7 +12,7 @@ npm run dev          # http://localhost:3000
 npm run build && npm start   # production build
 ```
 
-Copy `.env.example` to `.env.local` to configure payments and the site URL (all optional for local work).
+Copy `.env.example` to `.env.local` to set the site URL (optional for local work).
 
 ## Project layout
 
@@ -22,7 +22,7 @@ Copy `.env.example` to `.env.local` to configure payments and the site URL (all 
 | `src/data/content.ts` | Hero slides, the dish list, site details (address, socials, about text). |
 | `src/app/(site)/` | Pages with the main header + footer: home, shop, product pages, help. |
 | `src/app/(checkout)/` | Checkout and order-confirmed pages (minimal header). |
-| `src/app/api/` | `subscribe` (newsletter + notify-me), `checkout` (create order), `checkout/verify` (Razorpay signature). |
+| `src/app/api/` | `subscribe` (newsletter + notify-me), `checkout` (save an order and build its WhatsApp message). |
 | `src/components/home/BottleStage.tsx` | The scroll-spinning bottle. |
 | `src/store/cart.ts` | Cart (Zustand, persisted to `localStorage` as `neeram-cart`). |
 | `public/bottle/` | `bottle-still*.webp` (product photo at rest) and `{desktop,mobile}/` — the 120 bottle frames (WebP). |
@@ -99,18 +99,18 @@ Everything else — shelf buttons, shop rows, the product page layout, cart, che
 "Notify me" — reads `status`, so nothing else needs to change. Note that people who asked to be notified are stored
 under the product's slug (see *Forms* below).
 
-## Payments (Razorpay)
+## Orders (WhatsApp, no online payment)
 
-Set `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET` (test keys from the Razorpay dashboard) in `.env.local`, or in the
-Vercel project settings. The checkout then:
+The site takes no payment. Checkout works like this:
 
-1. `POST /api/checkout` validates the details, re-prices the cart from `products.ts`, and creates a Razorpay order;
-2. opens Razorpay Checkout in the browser;
-3. `POST /api/checkout/verify` checks the payment signature, then the customer lands on `/order/confirmed`.
+1. `POST /api/checkout` validates the details, re-prices the cart from `products.ts`, saves the order and returns
+   an order number and a ready-made message (`orderMessage` in `src/lib/checkout.ts`);
+2. the browser opens WhatsApp in a new tab with that message addressed to Neeram, and the checkout tab returns to
+   the shop. Customers without WhatsApp use the "Send it by SMS / Email" buttons under the main one instead.
+3. Neeram replies with the delivery charge and payment details; the order ships once paid (no cash on delivery).
 
-Without keys — **or while any price in the cart is still `null`** — checkout uses a mock payment and goes straight to
-the thank-you page. Before going live, add a Razorpay webhook (`payment.captured`) as the source of truth for
-fulfilment.
+Set the numbers and email in `src/data/content.ts` → `site.orders`. Until `whatsapp` is set, the WhatsApp button lets
+the customer choose a chat, so set it before launch.
 
 ## Forms and orders
 
@@ -127,4 +127,4 @@ The jar cut-outs and food photos were extracted from the design export by `scrip
 ## Deploying
 
 Push to a Git repo and import it in Vercel. Set `NEXT_PUBLIC_SITE_URL` (used for canonical URLs, Open Graph and
-JSON-LD) and the Razorpay keys.
+JSON-LD).

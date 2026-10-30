@@ -87,6 +87,18 @@ export const site = {
    * e.g. { name: "FSSAI licence", number: "113…", issuer: "FSSAI", image: "/images/certificates/fssai.webp", width: 1240, height: 1754 }
    */
   certificates: [] as Certificate[],
+  /**
+   * Where checkout sends orders (there is no online payment). Numbers in international
+   * form without "+" or spaces, e.g. "919876543210". Until `whatsapp` is set, the
+   * WhatsApp button lets the customer pick a chat. The "No WhatsApp? Send it by SMS / Email"
+   * buttons show only when `phone` (or `whatsapp`, for SMS) and `email` are set.
+   */
+  orders: {
+    // Skaylon's number (+91 80759 15386) for now; swap for Neeram's own before launch.
+    whatsapp: "918075915386" as string | null,
+    phone: null as string | null,
+    email: null as string | null,
+  },
   // Set a URL to show the link; null renders the name without a link.
   socials: {
     Instagram: null as string | null,

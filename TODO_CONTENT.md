@@ -51,11 +51,14 @@ Everything below is a placeholder on the live site today. File references show w
 
 ## Checkout — `src/components/checkout/CheckoutForm.tsx`
 
-- [ ] Standard delivery: time and charge ("[Delivery time and charge]").
+- [ ] Standard delivery time ("[Delivery time]"); the charge is confirmed on WhatsApp.
 - [ ] Second delivery option, if any ("[Second delivery option, if offered]" is shown disabled).
 - [ ] Discount codes — the field is there but replies "not available yet".
-- [ ] Razorpay account and keys (test, then live).
-- [ ] Order emails / SMS — the thank-you page promises them; nothing is sent yet.
+- [ ] **Order WhatsApp number** (currently Skaylon's, +91 80759 15386 — replace with Neeram's), phone and email — `src/data/content.ts` → `site.orders`. Checkout sends orders
+      there; until the WhatsApp number is set, customers have to pick the chat themselves.
+- [ ] Payment details (UPI ID / bank account) to send customers after confirming — orders are paid before delivery.
+- [ ] Orders are saved to `data/orders.jsonl` locally but only logged on Vercel — connect an email service or database
+      so orders whose customer never sends the message aren't lost.
 
 ## Photography
 

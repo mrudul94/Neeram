@@ -4,29 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent, type ReactNode } from "react";
-import { INDIAN_STATES, validateDetails, type CheckoutDetails } from "@/lib/checkout";
+import { site } from "@/data/content";
+import { INDIAN_STATES, orderLinks, PAYMENT, validateDetails, type CheckoutDetails } from "@/lib/checkout";
 import { formatPrice } from "@/lib/format";
 import { resolveLines, subtotal, useCart, useCartHydrated } from "@/store/cart";
 import { buttonClass, cx } from "../ui";
 
-type RazorpayResponse = { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string };
-type RazorpayInstance = { open: () => void; on: (event: string, cb: (r: { error: { description: string } }) => void) => void };
-declare global {
-  interface Window {
-    Razorpay?: new (options: Record<string, unknown>) => RazorpayInstance;
-  }
-}
-
-function loadRazorpay(): Promise<boolean> {
-  if (window.Razorpay) return Promise.resolve(true);
-  return new Promise((resolve) => {
-    const s = document.createElement("script");
-    s.src = "https://checkout.razorpay.com/v1/checkout.js";
-    s.onload = () => resolve(true);
-    s.onerror = () => resolve(false);
-    document.body.appendChild(s);
-  });
-}
+type Channel = "whatsapp" | "sms" | "email";
+const smsNumber = site.orders.phone ?? site.orders.whatsapp;
 
 const input =
   "h-12 w-full border border-ink bg-transparent px-3.5 text-[0.9375rem] placeholder:text-muted/80 focus:border-orange focus:outline-none aria-[invalid=true]:border-orange";
@@ -76,12 +61,10 @@ export function CheckoutForm() {
   const hydrated = useCartHydrated();
   const rawLines = useCart((s) => s.lines);
   const clear = useCart((s) => s.clear);
-  const setLastOrder = useCart((s) => s.setLastOrder);
   const router = useRouter();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState("");
   const [busy, setBusy] = useState(false);
-  const [payment, setPayment] = useState("upi");
   const [discountNote, setDiscountNote] = useState("");
 
   const lines = resolveLines(rawLines);
@@ -100,12 +83,6 @@ export function CheckoutForm() {
     );
   }
 
-  const finish = (orderNumber: string, firstName: string) => {
-    setLastOrder({ number: orderNumber, firstName, slugs: lines.map((l) => l.slug) });
-    clear();
-    router.push(`/order/confirmed?order=${encodeURIComponent(orderNumber)}`);
-  };
-
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setFormError("");
@@ -118,7 +95,11 @@ export function CheckoutForm() {
       document.getElementById(first)?.focus();
       return;
     }
+    // Which button sent the form: WhatsApp (the main one), or SMS / email for customers without it.
+    const via = ((e.nativeEvent as SubmitEvent).submitter?.getAttribute("value") ?? "whatsapp") as Channel;
     setBusy(true);
+    // Opened inside the click so pop-up blockers allow it; pointed at WhatsApp once the order is saved.
+    const tab = via === "whatsapp" ? window.open("", "_blank") : null;
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -130,38 +111,17 @@ export function CheckoutForm() {
         setErrors(data.errors ?? {});
         throw new Error(data.error ?? "Something went wrong.");
       }
-      if (data.mode === "mock") return finish(data.orderNumber, details.firstName);
-
-      if (!(await loadRazorpay()) || !window.Razorpay) throw new Error("Could not load the payment window. Check your connection and try again.");
-      const rzp = new window.Razorpay({
-        key: data.keyId,
-        order_id: data.razorpayOrderId,
-        amount: data.amount,
-        currency: "INR",
-        name: "Neeram",
-        description: `Order ${data.orderNumber}`,
-        prefill: { name: `${details.firstName} ${details.lastName}`, email: details.email, contact: details.phone, method: payment },
-        theme: { color: "#F26A0D" },
-        modal: { ondismiss: () => setBusy(false) },
-        handler: async (resp: RazorpayResponse) => {
-          const v = await fetch("/api/checkout/verify", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ...resp, orderNumber: data.orderNumber }),
-          });
-          if (v.ok) finish(data.orderNumber, details.firstName);
-          else {
-            setBusy(false);
-            setFormError("We couldn't verify the payment. If money was taken, contact us with your order number " + data.orderNumber + ".");
-          }
-        },
-      });
-      rzp.on("payment.failed", (r) => {
-        setBusy(false);
-        setFormError(r.error.description || "Payment failed. Please try again.");
-      });
-      rzp.open();
+      const link = orderLinks(data.message, data.orderNumber)[via] ?? orderLinks(data.message, data.orderNumber).whatsapp;
+      clear();
+      if (tab) {
+        tab.location.href = link;
+        router.push("/shop");
+      } else {
+        // Pop-up blocked, or an sms:/mailto: link that opens an app: use this tab.
+        window.location.href = link;
+      }
     } catch (err) {
+      tab?.close();
       setBusy(false);
       setFormError(err instanceof Error ? err.message : "Something went wrong.");
     }
@@ -176,10 +136,10 @@ export function CheckoutForm() {
         <form onSubmit={onSubmit} noValidate className="mt-8">
           <Step n="01" title="Contact">
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Email" name="email" error={errors.email}>
+              <Field label="Email (optional)" name="email" error={errors.email}>
                 <input {...err("email")} type="email" autoComplete="email" placeholder="you@example.com" className={input} />
               </Field>
-              <Field label="Mobile number" name="phone" error={errors.phone}>
+              <Field label="Mobile number (WhatsApp)" name="phone" error={errors.phone}>
                 <input {...err("phone")} type="tel" autoComplete="tel" inputMode="tel" placeholder="+91" className={input} />
               </Field>
             </div>
@@ -217,17 +177,20 @@ export function CheckoutForm() {
 
           <Step n="03" title="Delivery">
             <div className="space-y-3">
-              <Choice name="delivery" value="standard" checked onChange={() => {}} title="Standard delivery" note="[Delivery time and charge]" />
+              <Choice name="delivery" value="standard" checked onChange={() => {}} title="Standard delivery" note="[Delivery time] · charge confirmed on WhatsApp" />
               <Choice name="delivery-alt" value="express" checked={false} onChange={() => {}} title="[Second delivery option, if offered]" disabled />
             </div>
           </Step>
 
           <Step n="04" title="Payment">
-            <div className="space-y-3">
-              <Choice name="payment" value="upi" checked={payment === "upi"} onChange={setPayment} title="UPI" note="Pay with any UPI app" />
-              <Choice name="payment" value="card" checked={payment === "card"} onChange={setPayment} title="Debit or credit card" />
+            <div className="border-[1.5px] border-ink px-4 py-3.5">
+              <p className="text-[0.9375rem] font-medium">{PAYMENT.title}</p>
+              <p className="mt-0.5 text-[0.8125rem] text-muted">{PAYMENT.note}</p>
             </div>
-            <p className="mt-3 font-serif text-sm text-muted italic">Payment options shown depend on your payment provider.</p>
+            <p className="mt-3 font-serif text-sm text-muted italic">Nothing is charged on this website.</p>
+            <Field label="Note for us (optional)" name="note" error={errors.note} className="mt-6">
+              <textarea {...err("note")} rows={3} maxLength={500} placeholder="Delivery time, gift message…" className={cx(input, "h-auto py-3")} />
+            </Field>
           </Step>
 
           {formError && (
@@ -235,9 +198,24 @@ export function CheckoutForm() {
               {formError}
             </p>
           )}
-          <button type="submit" disabled={busy} className={buttonClass("orange", "h-14 w-full")}>
-            {busy ? "Placing order…" : `Place order · ${formatPrice(total)}`}
+          <button type="submit" value="whatsapp" disabled={busy} className={buttonClass("orange", "h-14 w-full")}>
+            {busy ? "Sending…" : `Send order on WhatsApp · ${formatPrice(total)}`}
           </button>
+          {(smsNumber || site.orders.email) && (
+            <p className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[0.8125rem] text-muted">
+              No WhatsApp? Send it by
+              {smsNumber && (
+                <button type="submit" value="sms" disabled={busy} className={buttonClass("text")}>
+                  SMS
+                </button>
+              )}
+              {site.orders.email && (
+                <button type="submit" value="email" disabled={busy} className={buttonClass("text")}>
+                  Email
+                </button>
+              )}
+            </p>
+          )}
         </form>
       </div>
 

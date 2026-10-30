@@ -10,12 +10,10 @@ export type CartLine = { slug: string; qty: number; pack?: string };
 
 /** Identifies a cart line: one line per product and pack. */
 export const lineKey = (l: { slug: string; pack?: string }) => (l.pack ? `${l.slug}:${l.pack}` : l.slug);
-export type LastOrder = { number: string; firstName: string; slugs: string[] };
 
 type CartState = {
   lines: CartLine[];
   drawerOpen: boolean;
-  lastOrder: LastOrder | null;
   add: (slug: string, qty?: number, pack?: string) => void;
   /** `key` is the line's lineKey. */
   setQty: (key: string, qty: number) => void;
@@ -23,7 +21,6 @@ type CartState = {
   clear: () => void;
   openDrawer: () => void;
   closeDrawer: () => void;
-  setLastOrder: (order: LastOrder) => void;
 };
 
 export const MAX_QTY = 20;
@@ -33,7 +30,6 @@ export const useCart = create<CartState>()(
     (set) => ({
       lines: [],
       drawerOpen: false,
-      lastOrder: null,
       add: (slug, qty = 1, packId) =>
         set((s) => {
           const product = getProduct(slug);
@@ -57,12 +53,11 @@ export const useCart = create<CartState>()(
       clear: () => set({ lines: [] }),
       openDrawer: () => set({ drawerOpen: true }),
       closeDrawer: () => set({ drawerOpen: false }),
-      setLastOrder: (lastOrder) => set({ lastOrder }),
     }),
     {
       name: "neeram-cart",
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({ lines: s.lines, lastOrder: s.lastOrder }),
+      partialize: (s) => ({ lines: s.lines }),
       skipHydration: true,
     },
   ),
