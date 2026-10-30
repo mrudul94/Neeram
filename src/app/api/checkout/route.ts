@@ -1,9 +1,11 @@
+import { after } from "next/server";
 import { newOrderNumber, orderMessage, priceLines, validateDetails, type CheckoutDetails, type CheckoutLine } from "@/lib/checkout";
-import { appendRecord } from "@/lib/store-json";
+import { saveOrder } from "@/lib/records";
 
 /**
- * Records an order and returns the message the customer sends us on WhatsApp (or by SMS,
- * email or phone). No payment is taken on the site: customers pay before delivery, after we confirm.
+ * Returns the message the customer sends us on WhatsApp (or by SMS, email or phone), then
+ * records the order once the response is sent, so the customer never waits for Google.
+ * No payment is taken on the site: customers pay before delivery, after we confirm.
  */
 export async function POST(request: Request) {
   let body: { lines?: CheckoutLine[]; details?: Partial<CheckoutDetails> };
@@ -20,7 +22,7 @@ export async function POST(request: Request) {
   if (!items.length) return Response.json({ error: "Your cart is empty." }, { status: 400 });
 
   const orderNumber = newOrderNumber();
-  const message = orderMessage({ orderNumber, items, total, details: details as CheckoutDetails });
-  await appendRecord("orders", { orderNumber, status: "awaiting-message", items, total, details });
-  return Response.json({ orderNumber, message });
+  const order = { orderNumber, items, total, details: details as CheckoutDetails };
+  after(() => saveOrder(order));
+  return Response.json({ orderNumber, message: orderMessage(order) });
 }

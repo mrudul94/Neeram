@@ -27,7 +27,7 @@ export function SubscribeForm({ topic, submitLabel = "Subscribe", tone = "dark",
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, topic }),
+        body: JSON.stringify({ email, topic, page: window.location.pathname }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Something went wrong");

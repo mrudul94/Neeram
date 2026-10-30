@@ -79,3 +79,8 @@ graphify-out/20??-??-??/
 /test-results/
 /playwright-report/
 /blob-report/
+
+# Google service account keys: keep them out of the project (see docs/ORDER_SHEET_SETUP.md)
+*service-account*.json
+*serviceaccount*.json
+*credentials*.json
