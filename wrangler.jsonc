@@ -1,0 +1,17 @@
+// Cloudflare Workers config for the OpenNext build (`npm run preview` / `npm run deploy`).
+// Secrets (GOOGLE_*, TURNSTILE_SECRET_KEY) are set with `wrangler secret put`, never here.
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "neeram",
+	"main": ".open-next/worker.js",
+	"compatibility_date": "2026-10-01",
+	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	// Workers Logs: lets you search the dashboard for "NOT SAVED TO SHEET".
+	"observability": {
+		"enabled": true
+	}
+}
