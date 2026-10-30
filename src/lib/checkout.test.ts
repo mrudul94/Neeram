@@ -33,12 +33,20 @@ describe("validateDetails", () => {
     },
   );
 
+  it.each(["98765-43210", "09876543210"])("accepts the commonly typed mobile number %s", (phone) => {
+    expect(validateDetails({ ...valid, phone })).not.toHaveProperty("phone");
+  });
+
   it.each(["5876543210", "987654321", "98765432100", "abcdefghij"])("rejects the phone %s", (phone) => {
     expect(validateDetails({ ...valid, phone })).toHaveProperty("phone");
   });
 
   it("allows the email to be left out", () => {
     expect(validateDetails({ ...valid, email: "" })).not.toHaveProperty("email");
+  });
+
+  it("treats an email of only spaces as left out", () => {
+    expect(validateDetails({ ...valid, email: "  " })).not.toHaveProperty("email");
   });
 
   it("rejects a malformed email", () => {
@@ -122,7 +130,7 @@ describe("orderMessage", () => {
         "Payment: before delivery, after you confirm",
         "",
         "Name: Anu Thomas",
-        "Phone: 9876543210",
+        "Phone: +91 98765 43210",
         "Address: Kallarakkal House, MG Road, Kochi, Kerala 682011",
       ].join("\n"),
     );
@@ -139,6 +147,24 @@ describe("orderMessage", () => {
     expect(msg).toContain("Address: Kallarakkal House, MG Road, Near St. Mary's Church, Kochi, Kerala 682011");
     expect(msg.endsWith("\n\nNote: Ring twice")).toBe(true);
   });
+
+  it("leaves out an email that is only spaces", () => {
+    const msg = orderMessage({ orderNumber: "NRM-ABC123", items, total: 520, details: { ...valid, email: "  " } });
+    expect(msg).not.toContain("Email:");
+  });
+
+  it("leaves out a landmark that is only spaces", () => {
+    const msg = orderMessage({ orderNumber: "NRM-ABC123", items, total: 520, details: { ...valid, landmark: "  " } });
+    expect(msg).not.toContain("Near");
+  });
+
+  it.each(["9876543210", "+919876543210", "+91 98765 43210", "91-9876543210", "98765-43210", "09876543210", " 98765 43210 "])(
+    "writes the phone %s in one standard format",
+    (phone) => {
+      const msg = orderMessage({ orderNumber: "NRM-ABC123", items, total: 520, details: { ...valid, phone } });
+      expect(msg).toContain("\nPhone: +91 98765 43210\n");
+    },
+  );
 
   it("shows a dash for unknown prices", () => {
     const msg = orderMessage({ orderNumber: "NRM-ABC123", items: [{ ...items[0], unitPrice: null }], total: null, details: valid });

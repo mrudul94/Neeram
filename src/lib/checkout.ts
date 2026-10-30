@@ -31,11 +31,19 @@ export const INDIAN_STATES = [
   "Uttar Pradesh", "Uttarakhand", "West Bengal",
 ];
 
+const compactPhone = (phone: string) => phone.replace(/[\s-]/g, "");
+
+/** A valid mobile number as "+91 98765 43210", however the customer typed it. */
+export function formatPhone(phone: string): string {
+  const digits = compactPhone(phone).slice(-10);
+  return `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`;
+}
+
 /** Field-level validation shared by the checkout form and the API. Returns field → message. */
 export function validateDetails(d: Partial<CheckoutDetails>): Record<string, string> {
   const errors: Record<string, string> = {};
-  if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) errors.email = "Enter a valid email address, or leave it empty.";
-  if (!d.phone || !/^(\+?91[\s-]?)?[6-9]\d{9}$/.test(d.phone.replace(/\s/g, ""))) errors.phone = "Enter a 10-digit Indian mobile number.";
+  if (d.email?.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email.trim())) errors.email = "Enter a valid email address, or leave it empty.";
+  if (!d.phone || !/^(\+?91|0)?[6-9]\d{9}$/.test(compactPhone(d.phone))) errors.phone = "Enter a 10-digit Indian mobile number.";
   if (!d.firstName?.trim()) errors.firstName = "Enter your first name.";
   if (!d.lastName?.trim()) errors.lastName = "Enter your last name.";
   if (!d.street?.trim()) errors.street = "Enter your house name and street.";
@@ -69,7 +77,7 @@ export function newOrderNumber() {
 /** The order as plain text, for WhatsApp, SMS, email or copying. */
 export function orderMessage(o: { orderNumber: string; items: PricedItem[]; total: number | null; details: CheckoutDetails }) {
   const d = o.details;
-  const address = [d.street, d.landmark && `Near ${d.landmark}`, d.city, `${d.state} ${d.pin}`].filter(Boolean).join(", ");
+  const address = [d.street, d.landmark?.trim() && `Near ${d.landmark.trim()}`, d.city, `${d.state} ${d.pin}`].filter(Boolean).join(", ");
   return [
     `Hello Neeram, I'd like to place an order.`,
     ``,
@@ -79,8 +87,8 @@ export function orderMessage(o: { orderNumber: string; items: PricedItem[]; tota
     `Payment: before delivery, after you confirm`,
     ``,
     `Name: ${d.firstName.trim()} ${d.lastName.trim()}`,
-    `Phone: ${d.phone.trim()}`,
-    ...(d.email ? [`Email: ${d.email.trim()}`] : []),
+    `Phone: ${formatPhone(d.phone)}`,
+    ...(d.email?.trim() ? [`Email: ${d.email.trim()}`] : []),
     `Address: ${address}`,
     ...(d.note?.trim() ? [``, `Note: ${d.note.trim()}`] : []),
   ].join("\n");

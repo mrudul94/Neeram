@@ -74,3 +74,8 @@ graphify-out/.graphify_build_state.json
 graphify-out/.graphify_labels.pending.json
 graphify-out/20??-??-??/
 
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/

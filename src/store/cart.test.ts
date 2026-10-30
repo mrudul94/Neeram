@@ -52,6 +52,11 @@ describe("useCart.add", () => {
     cart().add("ghee");
     expect(cart().lines).toEqual([]);
   });
+
+  it.each([0, -2])("ignores a quantity of %s", (qty) => {
+    cart().add("coconut-oil", qty);
+    expect(cart().lines).toEqual([]);
+  });
 });
 
 describe("useCart.setQty", () => {

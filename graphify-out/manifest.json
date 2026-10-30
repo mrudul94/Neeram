@@ -12,10 +12,10 @@
     "semantic_hash": "23e4dcd614472a82abb0e9d73fa2dc18"
   },
   "package.json": {
-    "mtime": 1793078044.1611998,
-    "seen": 1793334465.5080085,
-    "ast_hash": "86d264c193c2328524e91cd0b457ff5f",
-    "semantic_hash": "86d264c193c2328524e91cd0b457ff5f"
+    "mtime": 1793340461.944531,
+    "seen": 1793340570.7064605,
+    "ast_hash": "ac47c42e05f43dcc34c7f0846cd81ad8",
+    "semantic_hash": ""
   },
   "scripts/convert_frames.mjs": {
     "mtime": 1793086968.9761174,
@@ -282,9 +282,9 @@
     "semantic_hash": "ba53de23929de1ba13c431d46c0c8a73"
   },
   "src/lib/checkout.ts": {
-    "mtime": 1793338951.7368987,
-    "seen": 1793338986.3740857,
-    "ast_hash": "c518d822ad67567e9c315b79c673c856",
+    "mtime": 1793340539.055148,
+    "seen": 1793340570.706551,
+    "ast_hash": "4ed8cc4c3244062fb4f03baf09da8e87",
     "semantic_hash": ""
   },
   "src/lib/format.ts": {
@@ -306,9 +306,9 @@
     "semantic_hash": "c55834e4a556a43b00c913ae278de7a7"
   },
   "src/store/cart.ts": {
-    "mtime": 1793338951.7426915,
-    "seen": 1793338986.3740919,
-    "ast_hash": "6c99309cab1eb3949b33c21e7b3bf1f8",
+    "mtime": 1793340539.9332452,
+    "seen": 1793340570.706561,
+    "ast_hash": "112dc75fa2a775066af40d803547f5ad",
     "semantic_hash": ""
   },
   "src/store/pack.ts": {
@@ -893,10 +893,40 @@
     "ast_hash": "67d88e9d0760c3ba54c75dfd9551c1c5",
     "semantic_hash": ""
   },
+  "src/data/products.test.ts": {
+    "mtime": 1793340514.351119,
+    "seen": 1793340570.7065437,
+    "ast_hash": "c82fa23e89efc0c8434b052b2a9e74a8",
+    "semantic_hash": ""
+  },
+  "src/lib/checkout.test.ts": {
+    "mtime": 1793340545.382514,
+    "seen": 1793340570.7065494,
+    "ast_hash": "111c4962459cbd7de604e79446ddb743",
+    "semantic_hash": ""
+  },
+  "src/lib/format.test.ts": {
+    "mtime": 1793340513.495231,
+    "seen": 1793340570.7065525,
+    "ast_hash": "9447b206b2564975a3b67730bd7e052a",
+    "semantic_hash": ""
+  },
+  "src/store/cart.test.ts": {
+    "mtime": 1793340516.0390012,
+    "seen": 1793340570.7065594,
+    "ast_hash": "f1666ba00c9ee0ead426ddd45349c4aa",
+    "semantic_hash": ""
+  },
+  "vitest.config.ts": {
+    "mtime": 1793340461.0763178,
+    "seen": 1793340570.7065663,
+    "ast_hash": "ae7ab6a72f13c5888328a853cf48f795",
+    "semantic_hash": ""
+  },
   "package-lock.json": {
-    "mtime": 1793077866.7125683,
-    "seen": 1793334764.2175148,
-    "ast_hash": "5eb635ad0a511f024302864f5a78c3a9",
+    "mtime": 1793340456.9076116,
+    "seen": 1793340570.7067347,
+    "ast_hash": "ee634d4a8b8b9213bf927318d8d2e781",
     "semantic_hash": ""
   }
 }

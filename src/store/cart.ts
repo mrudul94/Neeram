@@ -33,7 +33,7 @@ export const useCart = create<CartState>()(
       add: (slug, qty = 1, packId) =>
         set((s) => {
           const product = getProduct(slug);
-          if (!product || !isAvailable(product)) return s;
+          if (!product || !isAvailable(product) || !(qty >= 1)) return s;
           const line = { slug, pack: getPack(product, packId)?.id };
           const key = lineKey(line);
           const existing = s.lines.find((l) => key === lineKey(normalise(l)));
