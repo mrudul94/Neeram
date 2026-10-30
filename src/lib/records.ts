@@ -1,5 +1,5 @@
 import type { CheckoutDetails, PricedItem } from "./checkout";
-import { appendRow, NEWSLETTER_RANGE, ORDERS_RANGE, orderRow, sheetConfig, signupRow } from "./sheet";
+import { appendRow, GoogleError, NEWSLETTER_RANGE, ORDERS_RANGE, orderRow, sheetConfig, signupRow } from "./sheet";
 import { appendRecord } from "./store-json";
 
 export type NewOrder = { orderNumber: string; items: PricedItem[]; total: number | null; details: CheckoutDetails };
@@ -11,6 +11,9 @@ const SIGNUP_TAG = "NEWSLETTER SIGN-UP NOT SAVED TO SHEET";
 
 const ATTEMPTS = 2;
 const TIMEOUT_MS = 5000;
+
+/** Timeouts, network errors and 5xx can pass on a retry; 4xx means the setup is wrong. */
+const worthRetrying = (err: unknown) => !(err instanceof GoogleError) || err.status >= 500;
 
 type Deps = {
   env?: Record<string, string | undefined>;
@@ -25,7 +28,7 @@ type Deps = {
  * Where a record goes. Never throws: callers run this after the response is sent.
  * - Test runs (STORE_JSON_SUFFIX set): data/<file>.<suffix>.jsonl only, never the sheet.
  * - Development: data/<file>.jsonl, and the sheet too if it's set up.
- * - Production: the Google Sheet (one attempt plus one retry); on failure, the full record
+ * - Production: the Google Sheet (one attempt, plus one retry if worth it); on failure, the full record
  *   goes to the server log under `tag`.
  */
 async function save(target: { file: string; range: string; tag: string }, record: Record<string, unknown>, row: (string | number)[], deps: Deps) {
@@ -48,6 +51,7 @@ async function save(target: { file: string; range: string; tag: string }, record
       return;
     } catch (err) {
       lastError = err;
+      if (!worthRetrying(err)) break;
     }
   }
   logError(`[${target.tag}] ${lastError instanceof Error ? lastError.message : String(lastError)}`, JSON.stringify(record));

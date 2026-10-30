@@ -23,9 +23,10 @@ const signup = { email: "anu@example.com", topic: "newsletter", page: "/about" }
 
 /**
  * Records everything a save does. Google answers each append with the next status in
- * `appendStatuses` (the last one repeats); "hang" never answers until the request is aborted.
+ * `appendStatuses` (the last one repeats); "hang" never answers until the request is aborted,
+ * and "network" fails as an unreachable server does.
  */
-function harness(env: Record<string, string>, appendStatuses: (number | "hang")[] = [200]) {
+function harness(env: Record<string, string>, appendStatuses: (number | "hang" | "network")[] = [200]) {
   const appends: string[] = [];
   const localWrites: { file: string; record: Record<string, unknown> }[] = [];
   const errors: unknown[][] = [];
@@ -39,6 +40,7 @@ function harness(env: Record<string, string>, appendStatuses: (number | "hang")[
       if (status === "hang") {
         return new Promise<Response>((_, reject) => init.signal?.addEventListener("abort", () => reject(init.signal!.reason)));
       }
+      if (status === "network") throw new TypeError("fetch failed");
       return new Response("{}", { status });
     }) as typeof fetch,
     appendLocal: async (file: string, record: Record<string, unknown>) => {
@@ -61,11 +63,25 @@ describe("saveOrder", () => {
     expect(h.errors).toEqual([]);
   });
 
-  it("retries once when the first attempt fails", async () => {
-    const h = harness(sheetEnv, [500, 200]);
+  it.each([500, 503])("retries once after a %i from Google", async (status) => {
+    const h = harness(sheetEnv, [status, 200]);
     await saveOrder(order, h.deps);
     expect(h.appends).toHaveLength(2);
     expect(h.errors).toEqual([]);
+  });
+
+  it("retries once after a network error", async () => {
+    const h = harness(sheetEnv, ["network", 200]);
+    await saveOrder(order, h.deps);
+    expect(h.appends).toHaveLength(2);
+    expect(h.errors).toEqual([]);
+  });
+
+  it.each([400, 403, 404])("doesn't retry a %i, which a retry can't fix, and logs the order at once", async (status) => {
+    const h = harness(sheetEnv, [status, 200]);
+    await saveOrder(order, h.deps);
+    expect(h.appends).toHaveLength(1);
+    expect(h.errors.flat().join(" ")).toContain("ORDER NOT SAVED TO SHEET");
   });
 
   it("gives up on an attempt that takes longer than the timeout, then retries", async () => {

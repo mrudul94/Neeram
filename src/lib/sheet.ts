@@ -102,7 +102,17 @@ export function sheetConfig(env: Record<string, string | undefined>): SheetConfi
   return email && sheetId && privateKey ? { email, privateKey, sheetId } : null;
 }
 
-const base64url = (v: string | object) => Buffer.from(typeof v === "string" ? v : JSON.stringify(v)).toString("base64url");
+/** Google answered with an error status (as opposed to a timeout or network failure). */
+export class GoogleError extends Error {
+  constructor(
+    message: string,
+    readonly status: number,
+  ) {
+    super(message);
+  }
+}
+
+const base64url =(v: string | object) => Buffer.from(typeof v === "string" ? v : JSON.stringify(v)).toString("base64url");
 
 type RequestOptions = { fetch?: typeof fetch; signal?: AbortSignal };
 
@@ -117,7 +127,7 @@ async function accessToken(config: SheetConfig, { fetch: fetchFn = fetch, signal
     body: new URLSearchParams({ grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer", assertion: `${unsigned}.${signature}` }),
     signal,
   });
-  if (!res.ok) throw new Error(`Google sign-in failed: ${res.status} ${await res.text()}`);
+  if (!res.ok) throw new GoogleError(`Google sign-in failed: ${res.status} ${await res.text()}`, res.status);
   return ((await res.json()) as { access_token: string }).access_token;
 }
 
@@ -135,5 +145,5 @@ export async function appendRow(config: SheetConfig, range: string, row: Cell[],
     body: JSON.stringify({ values: [row] }),
     signal,
   });
-  if (!res.ok) throw new Error(`Sheets append failed: ${res.status} ${await res.text()}`);
+  if (!res.ok) throw new GoogleError(`Sheets append failed: ${res.status} ${await res.text()}`, res.status);
 }
