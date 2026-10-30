@@ -23,6 +23,7 @@ async function savedRecord() {
 
 describe("POST /api/subscribe", () => {
   const googleCalls: string[] = [];
+  const siteverify = { calls: 0, success: true };
 
   beforeEach(() => {
     scheduled.length = 0;
@@ -31,8 +32,16 @@ describe("POST /api/subscribe", () => {
     vi.stubEnv("GOOGLE_PRIVATE_KEY", privateKey);
     vi.stubEnv("GOOGLE_SHEET_ID", "1AbC");
     vi.stubEnv("ORDERS_TEST_MODE", "");
-    // Google never answers: if the response waited for the sheet, it would never arrive.
+    vi.stubEnv("TURNSTILE_SECRET_KEY", "");
+    siteverify.calls = 0;
+    siteverify.success = true;
+    // Turnstile answers siteverify.success; Google never answers: if the response waited for
+    // the sheet, it would never arrive.
     vi.stubGlobal("fetch", (url: string) => {
+      if (String(url).includes("siteverify")) {
+        siteverify.calls++;
+        return Promise.resolve(Response.json({ success: siteverify.success }));
+      }
       googleCalls.push(String(url));
       return new Promise(() => {});
     });
@@ -76,6 +85,30 @@ describe("POST /api/subscribe", () => {
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ ok: true });
     expect(scheduled).toEqual([]);
+  });
+
+  describe("with Turnstile set up", () => {
+    beforeEach(() => vi.stubEnv("TURNSTILE_SECRET_KEY", "0x-secret"));
+
+    it("accepts a sign-up whose Turnstile token Cloudflare passes", async () => {
+      const res = await subscribe({ email: "anu@example.com", topic: "newsletter", turnstileToken: "tok" });
+      expect(res.status).toBe(200);
+      expect(scheduled).toHaveLength(1);
+    });
+
+    it("turns away a sign-up whose token Cloudflare rejects, saving nothing", async () => {
+      siteverify.success = false;
+      const res = await subscribe({ email: "anu@example.com", topic: "newsletter", turnstileToken: "tok" });
+      expect(res.status).toBe(400);
+      expect(await res.json()).toMatchObject({ code: "bot-check" });
+      expect(scheduled).toEqual([]);
+    });
+
+    it("checks the email first, so a typo doesn't use up the one-time token", async () => {
+      const res = await subscribe({ email: "anu@", topic: "newsletter", turnstileToken: "tok" });
+      expect(res.status).toBe(400);
+      expect(siteverify.calls).toBe(0);
+    });
   });
 
   it("rejects an unknown topic", async () => {

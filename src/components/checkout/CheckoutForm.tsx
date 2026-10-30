@@ -3,12 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useRef, useState, type FormEvent, type ReactNode } from "react";
 import { site } from "@/data/content";
 import { INDIAN_STATES, MAX_LENGTHS, orderLinks, PAYMENT, validateDetails, type CheckoutDetails } from "@/lib/checkout";
 import { formatPrice } from "@/lib/format";
 import { resolveLines, subtotal, useCart, useCartHydrated } from "@/store/cart";
 import { Honeypot } from "../Honeypot";
+import { Turnstile, turnstileEnabled, type TurnstileHandle } from "../Turnstile";
 import { buttonClass, cx } from "../ui";
 
 type Channel = "whatsapp" | "sms" | "email";
@@ -67,6 +68,8 @@ export function CheckoutForm() {
   const [formError, setFormError] = useState("");
   const [busy, setBusy] = useState(false);
   const [discountNote, setDiscountNote] = useState("");
+  const turnstileToken = useRef("");
+  const turnstile = useRef<TurnstileHandle>(null);
 
   const lines = resolveLines(rawLines);
   const total = subtotal(lines);
@@ -96,6 +99,12 @@ export function CheckoutForm() {
       document.getElementById(first)?.focus();
       return;
     }
+    // The WhatsApp tab must open inside the click, so there's no waiting for the bot check here;
+    // it starts when the page loads and is normally done long before the form is filled in.
+    if (turnstileEnabled && !turnstileToken.current) {
+      setFormError("The security check is still running. Please try again in a moment.");
+      return;
+    }
     // Which button sent the form: WhatsApp (the main one), or SMS / email for customers without it.
     const via = ((e.nativeEvent as SubmitEvent).submitter?.getAttribute("value") ?? "whatsapp") as Channel;
     setBusy(true);
@@ -105,8 +114,10 @@ export function CheckoutForm() {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lines: rawLines, details }),
+        body: JSON.stringify({ lines: rawLines, details, turnstileToken: turnstileToken.current }),
       });
+      // Each token works once: get a fresh one in case the customer needs to send again.
+      turnstile.current?.reset();
       const data = await res.json();
       if (!res.ok) {
         setErrors(data.errors ?? {});
@@ -201,6 +212,7 @@ export function CheckoutForm() {
             </Field>
           </Step>
 
+          <Turnstile ref={turnstile} onToken={(t) => (turnstileToken.current = t)} className="mb-4" />
           {formError && (
             <p role="alert" className="mb-4 border border-orange px-4 py-3 text-sm">
               {formError}

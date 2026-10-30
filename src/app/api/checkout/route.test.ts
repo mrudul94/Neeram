@@ -18,6 +18,7 @@ const checkout = (b: unknown = body) => POST(new Request("http://localhost/api/c
 
 describe("POST /api/checkout", () => {
   const googleCalls: string[] = [];
+  const siteverify = { calls: 0, success: true };
 
   beforeEach(() => {
     scheduled.length = 0;
@@ -26,8 +27,16 @@ describe("POST /api/checkout", () => {
     vi.stubEnv("GOOGLE_PRIVATE_KEY", privateKey);
     vi.stubEnv("GOOGLE_SHEET_ID", "1AbC");
     vi.stubEnv("ORDERS_TEST_MODE", "");
-    // Google never answers: if the response waited for the sheet, it would never arrive.
+    vi.stubEnv("TURNSTILE_SECRET_KEY", "");
+    siteverify.calls = 0;
+    siteverify.success = true;
+    // Turnstile answers siteverify.success; Google never answers: if the response waited for
+    // the sheet, it would never arrive.
     vi.stubGlobal("fetch", (url: string) => {
+      if (String(url).includes("siteverify")) {
+        siteverify.calls++;
+        return Promise.resolve(Response.json({ success: siteverify.success }));
+      }
       googleCalls.push(String(url));
       return new Promise(() => {});
     });
@@ -66,6 +75,44 @@ describe("POST /api/checkout", () => {
     expect(res.status).toBe(200);
     expect((await res.json()).orderNumber).toMatch(/^NRM-/);
     expect(scheduled).toEqual([]);
+  });
+
+  describe("with Turnstile set up", () => {
+    beforeEach(() => vi.stubEnv("TURNSTILE_SECRET_KEY", "0x-secret"));
+
+    it("accepts an order whose Turnstile token Cloudflare passes", async () => {
+      const res = await checkout({ ...body, turnstileToken: "tok" });
+      expect(res.status).toBe(200);
+      expect(siteverify.calls).toBe(1);
+      expect(scheduled).toHaveLength(1);
+    });
+
+    it("turns away an order whose token Cloudflare rejects, saving nothing", async () => {
+      siteverify.success = false;
+      const res = await checkout({ ...body, turnstileToken: "tok" });
+      expect(res.status).toBe(400);
+      expect(await res.json()).toMatchObject({ code: "bot-check" });
+      expect(scheduled).toEqual([]);
+    });
+
+    it("turns away an order with no token", async () => {
+      const res = await checkout(body);
+      expect(res.status).toBe(400);
+      expect(scheduled).toEqual([]);
+    });
+
+    it("checks the fields first, so a typo doesn't use up the one-time token", async () => {
+      const res = await checkout({ ...body, details: { ...body.details, pin: "1" }, turnstileToken: "tok" });
+      expect(res.status).toBe(400);
+      expect(siteverify.calls).toBe(0);
+    });
+
+    it("answers a honeypot bot without asking Cloudflare", async () => {
+      const res = await checkout({ ...body, details: { ...body.details, website: "x" } });
+      expect(res.status).toBe(200);
+      expect(siteverify.calls).toBe(0);
+      expect(scheduled).toEqual([]);
+    });
   });
 
   it("rejects a field that isn't text, instead of failing", async () => {

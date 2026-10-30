@@ -1,13 +1,14 @@
 import { after } from "next/server";
 import { getProduct } from "@/data/products";
-import { filledHoneypot } from "@/lib/bot-check";
+import { BOT_CHECK_FAILED, filledHoneypot } from "@/lib/bot-check";
 import { saveSignup } from "@/lib/records";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 /** Newsletter ("newsletter") and "Notify me" (product slug) sign-ups, saved after the response. */
 export async function POST(request: Request) {
-  let body: { email?: unknown; topic?: unknown; page?: unknown };
+  let body: { email?: unknown; topic?: unknown; page?: unknown; turnstileToken?: unknown };
   try {
     body = await request.json();
   } catch {
@@ -25,6 +26,8 @@ export async function POST(request: Request) {
   }
   // A bot filled in the hidden field: answer as usual so it learns nothing, but don't save.
   if (filledHoneypot(body)) return Response.json({ ok: true });
+  // Checked after the fields, since each Turnstile token can only be checked once.
+  if ((await verifyTurnstile(body.turnstileToken, request.headers.get("CF-Connecting-IP"))) === "failed") return BOT_CHECK_FAILED();
   // TODO: send to the email service (e.g. Mailchimp / Brevo / Resend audience).
   after(() => saveSignup({ email, topic, page }));
   return Response.json({ ok: true });

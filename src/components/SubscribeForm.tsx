@@ -1,8 +1,9 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useId, useRef, useState, type FormEvent } from "react";
 import { HONEYPOT_FIELD } from "@/lib/bot-check";
 import { Honeypot } from "./Honeypot";
+import { Turnstile, turnstileEnabled, waitForToken, type TurnstileHandle } from "./Turnstile";
 import { cx } from "./ui";
 
 type Props = {
@@ -19,17 +20,24 @@ export function SubscribeForm({ topic, submitLabel = "Subscribe", tone = "dark",
   const id = useId();
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+  // The bot check loads once someone starts on the form, not on every page view.
+  const [checking, setChecking] = useState(false);
+  const token = useRef("");
+  const turnstile = useRef<TurnstileHandle>(null);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const fields = new FormData(form);
     setStatus("sending");
+    setChecking(true);
     try {
+      const turnstileToken = turnstileEnabled ? await waitForToken(() => token.current) : "";
+      if (turnstileEnabled && !turnstileToken) throw new Error("The security check is taking a while. Please try again in a moment.");
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: fields.get("email"), topic, page: window.location.pathname, [HONEYPOT_FIELD]: fields.get(HONEYPOT_FIELD) }),
+        body: JSON.stringify({ email: fields.get("email"), topic, page: window.location.pathname, [HONEYPOT_FIELD]: fields.get(HONEYPOT_FIELD), turnstileToken }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Something went wrong");
@@ -39,11 +47,14 @@ export function SubscribeForm({ topic, submitLabel = "Subscribe", tone = "dark",
     } catch (err) {
       setStatus("error");
       setMessage(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      // Each token works once.
+      turnstile.current?.reset();
     }
   }
 
   return (
-    <form onSubmit={onSubmit} className={cx("relative w-full", className)} noValidate={false}>
+    <form onSubmit={onSubmit} onFocusCapture={() => setChecking(true)} className={cx("relative w-full", className)} noValidate={false}>
       <Honeypot />
       <div className={cx("flex items-end gap-4 border-b", tone === "dark" ? "border-cream/80" : "border-ink")}>
         <label htmlFor={id} className="sr-only">
@@ -69,6 +80,7 @@ export function SubscribeForm({ topic, submitLabel = "Subscribe", tone = "dark",
           {status === "sending" ? "Sending…" : `${submitLabel} →`}
         </button>
       </div>
+      {checking && <Turnstile ref={turnstile} onToken={(t) => (token.current = t)} className="mt-3" />}
       <p role="status" aria-live="polite" className={cx("mt-3 min-h-5 text-sm", status === "error" && (tone === "dark" ? "text-orange" : "text-orange-text"))}>
         {status === "done" || status === "error" ? message : ""}
       </p>

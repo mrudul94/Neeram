@@ -31,6 +31,9 @@ test("orders coconut oil in a chosen size through WhatsApp", async ({ page, cont
   await page.getByLabel("State").selectOption("Kerala");
   await page.getByLabel("Landmark (optional)").fill("St. Mary's Church");
 
+  // Turnstile (test key, always passes) hands the form its token.
+  await expect(page.locator('input[name="cf-turnstile-response"]')).toHaveValue(/.+/, { timeout: 15_000 });
+
   const [whatsapp] = await Promise.all([
     context.waitForEvent("page"),
     page.getByRole("button", { name: "Send order on WhatsApp · ₹ 520" }).click(),
@@ -48,4 +51,12 @@ test("orders coconut oil in a chosen size through WhatsApp", async ({ page, cont
 
   // The order is sent, so the cart is emptied and the customer goes back to the shop.
   await expect(page).toHaveURL(/\/shop$/);
+});
+
+test("signs up for the newsletter from the footer, past the Turnstile check", async ({ page }) => {
+  await page.goto("/shop");
+  const form = page.locator("footer form").filter({ has: page.getByPlaceholder("Email address") });
+  await form.getByPlaceholder("Email address").fill("anu@example.com");
+  await form.getByRole("button", { name: /Subscribe/ }).click();
+  await expect(form.getByRole("status")).toHaveText("Thanks — we'll write when new stock lands.", { timeout: 20_000 });
 });
