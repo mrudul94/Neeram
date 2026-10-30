@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { site } from "@/data/content";
 import { Logo } from "../Logo";
-import { ArrowRight } from "../ui";
+import { ArrowRight, ButtonLink } from "../ui";
 
 const help = [
   { label: "Shipping & delivery", href: "/help#shipping" },
@@ -20,6 +20,9 @@ export function AboutHelp() {
             <Logo href={null} />
           </div>
           <p className="mt-6 max-w-[32rem] font-serif text-[1.625rem] leading-snug">{site.aboutText}</p>
+          <ButtonLink href="/about" variant="ink" arrow className="mt-8">
+            Read our story
+          </ButtonLink>
         </div>
         <div>
           <h2 className="eyebrow text-[0.6875rem] text-orange-text">Help with an order</h2>

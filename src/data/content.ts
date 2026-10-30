@@ -74,7 +74,7 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   address: "[Business address, Kerala]",
   aboutText:
-    "[Two or three sentences about who started Neeram, where the products come from and how they are packed. Written in your own words.]",
+    "Neeram was started in 2018 by 29 coconut producer companies in Kerala, owned by the farmers who grow the coconuts. The oil is pressed at our own mill in Anakkallu, Kerala, from coconuts bought straight from member farms. It is sealed at the mill, in clear bottles and pouches, with nothing added.",
   /**
    * FSSAI licence number shown in the footer and on product pages; null hides it.
    * The bottle label carries 11321014000289 (Govindan Oil Mill, Kasaragod): confirm

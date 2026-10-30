@@ -26,7 +26,7 @@ Everything below is a placeholder on the live site today. File references show w
 
 ## Brand and business
 
-- [ ] **About Neeram** text: "[Two or three sentences about who started Neeram …]" — `src/data/content.ts` → `aboutText`.
+- [x] **About Neeram** text — written from the About page facts in `src/data/content.ts` → `aboutText`; check with the client.
 - [ ] **Business address** for the footer: "[Business address, Kerala]" — `src/data/content.ts` → `address`.
 - [ ] **Logo as SVG** (optional). The supplied PNG logo is in use (`public/images/logo/neeram-logo.png`, a trimmed
       480 px copy of `public/images/Main logo/`); an SVG would stay sharper at every size — `src/components/Logo.tsx`.
