@@ -59,12 +59,6 @@
     "ast_hash": "52d023377f2c3bfe1a584334f60adf41",
     "semantic_hash": "52d023377f2c3bfe1a584334f60adf41"
   },
-  "src/app/(checkout)/order/confirmed/page.tsx": {
-    "mtime": 1793079807.8118658,
-    "seen": 1793334465.5080256,
-    "ast_hash": "5c3cd5e2d83d0c7fbef614c26fc507f9",
-    "semantic_hash": "5c3cd5e2d83d0c7fbef614c26fc507f9"
-  },
   "src/app/(site)/about/page.tsx": {
     "mtime": 1793261975.3568132,
     "seen": 1793334465.5080278,
@@ -96,10 +90,10 @@
     "semantic_hash": "57d1af7e6b284a4d58ff6a1eb11db946"
   },
   "src/app/(site)/products/[slug]/page.tsx": {
-    "mtime": 1793261912.265709,
-    "seen": 1793334465.5080395,
-    "ast_hash": "2c615de0bb0d379b52e5928bedaf0524",
-    "semantic_hash": "2c615de0bb0d379b52e5928bedaf0524"
+    "mtime": 1793337969.839216,
+    "seen": 1793338011.3751955,
+    "ast_hash": "858df82ce938776c21211aa938b4f9b7",
+    "semantic_hash": ""
   },
   "src/app/(site)/shop/page.tsx": {
     "mtime": 1793079644.661422,
@@ -108,16 +102,10 @@
     "semantic_hash": "f63a67b1b0fac645d17b9658d92791ea"
   },
   "src/app/api/checkout/route.ts": {
-    "mtime": 1793079727.0361812,
-    "seen": 1793334465.5080435,
-    "ast_hash": "3898645e6f4c63be63020552d18414b5",
-    "semantic_hash": "3898645e6f4c63be63020552d18414b5"
-  },
-  "src/app/api/checkout/verify/route.ts": {
-    "mtime": 1793079728.0545943,
-    "seen": 1793334465.5080457,
-    "ast_hash": "da2736d009f13d101ed9067b94bd1b80",
-    "semantic_hash": "da2736d009f13d101ed9067b94bd1b80"
+    "mtime": 1793338665.8182607,
+    "seen": 1793338688.1672494,
+    "ast_hash": "64706d6c5ad4dcb81e46359c3778db0d",
+    "semantic_hash": ""
   },
   "src/app/api/subscribe/route.ts": {
     "mtime": 1793079725.1287036,
@@ -126,10 +114,10 @@
     "semantic_hash": "798a342f187bd08310be64283b014760"
   },
   "src/app/fonts.ts": {
-    "mtime": 1793078555.1253307,
-    "seen": 1793334465.5080495,
-    "ast_hash": "43af33ccd3482825b10be8c07afaa15d",
-    "semantic_hash": "43af33ccd3482825b10be8c07afaa15d"
+    "mtime": 1793337165.2822855,
+    "seen": 1793337184.3255637,
+    "ast_hash": "12f6151f65505e6151de00f440c9fd9a",
+    "semantic_hash": ""
   },
   "src/app/layout.tsx": {
     "mtime": 1793284545.8076162,
@@ -138,10 +126,10 @@
     "semantic_hash": "f115783dcb25b158a5740ca1820fe620"
   },
   "src/components/AddToCart.tsx": {
-    "mtime": 1793251089.8554275,
-    "seen": 1793334465.508054,
-    "ast_hash": "59b712ea31e835067783e18f67533998",
-    "semantic_hash": "59b712ea31e835067783e18f67533998"
+    "mtime": 1793337979.467871,
+    "seen": 1793338011.3752086,
+    "ast_hash": "46a16373196972e7a983cd94a44f938c",
+    "semantic_hash": ""
   },
   "src/components/CartDrawer.tsx": {
     "mtime": 1793251076.9568193,
@@ -156,10 +144,10 @@
     "semantic_hash": "ea16e74860a89e3051d303a4e10c8c6b"
   },
   "src/components/Header.tsx": {
-    "mtime": 1793260955.2005098,
-    "seen": 1793334465.5080607,
-    "ast_hash": "8c84f3124b84c9340677d88b4630693f",
-    "semantic_hash": "8c84f3124b84c9340677d88b4630693f"
+    "mtime": 1793339240.118635,
+    "seen": 1793339254.9450188,
+    "ast_hash": "bfc0c737961cb05a10175a411593b623",
+    "semantic_hash": ""
   },
   "src/components/Loader.tsx": {
     "mtime": 1793290101.1498616,
@@ -186,10 +174,10 @@
     "semantic_hash": "912cf37145748bf45105da04a232dc78"
   },
   "src/components/Shelf.tsx": {
-    "mtime": 1793080717.5661702,
-    "seen": 1793334465.5080714,
-    "ast_hash": "5c9622e90997a28f1f9511750c8bf8a7",
-    "semantic_hash": "5c9622e90997a28f1f9511750c8bf8a7"
+    "mtime": 1793337988.615447,
+    "seen": 1793338011.375223,
+    "ast_hash": "79c3902d038c677a49198198b0dd8bf9",
+    "semantic_hash": ""
   },
   "src/components/SmoothScroll.tsx": {
     "mtime": 1793284559.222293,
@@ -210,28 +198,22 @@
     "semantic_hash": "fcc46ad6c3ca87d4dca13920df0a0a50"
   },
   "src/components/checkout/CheckoutForm.tsx": {
-    "mtime": 1793251078.572889,
-    "seen": 1793334465.5080798,
-    "ast_hash": "51e75652f0ed6c12abd6c717159e73e4",
-    "semantic_hash": "51e75652f0ed6c12abd6c717159e73e4"
+    "mtime": 1793338951.7368987,
+    "seen": 1793338986.3740592,
+    "ast_hash": "631f3a15b25490db9ae80ce5677adbde",
+    "semantic_hash": ""
   },
   "src/components/checkout/CheckoutHeader.tsx": {
-    "mtime": 1793079783.0204976,
-    "seen": 1793334465.508082,
-    "ast_hash": "e1d2421b8c824cdf4840fdd10f171e47",
-    "semantic_hash": "e1d2421b8c824cdf4840fdd10f171e47"
-  },
-  "src/components/checkout/Confirmation.tsx": {
-    "mtime": 1793080091.2262335,
-    "seen": 1793334465.5080843,
-    "ast_hash": "6051f699b7aaf80252e815b49176b375",
-    "semantic_hash": "6051f699b7aaf80252e815b49176b375"
+    "mtime": 1793338966.7488236,
+    "seen": 1793338986.374061,
+    "ast_hash": "a64530ce97d3786ed7721ea118e25aa0",
+    "semantic_hash": ""
   },
   "src/components/home/AboutHelp.tsx": {
-    "mtime": 1793080718.3138282,
-    "seen": 1793334465.508086,
-    "ast_hash": "c6b5865c74d393af90682cc70d08c9b7",
-    "semantic_hash": "c6b5865c74d393af90682cc70d08c9b7"
+    "mtime": 1793337572.6534214,
+    "seen": 1793337588.8096406,
+    "ast_hash": "573c380c38cd7a87bcc395231d363f5b",
+    "semantic_hash": ""
   },
   "src/components/home/BottleStage.tsx": {
     "mtime": 1793284566.3653636,
@@ -264,10 +246,10 @@
     "semantic_hash": "9f7a5791ecb72827beda73e2efab1c27"
   },
   "src/components/home/OilFeature.tsx": {
-    "mtime": 1793253254.7879221,
-    "seen": 1793334465.5080988,
-    "ast_hash": "14337b8e534f03d4ae30171608349426",
-    "semantic_hash": "14337b8e534f03d4ae30171608349426"
+    "mtime": 1793336840.970871,
+    "seen": 1793336912.0154955,
+    "ast_hash": "128ba0af554ff518c6c2fe3e21dfe75b",
+    "semantic_hash": ""
   },
   "src/components/home/swap.ts": {
     "mtime": 1793254090.259386,
@@ -282,16 +264,16 @@
     "semantic_hash": "4e06df7aa6a4cf9ff31907de132d4ce0"
   },
   "src/components/shop/ShopList.tsx": {
-    "mtime": 1793080717.5889282,
-    "seen": 1793334465.508105,
-    "ast_hash": "44e2b8269b52f4eedd9345e862b925ee",
-    "semantic_hash": "44e2b8269b52f4eedd9345e862b925ee"
+    "mtime": 1793337988.5779724,
+    "seen": 1793338011.3752518,
+    "ast_hash": "9ac76ead2fec6b3b6bf205fbd9a86d94",
+    "semantic_hash": ""
   },
   "src/components/ui.tsx": {
-    "mtime": 1793080940.0252838,
-    "seen": 1793334465.508107,
-    "ast_hash": "9ead289f1764c53b423bb62bb8506c25",
-    "semantic_hash": "9ead289f1764c53b423bb62bb8506c25"
+    "mtime": 1793339240.118635,
+    "seen": 1793339254.9450576,
+    "ast_hash": "b1b9f5a02683d1441d2d50474d308b45",
+    "semantic_hash": ""
   },
   "src/lib/bottle.ts": {
     "mtime": 1793100949.1713948,
@@ -300,10 +282,10 @@
     "semantic_hash": "ba53de23929de1ba13c431d46c0c8a73"
   },
   "src/lib/checkout.ts": {
-    "mtime": 1793251088.089075,
-    "seen": 1793334465.5081105,
-    "ast_hash": "253d71f5aec1ca573be27585db1b4727",
-    "semantic_hash": "253d71f5aec1ca573be27585db1b4727"
+    "mtime": 1793338951.7368987,
+    "seen": 1793338986.3740857,
+    "ast_hash": "c518d822ad67567e9c315b79c673c856",
+    "semantic_hash": ""
   },
   "src/lib/format.ts": {
     "mtime": 1793078646.4995668,
@@ -324,10 +306,10 @@
     "semantic_hash": "c55834e4a556a43b00c913ae278de7a7"
   },
   "src/store/cart.ts": {
-    "mtime": 1793251289.5036042,
-    "seen": 1793334465.5081177,
-    "ast_hash": "39ccb3f1402e19f8fa0fddd3d9f4b620",
-    "semantic_hash": "39ccb3f1402e19f8fa0fddd3d9f4b620"
+    "mtime": 1793338951.7426915,
+    "seen": 1793338986.3740919,
+    "ast_hash": "6c99309cab1eb3949b33c21e7b3bf1f8",
+    "semantic_hash": ""
   },
   "src/store/pack.ts": {
     "mtime": 1793251094.7879517,
@@ -354,16 +336,16 @@
     "semantic_hash": "4225de0e5540787d7954b21d15e2b263"
   },
   "README.md": {
-    "mtime": 1793248924.3331347,
-    "seen": 1793334465.508129,
-    "ast_hash": "7b4671c0d8a2799d4a891c757be8e55e",
-    "semantic_hash": "7b4671c0d8a2799d4a891c757be8e55e"
+    "mtime": 1793338951.7426915,
+    "seen": 1793338986.3741019,
+    "ast_hash": "272bf37f7996119fb33703092128cdef",
+    "semantic_hash": ""
   },
   "TODO_CONTENT.md": {
-    "mtime": 1793261926.2795618,
-    "seen": 1793334465.5081308,
-    "ast_hash": "437c29e424a5d5ffa4364e820967fdd9",
-    "semantic_hash": "437c29e424a5d5ffa4364e820967fdd9"
+    "mtime": 1793339974.7092361,
+    "seen": 1793340043.2875295,
+    "ast_hash": "e13be7b26413bd298d48a9b4b95457f8",
+    "semantic_hash": ""
   },
   "design/neeram-oil-wordmark.html": {
     "mtime": 1793288903.1070683,
@@ -376,12 +358,6 @@
     "seen": 1793334465.5081518,
     "ast_hash": "47247b38e83cb4c5ef30ad8d25f979fd",
     "semantic_hash": "47247b38e83cb4c5ef30ad8d25f979fd"
-  },
-  "design/NEERAM___E-commerce_Website.png": {
-    "mtime": 1793076979.5592668,
-    "seen": 1793334465.508154,
-    "ast_hash": "a978acaa1aaeb432473a96c6bf5ef9a7",
-    "semantic_hash": "a978acaa1aaeb432473a96c6bf5ef9a7"
   },
   "design/Neeram_Coconut_Oil_Bottle_Cutout.png": {
     "mtime": 1793073845.4764676,
@@ -406,12 +382,6 @@
     "seen": 1793334465.5081627,
     "ast_hash": "8bce864ea53e2d6192dd442414f9df98",
     "semantic_hash": "8bce864ea53e2d6192dd442414f9df98"
-  },
-  "public/bottle/bottle-still.png": {
-    "mtime": 1793083122.7792952,
-    "seen": 1793334465.508165,
-    "ast_hash": "3d17f990f3b8b68933b2d374095ed47e",
-    "semantic_hash": "3d17f990f3b8b68933b2d374095ed47e"
   },
   "public/bottle/bottle-still.webp": {
     "mtime": 1793083121.5352435,
@@ -552,21 +522,15 @@
     "semantic_hash": "35985ff9cd97525e98a4a323f2bd5b70"
   },
   "src/data/content.ts": {
-    "mtime": 1793261963.143701,
-    "seen": 1793334764.2172477,
-    "ast_hash": "1b3a3dd8790f0632b827b3319a0ad1d5",
+    "mtime": 1793339068.1561792,
+    "seen": 1793339080.410774,
+    "ast_hash": "ce1346512bd121f2f9d1c9225b554b9e",
     "semantic_hash": ""
   },
   "src/data/products.ts": {
-    "mtime": 1793253140.0428631,
-    "seen": 1793334764.2172503,
-    "ast_hash": "99e60c5654cae3d32f33eb2e8ceda70f",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0001.png": {
-    "mtime": 1793095967.7185805,
-    "seen": 1793334764.217291,
-    "ast_hash": "c80383d8ed12ffe39828215c8c06c975",
+    "mtime": 1793337956.407642,
+    "seen": 1793338011.3752575,
+    "ast_hash": "388e20bf8a593e792ce39aab75d8a5c9",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0001.webp": {
@@ -575,22 +539,10 @@
     "ast_hash": "6e21ba2038474a30ad596b73ab3336af",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0002.png": {
-    "mtime": 1793096040.3200707,
-    "seen": 1793334764.2172945,
-    "ast_hash": "8bbccbc16806f2588ea6a35767e9ef82",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0002.webp": {
     "mtime": 1793098245.16,
     "seen": 1793334764.2172956,
     "ast_hash": "21be18d63071ff73ead7b1ec06c4f92b",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0003.png": {
-    "mtime": 1793096105.2509706,
-    "seen": 1793334764.217297,
-    "ast_hash": "ec94c05359a465574b3ee986f2c04f26",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0003.webp": {
@@ -599,22 +551,10 @@
     "ast_hash": "1ea3873788bd5d6a0ed4371461710f97",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0004.png": {
-    "mtime": 1793096187.4157474,
-    "seen": 1793334764.2173002,
-    "ast_hash": "51c2433ed6644c47661046fae3f79d97",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0004.webp": {
     "mtime": 1793098246.477,
     "seen": 1793334764.217302,
     "ast_hash": "417d5ab50eb705d208f36d0d578c8bce",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0005.png": {
-    "mtime": 1793096249.1584444,
-    "seen": 1793334764.2173033,
-    "ast_hash": "2ba8a227093802cf4190b2c87bdcfe6a",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0005.webp": {
@@ -623,22 +563,10 @@
     "ast_hash": "58b91fc32caf989c9beb0a08287022f1",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0006.png": {
-    "mtime": 1793096310.0050635,
-    "seen": 1793334764.2173066,
-    "ast_hash": "7c87a623c1b2d57d740ed018bc59a4be",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0006.webp": {
     "mtime": 1793098247.745,
     "seen": 1793334764.2173078,
     "ast_hash": "88d258e82a102562c594bf71cec30497",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0007.png": {
-    "mtime": 1793096381.8740816,
-    "seen": 1793334764.2173095,
-    "ast_hash": "cf29d45c8889c964a8c0b3cde46114a8",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0007.webp": {
@@ -647,22 +575,10 @@
     "ast_hash": "e946c8b569b04aa1d16d1c6bfea2fe35",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0008.png": {
-    "mtime": 1793096472.434038,
-    "seen": 1793334764.2173126,
-    "ast_hash": "b751ed3ab5d6bb676ce11bd3a5e7fac7",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0008.webp": {
     "mtime": 1793098249.112,
     "seen": 1793334764.2173138,
     "ast_hash": "9a4601cc2403f2ec421f3db42183c279",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0009.png": {
-    "mtime": 1793096548.1036336,
-    "seen": 1793334764.2173154,
-    "ast_hash": "e8f941faad45b957e77b5825175f190d",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0009.webp": {
@@ -671,22 +587,10 @@
     "ast_hash": "400135d1fd02c54777f362aac4e5f70c",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0010.png": {
-    "mtime": 1793096658.4581034,
-    "seen": 1793334764.217318,
-    "ast_hash": "11a3f9a214d6a0c41ab8245beb27ceca",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0010.webp": {
     "mtime": 1793098250.43,
     "seen": 1793334764.2173197,
     "ast_hash": "c4285ca5ad80aaf5ebc2925dea898254",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0011.png": {
-    "mtime": 1793096760.087193,
-    "seen": 1793334764.2173212,
-    "ast_hash": "41f8072da519fb52b1c3f9fcd4ce7a1c",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0011.webp": {
@@ -695,22 +599,10 @@
     "ast_hash": "dfc0d4cf07429f4ab384f8c184bcf5cc",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0012.png": {
-    "mtime": 1793096879.4055753,
-    "seen": 1793334764.217324,
-    "ast_hash": "9831291266793887358404a1c4e5109e",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0012.webp": {
     "mtime": 1793098251.715,
     "seen": 1793334764.2173254,
     "ast_hash": "be70184245bd1feed841e22d15f72629",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0013.png": {
-    "mtime": 1793096964.4469223,
-    "seen": 1793334764.2173274,
-    "ast_hash": "797b6cb56b07db27f4e3c86cfcc99a29",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0013.webp": {
@@ -719,22 +611,10 @@
     "ast_hash": "960e279e3d254ec20ddf376773cc7933",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0014.png": {
-    "mtime": 1793097039.1195228,
-    "seen": 1793334764.2173302,
-    "ast_hash": "343913960b309ea2837d09bb1bfa0235",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0014.webp": {
     "mtime": 1793098253.0,
     "seen": 1793334764.2173316,
     "ast_hash": "951e92b1ee64c83251d2e2c76b7082ad",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0015.png": {
-    "mtime": 1793097110.1534722,
-    "seen": 1793334764.2173333,
-    "ast_hash": "061a6cb809c4e51191d26e115d4dcd8e",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0015.webp": {
@@ -743,22 +623,10 @@
     "ast_hash": "80ded5b7bfe8b76f7408e407d3b2301c",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0016.png": {
-    "mtime": 1793097182.7224772,
-    "seen": 1793334764.2173364,
-    "ast_hash": "b0fd1f6e3d29bdb5849929093a14ba3c",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0016.webp": {
     "mtime": 1793098254.342,
     "seen": 1793334764.2173378,
     "ast_hash": "8eaf26763fc63bbe0730823e0cded556",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0017.png": {
-    "mtime": 1793097267.8169034,
-    "seen": 1793334764.2173393,
-    "ast_hash": "cbd6870761d3fbe5109614f237952bc3",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0017.webp": {
@@ -767,22 +635,10 @@
     "ast_hash": "31929ba61a84c42112e3060c8b968b06",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0018.png": {
-    "mtime": 1793097340.0988858,
-    "seen": 1793334764.2173424,
-    "ast_hash": "09f200eb7d26ee47fe643858d1e22ceb",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0018.webp": {
     "mtime": 1793098255.525,
     "seen": 1793334764.217344,
     "ast_hash": "ad274a92c9ffe3c21ba4550b956d4e4c",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0019.png": {
-    "mtime": 1793097415.5471764,
-    "seen": 1793334764.2173452,
-    "ast_hash": "5fa3c4dc667068f21cea30d2c560b006",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0019.webp": {
@@ -791,22 +647,10 @@
     "ast_hash": "d0f188c6d231bf07c4e530ebc3171d6e",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0020.png": {
-    "mtime": 1793097490.2288573,
-    "seen": 1793334764.217348,
-    "ast_hash": "006a09ef744f0b48c5b72c5cba3d49cc",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0020.webp": {
     "mtime": 1793098256.819,
     "seen": 1793334764.2173495,
     "ast_hash": "d1774bd18c4f9dca1aeb3331da903df5",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0021.png": {
-    "mtime": 1793097574.8547208,
-    "seen": 1793334764.2173512,
-    "ast_hash": "20128f0e0156a623af34830ea5f0d9cf",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0021.webp": {
@@ -815,22 +659,10 @@
     "ast_hash": "8c1ef65922b29f4625bc8023dbba21fd",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0022.png": {
-    "mtime": 1793097655.8714201,
-    "seen": 1793334764.217354,
-    "ast_hash": "3772b2b29d91cbaebc1fe43447be5bf1",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0022.webp": {
     "mtime": 1793098258.171,
     "seen": 1793334764.2173555,
     "ast_hash": "ca85085d2d1aeb853eecf1c32b3b31a9",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0023.png": {
-    "mtime": 1793097743.6179957,
-    "seen": 1793334764.2173572,
-    "ast_hash": "4f4406a8feb3ddbca11e3769f4e55ff4",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0023.webp": {
@@ -839,22 +671,10 @@
     "ast_hash": "3162521f6c40c4855daeb65856be8557",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0024.png": {
-    "mtime": 1793097843.6372473,
-    "seen": 1793334764.2173598,
-    "ast_hash": "0317ef57972449d21a4479687493d54d",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0024.webp": {
     "mtime": 1793098259.537,
     "seen": 1793334764.2173615,
     "ast_hash": "b58e83746ff4097e9ba793ecf086dac7",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0025.png": {
-    "mtime": 1793097911.1192248,
-    "seen": 1793334764.217363,
-    "ast_hash": "6bb344f5213427f1e6d1ed9ed166052c",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0025.webp": {
@@ -863,244 +683,16 @@
     "ast_hash": "3554cff642b585b366dbc7db47fdc41b",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0026.png": {
-    "mtime": 1793097978.923685,
-    "seen": 1793334764.217366,
-    "ast_hash": "350751bd63815f4769acf5cf7ebbf2a2",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0026.webp": {
     "mtime": 1793098260.829,
     "seen": 1793334764.2173676,
     "ast_hash": "e68decfd0dc3f7ec0b2b37993ba1c85a",
     "semantic_hash": ""
   },
-  "public/bottle/desktop/0027.png": {
-    "mtime": 1793098048.1412346,
-    "seen": 1793334764.217369,
-    "ast_hash": "b1160683cb6a4fa16533fb8b6fcc807f",
-    "semantic_hash": ""
-  },
   "public/bottle/desktop/0027.webp": {
     "mtime": 1793098261.5,
     "seen": 1793334764.2173705,
     "ast_hash": "bdd48275c2fb20475b534df958e6bd4e",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0028.png": {
-    "mtime": 1793098137.3610322,
-    "seen": 1793334764.2173722,
-    "ast_hash": "9443e847ee477a58760f1afa44b2b920",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0029.png": {
-    "mtime": 1793098210.983904,
-    "seen": 1793334764.2173736,
-    "ast_hash": "c3c3525f672c55589a8ebd959ba9dea5",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0030.png": {
-    "mtime": 1793098287.056031,
-    "seen": 1793334764.217375,
-    "ast_hash": "35b7f8a42ac2ba5deddd649139bddc47",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0031.png": {
-    "mtime": 1793098359.769164,
-    "seen": 1793334764.2173765,
-    "ast_hash": "169f027dffb159038d899ab30f357d84",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0032.png": {
-    "mtime": 1793098429.108624,
-    "seen": 1793334764.2173781,
-    "ast_hash": "0f87589dcd6efbc760f76c5c118c2c79",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0033.png": {
-    "mtime": 1793098503.294491,
-    "seen": 1793334764.2173796,
-    "ast_hash": "8059d667ce534f8309d62f3259ef9cd7",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0034.png": {
-    "mtime": 1793098575.8553193,
-    "seen": 1793334764.2173812,
-    "ast_hash": "d94d1a82636a9a5f129638d91c89ce39",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0035.png": {
-    "mtime": 1793098645.9266417,
-    "seen": 1793334764.2173827,
-    "ast_hash": "b1a4f1833c4a1dc1afb98cd267850dc6",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0036.png": {
-    "mtime": 1793098716.0649443,
-    "seen": 1793334764.217384,
-    "ast_hash": "2e5b47e02663ee573a50fb16e43dd567",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0037.png": {
-    "mtime": 1793098787.2928884,
-    "seen": 1793334764.2173855,
-    "ast_hash": "6dbe95ddfe48f8b65cc20cba18c7ad75",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0038.png": {
-    "mtime": 1793098860.1108649,
-    "seen": 1793334764.217387,
-    "ast_hash": "657397fe1d89c51bc38ce2ff697155f2",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0039.png": {
-    "mtime": 1793098934.1059256,
-    "seen": 1793334764.2173886,
-    "ast_hash": "46821f8577098e888a74c635869cf42c",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0040.png": {
-    "mtime": 1793099008.5481122,
-    "seen": 1793334764.21739,
-    "ast_hash": "49a948d0f1d8dd026a0e5c940039d35e",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0041.png": {
-    "mtime": 1793099084.386619,
-    "seen": 1793334764.2173917,
-    "ast_hash": "2a45b9e9941fd45919db80c8ab7c99b9",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0042.png": {
-    "mtime": 1793099161.0988212,
-    "seen": 1793334764.217393,
-    "ast_hash": "7ee75f553a639f8b6ee564932f007c75",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0043.png": {
-    "mtime": 1793099239.0877216,
-    "seen": 1793334764.2173944,
-    "ast_hash": "2653c3634977ecbee046c64756f6f9ca",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0044.png": {
-    "mtime": 1793099318.0388708,
-    "seen": 1793334764.2173963,
-    "ast_hash": "0f44a33b88014d26f17bb9831943ab42",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0045.png": {
-    "mtime": 1793099397.5476644,
-    "seen": 1793334764.2173975,
-    "ast_hash": "a6dfabbe0fca2a7003d796b791423dd0",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0046.png": {
-    "mtime": 1793099478.1876907,
-    "seen": 1793334764.2173991,
-    "ast_hash": "4edc1cb87ede6689c198769e586f7b8f",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0047.png": {
-    "mtime": 1793099558.946315,
-    "seen": 1793334764.2174006,
-    "ast_hash": "4bf55f20dd1977595d8c61ac2deff1a8",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0048.png": {
-    "mtime": 1793099640.3862774,
-    "seen": 1793334764.2174022,
-    "ast_hash": "9a23c6c8cd5729aa71c69451fa53bff2",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0049.png": {
-    "mtime": 1793099721.990252,
-    "seen": 1793334764.2174034,
-    "ast_hash": "951158bbdd013f84628c629c8b97e794",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0050.png": {
-    "mtime": 1793099803.4073322,
-    "seen": 1793334764.2174048,
-    "ast_hash": "6a6950063907a5d5b8bc443c40c5bcc4",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0051.png": {
-    "mtime": 1793099885.3345573,
-    "seen": 1793334764.217408,
-    "ast_hash": "2e55c2cb52cb7fc259c4ff46d67f2e42",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0052.png": {
-    "mtime": 1793099967.111052,
-    "seen": 1793334764.2174094,
-    "ast_hash": "0daef111a28b326e4f5dfdd58b188588",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0053.png": {
-    "mtime": 1793100048.6303837,
-    "seen": 1793334764.2174108,
-    "ast_hash": "f562b01a80b27149ee0df205acc9ff12",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0054.png": {
-    "mtime": 1793100130.003375,
-    "seen": 1793334764.2174122,
-    "ast_hash": "b732fe8e38f9aa43b66e45a68cabe27b",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0055.png": {
-    "mtime": 1793100211.2709167,
-    "seen": 1793334764.2174137,
-    "ast_hash": "b6ca7f8396e0a9c60191ef2d11f7536b",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0056.png": {
-    "mtime": 1793100292.7993288,
-    "seen": 1793334764.2174153,
-    "ast_hash": "916b1bf3cd0f6168560cf6112edc433f",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0057.png": {
-    "mtime": 1793100374.1325614,
-    "seen": 1793334764.2174168,
-    "ast_hash": "b9871d186cbeb25123e60942f0ef80b2",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0058.png": {
-    "mtime": 1793100455.4267635,
-    "seen": 1793334764.2174184,
-    "ast_hash": "008f584361d26e7cfc5fb645d8b7ddf4",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0059.png": {
-    "mtime": 1793100536.8920074,
-    "seen": 1793334764.21742,
-    "ast_hash": "15b0041660c6986791f1b467961adc6b",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0060.png": {
-    "mtime": 1793100619.2255878,
-    "seen": 1793334764.2174213,
-    "ast_hash": "1775fc517a416ed536552a7c1e8496a6",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0061.png": {
-    "mtime": 1793100700.8166978,
-    "seen": 1793334764.217423,
-    "ast_hash": "2eba5123cb65505379bf3ad6409a37b3",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0062.png": {
-    "mtime": 1793100796.0629635,
-    "seen": 1793334764.2174244,
-    "ast_hash": "7cc4a3600d9abd62d85853b0816db130",
-    "semantic_hash": ""
-  },
-  "public/bottle/desktop/0063.png": {
-    "mtime": 1793100892.131361,
-    "seen": 1793334764.2174258,
-    "ast_hash": "1a9ac89e9efe0e6b73c9828b8ee8ab33",
     "semantic_hash": ""
   },
   "public/bottle/mobile/0001.webp": {
@@ -1293,6 +885,12 @@
     "mtime": 1793283914.9159586,
     "seen": 1793334764.2175133,
     "ast_hash": "92e72dd34b613b2a1af33d77bffa5ee1",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1793335039.161665,
+    "seen": 1793336912.0155241,
+    "ast_hash": "67d88e9d0760c3ba54c75dfd9551c1c5",
     "semantic_hash": ""
   },
   "package-lock.json": {
