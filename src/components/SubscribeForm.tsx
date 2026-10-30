@@ -1,6 +1,8 @@
 "use client";
 
 import { useId, useState, type FormEvent } from "react";
+import { HONEYPOT_FIELD } from "@/lib/bot-check";
+import { Honeypot } from "./Honeypot";
 import { cx } from "./ui";
 
 type Props = {
@@ -21,13 +23,13 @@ export function SubscribeForm({ topic, submitLabel = "Subscribe", tone = "dark",
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const email = new FormData(form).get("email");
+    const fields = new FormData(form);
     setStatus("sending");
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, topic, page: window.location.pathname }),
+        body: JSON.stringify({ email: fields.get("email"), topic, page: window.location.pathname, [HONEYPOT_FIELD]: fields.get(HONEYPOT_FIELD) }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Something went wrong");
@@ -41,7 +43,8 @@ export function SubscribeForm({ topic, submitLabel = "Subscribe", tone = "dark",
   }
 
   return (
-    <form onSubmit={onSubmit} className={cx("w-full", className)} noValidate={false}>
+    <form onSubmit={onSubmit} className={cx("relative w-full", className)} noValidate={false}>
+      <Honeypot />
       <div className={cx("flex items-end gap-4 border-b", tone === "dark" ? "border-cream/80" : "border-ink")}>
         <label htmlFor={id} className="sr-only">
           Email address

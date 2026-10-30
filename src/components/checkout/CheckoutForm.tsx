@@ -8,6 +8,7 @@ import { site } from "@/data/content";
 import { INDIAN_STATES, MAX_LENGTHS, orderLinks, PAYMENT, validateDetails, type CheckoutDetails } from "@/lib/checkout";
 import { formatPrice } from "@/lib/format";
 import { resolveLines, subtotal, useCart, useCartHydrated } from "@/store/cart";
+import { Honeypot } from "../Honeypot";
 import { buttonClass, cx } from "../ui";
 
 type Channel = "whatsapp" | "sms" | "email";
@@ -139,7 +140,8 @@ export function CheckoutForm() {
     <div className="mx-auto grid max-w-[90rem] md:grid-cols-[minmax(0,1fr)_minmax(0,0.75fr)]">
       <div className="px-5 pt-8 pb-16 md:pt-10 md:pr-16 md:pl-[max(2.5rem,calc((100vw-75rem)/2))]">
         <h1 className="display text-[clamp(3.5rem,8vw,6rem)]">Checkout</h1>
-        <form onSubmit={onSubmit} noValidate className="mt-8">
+        <form onSubmit={onSubmit} noValidate className="relative mt-8">
+          <Honeypot />
           <Step n="01" title="Contact">
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Email (optional)" name="email" error={errors.email}>

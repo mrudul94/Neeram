@@ -1,5 +1,6 @@
 import { after } from "next/server";
 import { newOrderNumber, orderMessage, pickDetails, priceLines, validateDetails, type CheckoutDetails, type CheckoutLine } from "@/lib/checkout";
+import { filledHoneypot } from "@/lib/bot-check";
 import { saveOrder } from "@/lib/records";
 
 /**
@@ -23,6 +24,7 @@ export async function POST(request: Request) {
 
   const orderNumber = newOrderNumber();
   const order = { orderNumber, items, total, details: details as CheckoutDetails };
-  after(() => saveOrder(order));
+  // A bot filled in the hidden field: answer as usual so it learns nothing, but don't save.
+  if (!filledHoneypot(body.details)) after(() => saveOrder(order));
   return Response.json({ orderNumber, message: orderMessage(order) });
 }

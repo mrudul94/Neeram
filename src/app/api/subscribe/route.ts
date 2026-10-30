@@ -1,5 +1,6 @@
 import { after } from "next/server";
 import { getProduct } from "@/data/products";
+import { filledHoneypot } from "@/lib/bot-check";
 import { saveSignup } from "@/lib/records";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -22,6 +23,8 @@ export async function POST(request: Request) {
   if (topic !== "newsletter" && !getProduct(topic)) {
     return Response.json({ error: "Unknown sign-up." }, { status: 400 });
   }
+  // A bot filled in the hidden field: answer as usual so it learns nothing, but don't save.
+  if (filledHoneypot(body)) return Response.json({ ok: true });
   // TODO: send to the email service (e.g. Mailchimp / Brevo / Resend audience).
   after(() => saveSignup({ email, topic, page }));
   return Response.json({ ok: true });

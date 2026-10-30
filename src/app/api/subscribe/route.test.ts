@@ -71,6 +71,13 @@ describe("POST /api/subscribe", () => {
     expect(scheduled).toEqual([]);
   });
 
+  it("answers a bot that filled in the hidden website field as if it worked, but saves nothing", async () => {
+    const res = await subscribe({ email: "anu@example.com", topic: "newsletter", page: "/", website: "http://spam.example" });
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ ok: true });
+    expect(scheduled).toEqual([]);
+  });
+
   it("rejects an unknown topic", async () => {
     const res = await subscribe({ email: "anu@example.com", topic: "ghee" });
     expect(res.status).toBe(400);

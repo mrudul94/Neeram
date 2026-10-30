@@ -61,6 +61,13 @@ describe("POST /api/checkout", () => {
     expect(scheduled).toEqual([]);
   });
 
+  it("answers a bot that filled in the hidden website field as if it worked, but saves nothing", async () => {
+    const res = await checkout({ ...body, details: { ...body.details, website: "http://spam.example" } });
+    expect(res.status).toBe(200);
+    expect((await res.json()).orderNumber).toMatch(/^NRM-/);
+    expect(scheduled).toEqual([]);
+  });
+
   it("rejects a field that isn't text, instead of failing", async () => {
     const res = await checkout({ ...body, details: { ...body.details, firstName: 123 } });
     expect(res.status).toBe(400);
