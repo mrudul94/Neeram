@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { MAX_LENGTHS, newOrderNumber, orderLinks, orderMessage, pickDetails, priceLines, validateDetails, type CheckoutDetails } from "./checkout";
+import { formatPhone, MAX_LENGTHS, newOrderNumber, orderLinks, orderMessage, pickDetails, priceLines, validateDetails, type CheckoutDetails } from "./checkout";
 
 const valid: CheckoutDetails = {
   phone: "9876543210",
@@ -142,6 +142,16 @@ describe("priceLines", () => {
 describe("newOrderNumber", () => {
   it("looks like NRM- followed by six uppercase characters", () => {
     expect(newOrderNumber()).toMatch(/^NRM-[0-9A-Z]{6}$/);
+  });
+});
+
+describe("formatPhone", () => {
+  it.each(["9876543210", "+91 98765 43210", "09876543210", "91-98765-43210"])("writes the valid number %s as +91 98765 43210", (phone) => {
+    expect(formatPhone(phone)).toBe("+91 98765 43210");
+  });
+
+  it.each(["12345", "+44 20 7946 0958", "5876543210", ""])("leaves %j unchanged, rather than inventing a number", (phone) => {
+    expect(formatPhone(phone)).toBe(phone);
   });
 });
 

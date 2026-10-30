@@ -32,11 +32,16 @@ export const INDIAN_STATES = [
 ];
 
 const compactPhone = (phone: string) => phone.replace(/[\s-]/g, "");
+/** An Indian mobile number, once spaces and dashes are removed: optional +91, 91 or 0, then 10 digits. */
+const MOBILE = /^(\+?91|0)?([6-9]\d{9})$/;
 
-/** A valid mobile number as "+91 98765 43210", however the customer typed it. */
+/**
+ * A valid mobile number as "+91 98765 43210", however the customer typed it. Anything else
+ * comes back unchanged, so a bad number is shown as typed instead of as a made-up one.
+ */
 export function formatPhone(phone: string): string {
-  const digits = compactPhone(phone).slice(-10);
-  return `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`;
+  const digits = MOBILE.exec(compactPhone(phone))?.[2];
+  return digits ? `+91 ${digits.slice(0, 5)} ${digits.slice(5)}` : phone;
 }
 
 /** Longest value accepted per field; the form's inputs use the same limits. */
@@ -54,7 +59,7 @@ export function pickDetails(raw: unknown): Partial<CheckoutDetails> {
 export function validateDetails(d: Partial<CheckoutDetails>): Record<string, string> {
   const errors: Record<string, string> = {};
   if (d.email?.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email.trim())) errors.email = "Enter a valid email address, or leave it empty.";
-  if (!d.phone || !/^(\+?91|0)?[6-9]\d{9}$/.test(compactPhone(d.phone))) errors.phone = "Enter a 10-digit Indian mobile number.";
+  if (!d.phone || !MOBILE.test(compactPhone(d.phone))) errors.phone = "Enter a 10-digit Indian mobile number.";
   if (!d.firstName?.trim()) errors.firstName = "Enter your first name.";
   if (!d.lastName?.trim()) errors.lastName = "Enter your last name.";
   if (!d.street?.trim()) errors.street = "Enter your house name and street.";
