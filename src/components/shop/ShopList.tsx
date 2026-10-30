@@ -3,11 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { categories, isAvailable, products, type Category, type Product } from "@/data/products";
+import { categories, hasSizes, isAvailable, lowestPrice, products, type Category, type Product } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { AddToCartButton } from "../AddToCart";
 import { QtyStepper } from "../QtyStepper";
-import { ChevronDown, cx } from "../ui";
+import { buttonClass, ChevronDown, cx } from "../ui";
 
 type Sort = "shelf" | "available";
 
@@ -102,10 +102,23 @@ function ShopRow({ product: p }: { product: Product }) {
         <p className="mt-2 max-w-[22rem] font-serif text-[0.9375rem] leading-snug text-muted">{p.shortDescription}</p>
       </div>
       <p className={cx("col-start-2 text-lg font-medium tabular-nums md:col-start-auto", !available && "text-muted")}>
-        {available ? formatPrice(p.price) : <span className="eyebrow text-[0.6875rem] whitespace-nowrap">Coming soon</span>}
+        {!available ? (
+          <span className="eyebrow text-[0.6875rem] whitespace-nowrap">Coming soon</span>
+        ) : hasSizes(p) ? (
+          <>
+            <span className="block text-[0.6875rem] font-normal text-muted">From</span>
+            {formatPrice(lowestPrice(p))}
+          </>
+        ) : (
+          formatPrice(p.price)
+        )}
       </p>
       <div className="col-span-2 flex gap-3 md:col-span-1">
-        {available ? (
+        {available && hasSizes(p) ? (
+          <Link href={`/products/${p.slug}`} className={buttonClass("ink", "h-10 flex-1 px-4 md:flex-none")}>
+            Choose size
+          </Link>
+        ) : available ? (
           <>
             <QtyStepper size="sm" label={p.name} value={qty} onChange={setQty} className="h-10" />
             <AddToCartButton slug={p.slug} qty={qty} className="h-10 flex-1 px-4 md:flex-none">

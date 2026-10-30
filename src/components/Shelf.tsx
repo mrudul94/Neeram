@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { isAvailable, type Product } from "@/data/products";
+import { hasSizes, isAvailable, lowestPrice, type Product } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { AddToCartButton } from "./AddToCart";
 import { cx } from "./ui";
@@ -56,7 +56,14 @@ function ShelfItem({ product: p, first }: { product: Product; first: boolean }) 
           {p.nameMalayalam}
         </p>
         <div className="mt-auto flex items-center gap-4 pt-4 text-sm">
-          {available ? (
+          {available && hasSizes(p) ? (
+            <>
+              <span className="font-medium tabular-nums">From {formatPrice(lowestPrice(p))}</span>
+              <Link href={`/products/${p.slug}`} className="eyebrow text-[0.75rem] text-orange-text hover:opacity-80">
+                Choose size
+              </Link>
+            </>
+          ) : available ? (
             <>
               <span className="font-medium tabular-nums">{formatPrice(p.price)}</span>
               <AddToCartButton slug={p.slug} variant="text">

@@ -270,6 +270,17 @@ export function getPack(product: Product, id?: string): Pack | undefined {
   return product.packs?.find((p) => p.id === id) ?? product.packs?.[0];
 }
 
+/** True when the customer has to pick a size before adding to cart. */
+export function hasSizes(product: Product): boolean {
+  return (product.packs?.length ?? 0) > 1;
+}
+
+/** Lowest price across packs ("From ₹ 70"), or the product price. */
+export function lowestPrice(product: Product): number | null {
+  const prices = (product.packs ?? []).map((p) => p.price).filter((p): p is number => p !== null);
+  return prices.length ? Math.min(...prices) : product.price;
+}
+
 export function isAvailable(product: Product): boolean {
   return product.status === "available";
 }

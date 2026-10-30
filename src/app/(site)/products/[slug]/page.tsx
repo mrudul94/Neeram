@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { AddToCartButton, MobileBuyBar, PurchasePanel } from "@/components/AddToCart";
+import { AddToCartButton, ChosenPackLabel, MobileBuyBar, PackPicker, PackPrice, PurchasePanel } from "@/components/AddToCart";
 import { OilBand } from "@/components/OilBand";
 import { Gallery } from "@/components/product/Gallery";
 import { Shelf } from "@/components/Shelf";
@@ -11,7 +11,6 @@ import { SubscribeForm } from "@/components/SubscribeForm";
 import { Eyebrow, MalayalamDisplay, SpecTable, cx } from "@/components/ui";
 import { site } from "@/data/content";
 import { getProduct, isAvailable, products, type Product } from "@/data/products";
-import { formatPrice } from "@/lib/format";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -136,10 +135,8 @@ function AvailableProduct({ product }: { product: Product }) {
         <div className="px-5 md:py-8 md:pr-10 lg:pr-[max(2.5rem,calc((100vw-75rem)/2))]">
           <Breadcrumb product={product} />
           <TitleBlock product={product} />
-          <p className="mt-6 flex items-baseline gap-3">
-            <span className="text-2xl font-medium tabular-nums">{formatPrice(product.price)}</span>
-            <span className="text-xs text-muted">Inclusive of taxes · {product.sizeLabel}</span>
-          </p>
+          <PackPrice slug={product.slug} />
+          <PackPicker slug={product.slug} className="mt-5" />
           <div className="mt-5 hidden md:block">
             <PurchasePanel slug={product.slug} />
           </div>
@@ -182,7 +179,7 @@ function AvailableProduct({ product }: { product: Product }) {
           ))}
         </ul>
         <AddToCartButton slug={product.slug} variant="orange" arrow className="mt-8">
-          Add {product.name.toLowerCase()} · {formatPrice(product.price)}
+          <ChosenPackLabel slug={product.slug} />
         </AddToCartButton>
       </OilBand>
 
