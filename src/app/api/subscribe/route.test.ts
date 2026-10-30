@@ -30,7 +30,7 @@ describe("POST /api/subscribe", () => {
     vi.stubEnv("GOOGLE_SERVICE_ACCOUNT_EMAIL", "orders@neeram.iam.gserviceaccount.com");
     vi.stubEnv("GOOGLE_PRIVATE_KEY", privateKey);
     vi.stubEnv("GOOGLE_SHEET_ID", "1AbC");
-    vi.stubEnv("STORE_JSON_SUFFIX", "");
+    vi.stubEnv("ORDERS_TEST_MODE", "");
     // Google never answers: if the response waited for the sheet, it would never arrive.
     vi.stubGlobal("fetch", (url: string) => {
       googleCalls.push(String(url));

@@ -26,14 +26,15 @@ type Deps = {
 
 /**
  * Where a record goes. Never throws: callers run this after the response is sent.
- * - Test runs (STORE_JSON_SUFFIX set): data/<file>.<suffix>.jsonl only, never the sheet.
+ * - Test runs (ORDERS_TEST_MODE=1): the local file only (data/<file>.jsonl, or
+ *   data/<file>.<STORE_JSON_SUFFIX>.jsonl), never the sheet.
  * - Development: data/<file>.jsonl, and the sheet too if it's set up.
  * - Production: the Google Sheet (one attempt, plus one retry if worth it); on failure, the full record
  *   goes to the server log under `tag`.
  */
 async function save(target: { file: string; range: string; tag: string }, record: Record<string, unknown>, row: (string | number)[], deps: Deps) {
   const { env = process.env, fetch: fetchFn = fetch, appendLocal = appendRecord, logError = console.error, timeoutMs = TIMEOUT_MS } = deps;
-  const testRun = !!env.STORE_JSON_SUFFIX;
+  const testRun = env.ORDERS_TEST_MODE === "1";
   const dev = env.NODE_ENV === "development";
 
   if (testRun || dev) await appendLocal(target.file, record);

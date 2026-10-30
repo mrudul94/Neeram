@@ -109,11 +109,18 @@ describe("saveOrder", () => {
   });
 
   it("never touches the sheet in test runs, even with credentials set", async () => {
-    const h = harness({ ...sheetEnv, STORE_JSON_SUFFIX: "test" });
+    const h = harness({ ...sheetEnv, ORDERS_TEST_MODE: "1" });
     await saveOrder(order, h.deps);
     expect(h.appends).toEqual([]);
     expect(h.localWrites.map((w) => w.file)).toEqual(["orders"]);
     expect(h.errors).toEqual([]);
+  });
+
+  it("still saves to the sheet when only the file name suffix is set", async () => {
+    const h = harness({ ...sheetEnv, STORE_JSON_SUFFIX: "test" });
+    await saveOrder(order, h.deps);
+    expect(h.appends).toHaveLength(1);
+    expect(h.localWrites).toEqual([]);
   });
 
   it("keeps the local file log in development", async () => {
@@ -143,7 +150,7 @@ describe("saveSignup", () => {
   });
 
   it("writes to the local subscribers file in test runs, never the sheet", async () => {
-    const h = harness({ ...sheetEnv, STORE_JSON_SUFFIX: "test" });
+    const h = harness({ ...sheetEnv, ORDERS_TEST_MODE: "1" });
     await saveSignup(signup, h.deps);
     expect(h.appends).toEqual([]);
     expect(h.localWrites).toEqual([{ file: "subscribers", record: signup }]);
