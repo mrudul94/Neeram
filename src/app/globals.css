@@ -1,0 +1,361 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+/* Design tokens (sampled from the Figma export). Components use these names only. */
+@theme inline {
+  --color-cream: #eee8dc;
+  --color-sand: #e3dac7;
+  --color-ink: #16130f;
+  --color-orange: #f26a0d;
+  --color-orange-deep: #d95a05;
+  /* Small orange text on cream/sand: brand orange is only 2.5:1 there, this is 4.7:1+. */
+  --color-orange-text: #a03f00;
+  --color-turmeric: #e3a21a;
+  --color-muted: #5e564b;
+  --color-stone: #c9bfa9;
+  --color-leaf: #4c9a2a;
+
+  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-ml-display: var(--font-baloo-chettan), var(--font-noto-ml), sans-serif;
+  --font-ml: var(--font-noto-ml), sans-serif;
+
+  --tracking-eyebrow: 0.14em;
+  --leading-display: 0.88;
+}
+
+@utility wrap {
+  margin-inline: auto;
+  width: min(75rem, 100% - 2.5rem);
+  @media (width >= 48rem) {
+    width: min(75rem, 100% - 5rem);
+  }
+}
+
+/* Heavy condensed ALL-CAPS headline. */
+@utility display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  line-height: var(--leading-display);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+
+/* Small letter-spaced label: — NO. 01 · COCONUT OIL */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+@utility hairline {
+  border-color: color-mix(in srgb, currentColor 85%, transparent);
+}
+
+@layer base {
+  html {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-cream);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--color-orange);
+    color: var(--color-cream);
+  }
+}
+
+.cart-drawer[open] {
+  animation: drawer-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.cart-drawer[open]::backdrop {
+  animation: fade-in 0.35s ease;
+}
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cart-drawer[open],
+  .cart-drawer[open]::backdrop {
+    animation: none;
+  }
+}
+
+/*
+ * First-visit loader (src/components/Loader.tsx): oil filling the NEERAM wordmark,
+ * matched to design/neeram-oil-wordmark.html. Hidden unless its inline script marks it
+ * [data-show]; the word and bottom row fade in on [data-word]. The ending timeline
+ * animates the rest.
+ */
+.neeram-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  overflow: hidden;
+  background: var(--color-ink);
+  color: var(--color-cream);
+}
+.neeram-loader[data-show] {
+  display: block;
+}
+.loader-inner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  /* The word sits in the top 92%, as in the reference. */
+  padding-bottom: 8vh;
+}
+/* Scroll is locked while it shows; the gutter keeps the page from shifting on unlock. */
+html:has(> body > .neeram-loader[data-show]) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+  background: var(--color-ink);
+}
+/* One 308 px noise tile stretched over 120% of the screen and shifted about. */
+.loader-grain {
+  position: absolute;
+  top: -10vh;
+  left: -10vw;
+  width: 120vw;
+  height: 120vh;
+  opacity: 0.07;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  will-change: transform;
+}
+.loader-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(45% 40% at 50% 58%, rgb(217 162 58 / 0.13), rgb(217 162 58 / 0) 70%);
+  opacity: 0;
+  transition: opacity 1.2s linear 0.3s;
+}
+.neeram-loader[data-word] .loader-glow {
+  opacity: 1;
+}
+.loader-word {
+  position: relative;
+  width: 78vw;
+  overflow: visible;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+}
+.neeram-loader[data-word] .loader-word {
+  opacity: 1;
+}
+/* Fades in over its top quarter, like the reference's stream. */
+.loader-stream {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.5px;
+  height: 0;
+  border-radius: 9px;
+  background: linear-gradient(rgb(243 210 122 / 0), rgb(243 210 122 / 0.9) 25%, #e4b04a);
+  pointer-events: none;
+}
+.loader-skip {
+  position: absolute;
+  top: max(1rem, calc(env(safe-area-inset-top) + 0.5rem));
+  right: max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem));
+  padding: 0.625rem 0.75rem;
+  color: rgb(238 232 220 / 0.6);
+  font: 500 0.6875rem/1 var(--font-sans);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.loader-skip:hover {
+  color: var(--color-cream);
+}
+/* Bottom row at 13% from the bottom, the line 14px below it. */
+.loader-foot {
+  position: absolute;
+  left: 11%;
+  right: 11%;
+  bottom: calc(13% - 14px);
+  font: 500 clamp(8px, 1.15vw, 13px) / normal var(--font-sans);
+}
+.loader-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  color: rgb(238 232 220 / 0.72);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.loader-ml {
+  font-family: var(--font-ml);
+  font-size: 1.15em;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: rgb(238 232 220 / 0.55);
+}
+.loader-count {
+  color: #e7b550;
+  font-family: var(--font-display);
+  font-size: 2.3em;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.loader-count span {
+  display: inline-block;
+  width: 0.5em;
+  text-align: center;
+}
+.loader-line {
+  position: relative;
+  height: 1px;
+  margin-top: 13px;
+  background: rgb(238 232 220 / 0.16);
+}
+.loader-line span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #c98b1e, #f3d27a);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.loader-row,
+.loader-line {
+  opacity: 0;
+}
+.neeram-loader[data-word] .loader-row {
+  animation: loader-rise 0.5s cubic-bezier(0.33, 1, 0.68, 1) 0.1s both;
+}
+.neeram-loader[data-word] .loader-line {
+  animation: loader-rise 0.5s cubic-bezier(0.33, 1, 0.68, 1) 0.15s both;
+}
+@keyframes loader-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Rides the bottom of the upward wipe. */
+.loader-edge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgb(243 210 122 / 0), #f3d27a 30%, #f3d27a 70%, rgb(243 210 122 / 0));
+  opacity: 0;
+}
+@media (max-width: 767px) {
+  .loader-word {
+    width: 92vw;
+  }
+  .loader-foot {
+    left: 8%;
+    right: 8%;
+    bottom: calc(10% - 12px);
+    font-size: 2.5vw;
+  }
+  .loader-row {
+    flex-wrap: wrap;
+    row-gap: 0.6em;
+  }
+  .loader-line {
+    margin-top: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loader-stream {
+    display: none;
+  }
+  .loader-glow,
+  .loader-word {
+    transition: none;
+  }
+  .neeram-loader[data-word] .loader-row,
+  .neeram-loader[data-word] .loader-line {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Scroll-travelling bottle (src/components/home/BottleStage.tsx) */
+.bottle-shadow {
+  position: absolute;
+  /* Centred with left (not translate): the scroll timeline animates its transform. */
+  left: 27%;
+  bottom: 2.5%;
+  width: 46%;
+  height: 4.5%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgb(0 0 0 / 0.6), rgb(0 0 0 / 0) 70%);
+  filter: blur(3px);
+}
+/*
+ * Light sweep: a soft diagonal band, masked to the bottle by the photo's alpha, that
+ * the scroll timeline slides across once (background-position 100% → 0%).
+ */
+.bottle-sheen {
+  position: absolute;
+  inset: 0;
+  /* At 300% size the band is ~18% of the box wide, under half the bottle's width. */
+  background: linear-gradient(110deg, transparent 47%, rgb(255 255 255 / 0.9) 50%, transparent 53%) 100% 0% / 300% 100% no-repeat;
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  mask: url(/bottle/bottle-still.webp) center / contain no-repeat;
+}
+@media (max-width: 767px) {
+  .bottle-sheen {
+    mask-image: url(/bottle/bottle-still-mobile.webp);
+  }
+}
+/*
+ * Frame mode (USE_FRAMES): photo at rest, render while moving. The canvas sits above the photo and fades;
+ * the photo only hides once the canvas is fully in (and returns at once when leaving),
+ * so the swap never shows the background through a half-faded pair. Both swaps happen
+ * on frame 1, which is aligned with the photo. The frames show the 500 ml bottle, so
+ * this only applies while it is the size shown ([data-frames]).
+ * A transition is taken from the state being entered.
+ */
+.bottle-mover {
+  --bottle-fade: 350ms;
+}
+.bottle-mover canvas {
+  opacity: 0;
+  transition: opacity var(--bottle-fade) ease;
+}
+.bottle-mover[data-frames].is-moving canvas {
+  opacity: 1;
+}
+.bottle-mover img {
+  transition: opacity 0s;
+}
+.bottle-mover[data-frames].is-moving img {
+  opacity: 0;
+  transition: opacity 0s linear var(--bottle-fade);
+}
+@media (prefers-reduced-motion: reduce) {
+  .bottle-mover canvas,
+  .bottle-sheen {
+    display: none;
+  }
+}
