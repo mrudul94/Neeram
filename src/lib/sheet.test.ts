@@ -29,7 +29,7 @@ describe("orderRow", () => {
     });
     expect(row).toEqual([
       "NRM-UL032M",
-      "30 Oct 2026, 11:48",
+      "2026-10-30 11:48",
       "Anu Thomas",
       "+91 98765 43210",
       "anu@example.com",
@@ -50,7 +50,19 @@ describe("orderRow", () => {
 
   it("writes the time in India, moving the date past midnight", () => {
     const row = orderRow({ orderNumber: "NRM-1", items: [oneLitre], total: 520, details, at: new Date("2026-10-30T20:00:00Z") });
-    expect(row[1]).toBe("31 Oct 2026, 01:30");
+    expect(row[1]).toBe("2026-10-31 01:30");
+  });
+
+  it("writes afternoon times on the 24-hour clock", () => {
+    const row = orderRow({ orderNumber: "NRM-1", items: [oneLitre], total: 520, details, at: new Date("2026-10-30T09:00:00Z") });
+    expect(row[1]).toBe("2026-10-30 14:30");
+  });
+
+  it("writes dates year first, so they sort correctly as text", () => {
+    const dates = ["2026-01-05T09:00:00Z", "2026-12-01T09:00:00Z", "2027-02-01T09:00:00Z"].map(
+      (at) => orderRow({ orderNumber: "NRM-1", items: [oneLitre], total: 520, details, at: new Date(at) })[1] as string,
+    );
+    expect([...dates].sort()).toEqual(dates);
   });
 
   it("puts each item on its own line within the cell", () => {
@@ -89,7 +101,7 @@ describe("orderRow", () => {
 describe("signupRow", () => {
   it("writes the time in India, the email and the page", () => {
     const row = signupRow({ email: "anu@example.com", topic: "newsletter", page: "/about", at: new Date("2026-10-30T06:18:43Z") });
-    expect(row).toEqual(["30 Oct 2026, 11:48", "anu@example.com", "/about"]);
+    expect(row).toEqual(["2026-10-30 11:48", "anu@example.com", "/about"]);
     expect(row).toHaveLength(SIGNUP_SHEET_HEADERS.length);
   });
 
@@ -135,7 +147,7 @@ describe("appendRow", () => {
     publicKeyEncoding: { type: "spki", format: "pem" },
   });
   const config = { email: "orders@neeram.iam.gserviceaccount.com", privateKey, sheetId: "1AbC" };
-  const row = ["NRM-1", "30 Oct 2026, 11:48"];
+  const row = ["NRM-1", "2026-10-30 11:48"];
 
   /** Stands in for Google: a token endpoint and the Sheets API. */
   function fakeGoogle(appendStatus = 200) {

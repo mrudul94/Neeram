@@ -41,22 +41,11 @@ export type SheetSignup = { email: string; topic: string; page: string; at: Date
 export type SheetConfig = { email: string; privateKey: string; sheetId: string };
 type Cell = string | number;
 
-/** "30 Oct 2026, 11:48" in India time. */
+const IST_OFFSET_MS = 330 * 60_000; // UTC+5:30, no daylight saving
+
+/** "2026-10-30 14:30" in India time: year first and 24-hour, so it sorts and filters as text. */
 function istDateTime(at: Date) {
-  const parts = Object.fromEntries(
-    new Intl.DateTimeFormat("en-GB", {
-      timeZone: "Asia/Kolkata",
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hourCycle: "h23",
-    })
-      .formatToParts(at)
-      .map((p) => [p.type, p.value]),
-  );
-  return `${parts.day} ${parts.month} ${parts.year}, ${parts.hour}:${parts.minute}`;
+  return new Date(at.getTime() + IST_OFFSET_MS).toISOString().slice(0, 16).replace("T", " ");
 }
 
 /** "Coconut Oil · 1 L bottle · 2", one line per item. */
