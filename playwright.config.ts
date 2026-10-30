@@ -20,7 +20,9 @@ export default defineConfig({
   webServer: {
     command: `npm run build && npm run start -- -p ${PORT}`,
     url: `http://localhost:${PORT}`,
-    reuseExistingServer: !process.env.CI,
+    // Test orders go to data/orders.test.jsonl. Always start our own server so this is set.
+    env: { STORE_JSON_SUFFIX: "test" },
+    reuseExistingServer: false,
     timeout: 300_000,
   },
 });
