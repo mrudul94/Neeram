@@ -24,7 +24,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
       className="relative isolate z-10 bg-ink text-cream md:min-h-[max(100svh,46rem)]"
     >
       <div aria-hidden className="absolute inset-y-0 right-0 -z-10 w-full md:w-[62%]">
-        <Image src={slide.image.src} alt="" fill preload data-loader-assetsizes="(max-width: 767px) 100vw, 62vw" className="object-cover object-[30%_50%]" />
+        <Image src={slide.image.src} alt="" fill preload data-loader-asset sizes="(max-width: 767px) 100vw, 62vw" className="object-cover object-[30%_50%]" />
         <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/70 to-ink md:bg-gradient-to-r md:from-ink md:via-ink/55 md:to-ink/20" />
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink to-transparent" />
       </div>
