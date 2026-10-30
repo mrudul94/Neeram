@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useCart, useCartHydrated } from "@/store/cart";
 import { Logo } from "./Logo";
-import { BagIcon, CloseIcon, MenuIcon, SearchIcon, cx } from "./ui";
+import { BagIcon, CloseIcon, MenuIcon, cx } from "./ui";
 
 // "The kitchen" becomes a full page in Phase 2; until then it points at the matching
 // home-page section.
@@ -38,9 +38,6 @@ export function Header() {
           >
             {menuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
-          <Link href="/shop" aria-label="Search the shop" className="p-2 md:hidden">
-            <SearchIcon />
-          </Link>
           {nav.map((item) => (
             <Link
               key={item.href}
@@ -54,9 +51,6 @@ export function Header() {
         </nav>
         <Logo className="text-[0.95rem] md:text-[1.05rem]" />
         <div className="flex items-center justify-end gap-2 md:gap-5">
-          <Link href="/shop" aria-label="Search the shop" className="hidden p-1 hover:text-orange md:inline-flex">
-            <SearchIcon />
-          </Link>
           <CartButton />
         </div>
       </div>
