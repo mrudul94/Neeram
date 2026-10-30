@@ -30,8 +30,8 @@ export function OilFeature() {
             className="mt-8"
             specs={[
               { label: "Form", value: "Double-filtered oil" },
-              { label: "Goes into", value: "Tempering, thoran, avial, fish fry" },
-              { label: "Pairs with", value: "Turmeric, Black Pepper" },
+              { label: "Made for", value: "Everyday cooking. Every kind of kitchen." },
+              { label: "From first to last", value: "The first sizzle to the finishing touch." },
             ]}
           />
           {/* One fixed layout per breakpoint: the button keeps its width (SwapText), so the

@@ -4,8 +4,7 @@ Everything below is a placeholder on the live site today. File references show w
 
 ## Prices and product facts — `src/data/products.ts`
 
-- [ ] **Coconut Oil price** (500 ml). Currently `price: null`, shown as "₹ —". Until it is set, checkout uses the mock
-      payment even when Razorpay keys are configured.
+- [x] **Coconut Oil prices** — 1 L ₹260, 500 ml ₹130, 200 ml ₹70, 500 ml packet ₹125.
 - [ ] Prices for the five spices (needed when each launches).
 - [ ] Coconut oil **ingredients** wording for the listing (currently "100% coconut oil. [Confirm …]") — product page,
       *Ingredients* accordion.
