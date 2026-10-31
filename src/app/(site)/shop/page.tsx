@@ -14,7 +14,7 @@ export default function ShopPage() {
     <>
       <section className="wrap pt-6 pb-20 md:pt-8 md:pb-28">
         <nav aria-label="Breadcrumb" className="text-[0.8125rem]">
-          <Link href="/" className="hover:text-orange">
+          <Link href="/" className="tap hover:text-orange">
             Home
           </Link>
           <span className="mx-1.5 text-muted">/</span>

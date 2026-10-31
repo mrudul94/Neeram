@@ -53,11 +53,11 @@ async function ProductContent({ params }: Pick<PageProps<"/products/[slug]">, "p
 function Breadcrumb({ product }: { product: Product }) {
   return (
     <nav aria-label="Breadcrumb" className="text-[0.8125rem]">
-      <Link href="/" className="hover:text-orange">
+      <Link href="/" className="tap hover:text-orange">
         Home
       </Link>
       <span className="mx-1.5 text-muted">/</span>
-      <Link href="/shop" className="hover:text-orange">
+      <Link href="/shop" className="tap hover:text-orange">
         Shop
       </Link>
       <span className="mx-1.5 text-muted">/</span>
@@ -129,7 +129,8 @@ function AvailableProduct({ product }: { product: Product }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
 
-      <div className="mx-auto grid max-w-[90rem] gap-8 pb-24 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-12 md:pb-20 lg:gap-16">
+      {/* minmax(0,1fr) on phones: an auto column grows to fit the size buttons and the page scrolls sideways. */}
+      <div className="mx-auto grid max-w-[90rem] grid-cols-[minmax(0,1fr)] gap-8 pb-24 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-12 md:pb-20 lg:gap-16">
         <Gallery images={product.images} watermark={product.nameMalayalam} />
 
         <div className="px-5 md:py-8 md:pr-10 lg:pr-[max(2.5rem,calc((100vw-75rem)/2))]">
@@ -227,7 +228,7 @@ function ComingSoonProduct({ product }: { product: Product }) {
             <p className="mt-2 max-w-[28rem] font-serif text-muted">
               {product.name} is not on the shelf yet. Leave your email and we&apos;ll write once, when it is.
             </p>
-            <SubscribeForm topic={product.slug} submitLabel="Notify me" tone="light" className="mt-5 max-w-[28rem]" />
+            <SubscribeForm topic={product.slug} submitLabel="Notify me" tone="light" className="mt-5" />
           </div>
           <SpecTable specs={product.specs} className="mt-6" />
           <Link href="/products/coconut-oil" className="mt-8 inline-block font-serif text-muted underline underline-offset-4 hover:text-orange">

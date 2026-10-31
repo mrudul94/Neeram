@@ -51,7 +51,7 @@ export function CartDrawer() {
           <h2 id="cart-title" className="display text-[2rem]">
             Your cart <span className="ml-2 align-middle font-sans text-sm normal-case text-muted">{count} {count === 1 ? "item" : "items"}</span>
           </h2>
-          <button type="button" onClick={closeDrawer} className="-mr-2 p-2" aria-label="Close cart">
+          <button type="button" onClick={closeDrawer} className="tap -mr-2 p-2" aria-label="Close cart">
             <CloseIcon />
           </button>
         </div>
@@ -73,7 +73,7 @@ export function CartDrawer() {
                   </div>
                   <div>
                     <p className="eyebrow text-[0.625rem] text-orange-text">No. {product.number}</p>
-                    <Link href={`/products/${slug}`} className="mt-0.5 block text-[1.0625rem] font-medium hover:text-orange">
+                    <Link href={`/products/${slug}`} className="tap mt-0.5 block text-[1.0625rem] font-medium hover:text-orange">
                       {product.name}
                     </Link>
                     <p lang="ml" className="font-ml text-xs text-muted">
@@ -82,7 +82,7 @@ export function CartDrawer() {
                   </div>
                   <p className="font-medium tabular-nums">{formatPrice(lineTotal)}</p>
                   <QtyStepper size="sm" label={product.name} value={qty} min={1} onChange={(q) => setQty(key, q)} className="mt-3 self-end justify-self-start" />
-                  <button type="button" onClick={() => remove(key)} className="self-end text-xs text-muted underline-offset-2 hover:text-orange hover:underline">
+                  <button type="button" onClick={() => remove(key)} className="tap self-end text-xs text-muted underline-offset-2 hover:text-orange hover:underline">
                     Remove
                   </button>
                 </li>
@@ -123,7 +123,7 @@ export function CartDrawer() {
             <Link href="/checkout" className={buttonClass("orange", "mt-5 w-full")}>
               Checkout
             </Link>
-            <button type="button" onClick={closeDrawer} className="eyebrow mt-4 w-full py-2 text-xs hover:text-orange">
+            <button type="button" onClick={closeDrawer} className="tap eyebrow mt-4 w-full py-2 text-xs hover:text-orange">
               Continue shopping
             </button>
           </div>

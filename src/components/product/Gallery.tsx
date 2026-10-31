@@ -34,7 +34,7 @@ export function Gallery({ images, watermark }: { images: ProductImage[]; waterma
         )}
       </div>
       {images.length > 1 && (
-        <ul className="mt-4 flex gap-3 px-5 md:px-0" aria-label="Product images">
+        <ul className="mt-4 flex gap-3 px-5 md:px-10" aria-label="Product images">
           {images.map((im, i) => (
             <li key={im.src}>
               <button

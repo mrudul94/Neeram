@@ -75,7 +75,7 @@ export function SubscribeForm({ topic, submitLabel = "Subscribe", tone = "dark",
         <button
           type="submit"
           disabled={status === "sending"}
-          className={cx("eyebrow shrink-0 py-3 text-[0.75rem] hover:opacity-80 disabled:opacity-50", tone === "dark" ? "text-orange" : "text-orange-text")}
+          className={cx("tap eyebrow shrink-0 py-3 text-[0.75rem] hover:opacity-80 disabled:opacity-50", tone === "dark" ? "text-orange" : "text-orange-text")}
         >
           {status === "sending" ? "Sending…" : `${submitLabel} →`}
         </button>

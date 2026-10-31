@@ -13,7 +13,7 @@ const help = [
 export function AboutHelp() {
   return (
     <section id="about" className="scroll-mt-4 bg-sand py-16 md:py-24">
-      <div className="wrap grid gap-12 border-t border-ink pt-8 md:grid-cols-[minmax(0,1fr)_22rem] md:gap-24">
+      <div className="wrap grid gap-12 border-t border-ink pt-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-24">
         <div>
           <h2 className="eyebrow text-[0.6875rem] text-orange-text">About Neeram</h2>
           <div className="mt-6 pl-1 text-[1.1rem]">

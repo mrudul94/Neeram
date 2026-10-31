@@ -64,8 +64,9 @@ export function PackPicker({ slug, className }: { slug: string; className?: stri
   const chosen = useChosenPack(slug);
   const product = getProduct(slug);
   if (!product || !hasSizes(product) || !chosen) return null;
+  // min-w-0: a fieldset won't shrink below its content by default (min-inline-size: min-content).
   return (
-    <fieldset className={className}>
+    <fieldset className={cx("min-w-0", className)}>
       <legend className="eyebrow text-[0.6875rem] text-muted">
         Choose a size · <span className="text-ink">{chosen.label}</span>
       </legend>
@@ -117,10 +118,12 @@ export function ChosenPackLabel({ slug }: { slug: string }) {
   const product = getProduct(slug);
   if (!product) return null;
   return (
-    <>
+    // One span, so a flex button wraps it as one line of text; the price never splits from "₹".
+    <span>
       Add {product.name.toLowerCase()}
-      {pack && ` · ${pack.size}${pack.form === "Packet" ? " packet" : ""}`} · {formatPrice(pack?.price ?? product.price)}
-    </>
+      {pack && ` · ${pack.size}${pack.form === "Packet" ? " packet" : ""}`}{" "}
+      <span className="whitespace-nowrap">· {formatPrice(pack?.price ?? product.price)}</span>
+    </span>
   );
 }
 

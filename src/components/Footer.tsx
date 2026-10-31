@@ -31,27 +31,28 @@ export function Footer() {
   return (
     <footer className="overflow-hidden bg-ink text-cream">
       <div className="wrap pt-16 md:pt-24">
-        <div className="grid gap-8 md:grid-cols-2 md:items-end">
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
           <h2 className="display text-[2.5rem] md:text-[3.25rem]">
             A note when
             <br />
             new stock lands.
           </h2>
-          <SubscribeForm topic="newsletter" className="md:pb-2" />
+          <SubscribeForm topic="newsletter" className="lg:pb-2" />
         </div>
         <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-cream/80 pt-8 md:mt-12 md:grid-cols-4">
           {columns.map((col) => (
             <div key={col.title}>
               <h3 className="eyebrow text-[0.6875rem]">{col.title}</h3>
-              <ul className="mt-3 space-y-1.5 text-[0.9375rem]">
+              {/* Touch screens get 44 px rows so each link is easy to tap; mouse users keep the tighter list. */}
+              <ul className="mt-3 space-y-1.5 text-[0.9375rem] pointer-coarse:mt-1 pointer-coarse:space-y-0">
                 {col.links.map((l) => (
                   <li key={l.label}>
                     {l.href ? (
-                      <Link href={l.href} className="hover:text-orange">
+                      <Link href={l.href} className="hover:text-orange pointer-coarse:flex pointer-coarse:min-h-11 pointer-coarse:items-center">
                         {l.label}
                       </Link>
                     ) : (
-                      <span className="text-cream/70">{l.label}</span>
+                      <span className="text-cream/70 pointer-coarse:flex pointer-coarse:min-h-11 pointer-coarse:items-center">{l.label}</span>
                     )}
                   </li>
                 ))}

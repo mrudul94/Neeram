@@ -108,7 +108,7 @@ export default function AboutPage() {
           <article key={c.title} className="grid gap-6 border-b border-ink py-12 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-16 md:py-16">
             <header>
               <p className="eyebrow text-[0.6875rem] text-orange-text">Chapter {String(i + 1).padStart(2, "0")}</p>
-              <h2 className="display mt-3 text-[clamp(2.5rem,4.5vw,3.75rem)]">{c.title}</h2>
+              <h2 className="display mt-3 text-[clamp(2.5rem,4.5vw,3.75rem)] text-balance">{c.title}</h2>
             </header>
             <div>
               {c.body.map((p) => (

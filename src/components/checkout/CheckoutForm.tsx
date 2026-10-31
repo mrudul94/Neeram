@@ -182,7 +182,8 @@ export function CheckoutForm() {
                 <input {...err("pin")} autoComplete="postal-code" inputMode="numeric" maxLength={6} placeholder="6-digit PIN" className={input} />
               </Field>
               <Field label="State" name="state" error={errors.state}>
-                <select {...err("state")} autoComplete="address-level1" defaultValue="Kerala" className={input}>
+                {/* 4 px less left padding: the browser adds its own inside a select, so its text lines up with the other fields'. */}
+                <select {...err("state")} autoComplete="address-level1" defaultValue="Kerala" className={cx(input, "pl-2.5")}>
                   {INDIAN_STATES.map((s) => (
                     <option key={s}>{s}</option>
                   ))}

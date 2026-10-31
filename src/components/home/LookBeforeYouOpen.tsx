@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { Eyebrow } from "../ui";
 
 // Callout positions are percentages of the bottle image box.
@@ -11,7 +12,7 @@ const callouts = [
 export function LookBeforeYouOpen() {
   return (
     <section aria-labelledby="look-title" className="py-20 md:py-28">
-      <div className="wrap grid gap-12 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-10">
+      <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10">
         <div>
           <Eyebrow>The Neeram bottle</Eyebrow>
           <h2 id="look-title" className="display mt-4 text-[clamp(3.5rem,7vw,6rem)]">
@@ -35,12 +36,18 @@ export function LookBeforeYouOpen() {
               className="h-[20rem] w-auto drop-shadow-[0_14px_12px_rgb(22_19_15/0.2)] md:h-[26rem]"
             />
           </div>
-          <ol className="relative">
+          {/* Below 640 px the column is too narrow for callouts pinned to the bottle (they overlap),
+              so they stack in order and keep just their dot; from 640 px they point at the bottle. */}
+          <ol className="flex flex-col justify-center gap-6 pl-4 sm:relative sm:block sm:pl-0">
             {callouts.map((c) => (
-              <li key={c.title} className="absolute inset-x-0 flex -translate-y-1/2 items-start" style={{ top: c.top }}>
-                <span aria-hidden className="relative mt-[0.6rem] -ml-[5.5rem] flex w-[6.5rem] shrink-0 items-center md:-ml-[7.5rem] md:w-[10rem]">
+              <li
+                key={c.title}
+                className="flex items-start sm:absolute sm:inset-x-0 sm:top-(--top) sm:-translate-y-1/2"
+                style={{ "--top": c.top } as CSSProperties}
+              >
+                <span aria-hidden className="relative mt-[0.35rem] flex shrink-0 items-center sm:mt-[0.6rem] sm:-ml-[5.5rem] sm:w-[6.5rem] md:-ml-[7.5rem] md:w-[10rem]">
                   <span className="size-2.5 shrink-0 rounded-full border-2 border-cream bg-orange" />
-                  <span className="h-px flex-1 bg-ink" />
+                  <span className="hidden h-px flex-1 bg-ink sm:block" />
                 </span>
                 <span className="pl-3">
                   <span className="block text-[0.9375rem] font-semibold">{c.title}</span>

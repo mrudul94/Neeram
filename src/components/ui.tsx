@@ -26,7 +26,7 @@ const variants: Record<Variant, string> = {
   orange: "bg-orange text-ink hover:bg-orange-deep px-6 h-12",
   ink: "bg-ink text-cream hover:bg-ink/85 px-6 h-12",
   cream: "bg-cream text-ink hover:bg-sand px-6 h-12",
-  text: "h-auto border-b border-current pb-0.5 hover:text-orange",
+  text: "tap h-auto border-b border-current pb-0.5 hover:text-orange",
 };
 
 export function buttonClass(variant: Variant = "orange", className?: string) {

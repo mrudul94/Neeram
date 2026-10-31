@@ -30,7 +30,7 @@ export function Header() {
         <nav aria-label="Main" className="flex items-center gap-1 md:gap-8">
           <button
             type="button"
-            className="-ml-2 p-2 md:hidden"
+            className="tap -ml-2 p-2 md:hidden"
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -42,7 +42,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="hidden text-[0.9375rem] hover:text-orange md:inline"
+              className="tap hidden text-[0.9375rem] hover:text-orange md:inline"
               aria-current={pathname === item.href ? "page" : undefined}
             >
               {item.label}
@@ -84,7 +84,7 @@ function CartButton() {
     <button
       type="button"
       onClick={openDrawer}
-      className="-mr-1 flex items-center gap-2 p-1 text-[0.9375rem] hover:text-orange"
+      className="tap -mr-1 flex items-center gap-2 p-1 text-[0.9375rem] hover:text-orange"
       aria-label={`Cart, ${shown} ${shown === 1 ? "item" : "items"}`}
       aria-haspopup="dialog"
     >

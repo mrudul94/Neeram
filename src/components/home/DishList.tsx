@@ -18,7 +18,7 @@ export function DishList() {
         <div className="mt-14 grid gap-12 md:grid-cols-[minmax(0,1fr)_19.75rem] md:gap-16">
           <ul className="border-t border-cream/70">
             {dishes.map((dish) => (
-              <li key={dish.name} className="flex flex-col gap-3 border-b border-cream/70 py-5 sm:flex-row sm:items-center sm:justify-between">
+              <li key={dish.name} className="flex flex-col gap-3 border-b border-cream/70 py-5 sm:flex-row sm:items-center sm:justify-between md:flex-col md:items-start lg:flex-row lg:items-center">
                 <div>
                   <h3 className="display text-[clamp(2.25rem,4vw,3.25rem)] leading-none">{dish.name}</h3>
                   <p lang="ml" className="mt-2 font-ml text-[0.8125rem] text-cream/80">
@@ -32,7 +32,7 @@ export function DishList() {
                       <li key={slug} className="flex items-center gap-1.5">
                         <span aria-hidden className="size-1.5 rounded-full" style={{ background: ingredientColor[slug] }} />
                         {isAvailable(p) ? (
-                          <Link href={`/products/${slug}`} className="underline decoration-orange underline-offset-4 hover:text-orange">
+                          <Link href={`/products/${slug}`} className="tap underline decoration-orange underline-offset-4 hover:text-orange">
                             {p.name}
                           </Link>
                         ) : (

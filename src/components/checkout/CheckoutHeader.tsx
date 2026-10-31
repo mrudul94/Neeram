@@ -11,7 +11,7 @@ export function CheckoutHeader() {
   const current = 1;
   return (
     <header className="wrap grid h-[4.5rem] grid-cols-[1fr_auto_1fr] items-center border-b border-ink md:h-[5.5rem]">
-      <button type="button" onClick={openDrawer} className="flex items-center gap-2 justify-self-start text-[0.9375rem] hover:text-orange">
+      <button type="button" onClick={openDrawer} className="tap flex items-center gap-2 justify-self-start text-[0.9375rem] hover:text-orange">
         <ChevronLeft /> Back to cart
       </button>
       <Logo className="text-[0.95rem] md:text-[1.05rem]" />

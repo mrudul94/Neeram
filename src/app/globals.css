@@ -52,6 +52,27 @@
   text-transform: uppercase;
 }
 
+/*
+ * Invisible touch area of at least 44 × 44 px, centred on a small control, with no
+ * visual change. Don't use on absolutely positioned elements (it sets position: relative)
+ * or on elements that already use ::after. A plain class: as an @utility it was left out
+ * of the production build.
+ */
+@layer components {
+  .tap {
+    position: relative;
+  }
+  .tap::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 2.75rem);
+    height: max(100%, 2.75rem);
+    transform: translate(-50%, -50%);
+  }
+}
+
 @utility hairline {
   border-color: color-mix(in srgb, currentColor 85%, transparent);
 }

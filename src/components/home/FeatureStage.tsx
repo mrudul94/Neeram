@@ -25,7 +25,7 @@ export function FeatureStage() {
     <>
       <div id="bottle-slot-feature" className="relative aspect-[2/3] h-[min(52svh,30rem)] md:h-[min(56svh,32rem)]" />
 
-      <div role="group" aria-label="Choose a size" className="relative z-20 mt-8 flex gap-2 md:absolute md:bottom-20 md:left-10 md:mt-0 md:gap-3">
+      <div role="group" aria-label="Choose a size" className="relative z-20 mt-8 flex gap-2 md:absolute md:bottom-20 md:left-10 md:mt-0 lg:gap-3">
         {packs.map((p) => {
           const on = p.id === chosen.id;
           return (
@@ -36,7 +36,7 @@ export function FeatureStage() {
               aria-label={p.label}
               onClick={() => choose(PACK_SLUG, p.id)}
               className={cx(
-                "flex w-[4.5rem] flex-col items-center gap-1.5 border px-2 pt-2 pb-2.5 transition-colors duration-200 md:w-20",
+                "flex w-[4.5rem] flex-col items-center gap-1.5 border px-2 pt-2 pb-2.5 transition-colors duration-200 lg:w-20",
                 on ? "border-orange bg-cream/10 text-cream" : "border-cream/25 text-cream/70 hover:border-cream/60 hover:text-cream",
               )}
             >

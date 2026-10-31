@@ -26,7 +26,7 @@ export function ShopList() {
   return (
     <>
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4 md:mt-10">
-        <div role="group" aria-label="Filter by type" className="-mx-5 flex gap-6 overflow-x-auto px-5 md:mx-0 md:px-0">
+        <div role="group" aria-label="Filter by type" className="-mx-5 -mt-[0.875rem] flex gap-6 overflow-x-auto px-5 md:mx-0 md:px-0">
           {tabs.map((t) => (
             <button
               key={t.label}
@@ -34,7 +34,7 @@ export function ShopList() {
               aria-pressed={filter === t.label}
               onClick={() => setFilter(t.label)}
               className={cx(
-                "shrink-0 border-b-2 pb-1.5 text-[0.9375rem]",
+                "tap shrink-0 border-b-2 pt-[0.875rem] pb-1.5 text-[0.9375rem]", // top padding: 44 px tap height (the row is pulled up to match)
                 filter === t.label ? "border-orange font-medium" : "border-transparent text-muted hover:text-ink",
               )}
             >
@@ -47,7 +47,7 @@ export function ShopList() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as Sort)}
-            className="appearance-none bg-transparent pr-5 font-medium outline-offset-2"
+            className="-my-3 appearance-none bg-transparent py-3 pr-5 font-medium outline-offset-2"
           >
             <option value="shelf">Shelf order</option>
             <option value="available">In stock first</option>
@@ -67,32 +67,33 @@ export function ShopList() {
   );
 }
 
+// The five-column desktop row needs about 1024 px; below that the stacked mobile row is used.
 function ShopRow({ product: p }: { product: Product }) {
   const [qty, setQty] = useState(1);
   const available = isAvailable(p);
   const img = p.images[0];
   return (
-    <li className="group grid grid-cols-[6.5rem_1fr] gap-x-5 gap-y-4 border-b border-ink py-5 hover:bg-sand md:grid-cols-[6.5rem_8rem_minmax(0,1fr)_6rem_auto] md:items-center md:gap-x-8 md:px-4">
-      <p aria-hidden className="display hidden self-start text-[3.5rem] leading-none text-stone group-hover:text-orange md:block">
+    <li className="group grid grid-cols-[6.5rem_1fr] gap-x-5 gap-y-4 border-b border-ink py-5 hover:bg-sand lg:grid-cols-[6.5rem_8rem_minmax(0,1fr)_6rem_auto] lg:items-center lg:gap-x-8 lg:px-4">
+      <p aria-hidden className="display hidden self-start text-[3.5rem] leading-none text-stone group-hover:text-orange lg:block">
         {p.number}
       </p>
-      <Link href={`/products/${p.slug}`} className="row-span-2 grid h-[8.5rem] place-items-center bg-sand group-hover:bg-cream md:row-span-1 md:h-[9.25rem]" tabIndex={-1}>
+      <Link href={`/products/${p.slug}`} className="row-span-2 grid h-[8.5rem] place-items-center bg-sand group-hover:bg-cream lg:row-span-1 lg:h-[9.25rem]" tabIndex={-1}>
         <Image
           src={img.src}
           alt={img.alt}
           width={img.width}
           height={img.height}
           sizes="5rem"
-          className={cx("h-[7rem] w-auto md:h-[8rem]", !available && "opacity-85 grayscale-[0.55]")}
+          className={cx("h-[7rem] w-auto lg:h-[8rem]", !available && "opacity-85 grayscale-[0.55]")}
         />
       </Link>
       <div>
         <p className="eyebrow text-[0.625rem] text-orange-text">
-          <span className="md:hidden">No. {p.number} · </span>
+          <span className="lg:hidden">No. {p.number} · </span>
           {p.category}
         </p>
         <h2 className="display mt-1 text-[clamp(1.75rem,3vw,2.5rem)] leading-none">
-          <Link href={`/products/${p.slug}`} className="hover:text-orange">
+          <Link href={`/products/${p.slug}`} className="tap hover:text-orange">
             {p.name}
           </Link>
         </h2>
@@ -101,7 +102,7 @@ function ShopRow({ product: p }: { product: Product }) {
         </p>
         <p className="mt-2 max-w-[22rem] font-serif text-[0.9375rem] leading-snug text-muted">{p.shortDescription}</p>
       </div>
-      <p className={cx("col-start-2 text-lg font-medium tabular-nums md:col-start-auto", !available && "text-muted")}>
+      <p className={cx("col-start-2 text-lg font-medium tabular-nums lg:col-start-auto", !available && "text-muted")}>
         {!available ? (
           <span className="eyebrow text-[0.6875rem] whitespace-nowrap">Coming soon</span>
         ) : hasSizes(p) ? (
@@ -113,22 +114,22 @@ function ShopRow({ product: p }: { product: Product }) {
           formatPrice(p.price)
         )}
       </p>
-      <div className="col-span-2 flex gap-3 md:col-span-1">
+      <div className="col-span-2 flex gap-3 lg:col-span-1">
         {available && hasSizes(p) ? (
-          <Link href={`/products/${p.slug}`} className={buttonClass("ink", "h-10 flex-1 px-4 md:flex-none")}>
+          <Link href={`/products/${p.slug}`} className={buttonClass("ink", "tap h-10 flex-1 px-4 lg:flex-none")}>
             Choose size
           </Link>
         ) : available ? (
           <>
             <QtyStepper size="sm" label={p.name} value={qty} onChange={setQty} className="h-10" />
-            <AddToCartButton slug={p.slug} qty={qty} className="h-10 flex-1 px-4 md:flex-none">
+            <AddToCartButton slug={p.slug} qty={qty} className="tap h-10 flex-1 px-4 lg:flex-none">
               Add to cart
             </AddToCartButton>
           </>
         ) : (
           <Link
             href={`/products/${p.slug}#notify`}
-            className="eyebrow inline-flex h-10 flex-1 items-center justify-center border border-ink px-4 text-[0.75rem] hover:bg-ink hover:text-cream md:flex-none"
+            className="tap eyebrow inline-flex h-10 flex-1 items-center justify-center border border-ink px-4 text-[0.75rem] hover:bg-ink hover:text-cream lg:flex-none"
           >
             Notify me
           </Link>

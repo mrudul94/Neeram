@@ -19,7 +19,7 @@ export function QtyStepper({ value, onChange, label, min = 1, size = "md", class
     <div role="group" aria-label={`Quantity for ${label}`} className={cx("inline-flex items-center border border-ink", h, className)}>
       <button
         type="button"
-        className={cx("grid h-full place-items-center hover:bg-ink/5 disabled:opacity-30", w)}
+        className={cx("tap grid h-full place-items-center hover:bg-ink/5 disabled:opacity-30", w)}
         onClick={() => onChange(value - 1)}
         disabled={value <= min}
         aria-label="Decrease quantity"
@@ -31,7 +31,7 @@ export function QtyStepper({ value, onChange, label, min = 1, size = "md", class
       </output>
       <button
         type="button"
-        className={cx("grid h-full place-items-center hover:bg-ink/5 disabled:opacity-30", w)}
+        className={cx("tap grid h-full place-items-center hover:bg-ink/5 disabled:opacity-30", w)}
         onClick={() => onChange(value + 1)}
         disabled={value >= MAX_QTY}
         aria-label="Increase quantity"
