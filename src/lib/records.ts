@@ -5,7 +5,7 @@ import { appendRecord } from "./store-json";
 export type NewOrder = { orderNumber: string; items: PricedItem[]; total: number | null; details: CheckoutDetails };
 export type NewSignup = { email: string; topic: string; page: string };
 
-/** Search Vercel's logs for "NOT SAVED TO SHEET" to find records to add to the sheet by hand. */
+/** Search Workers Logs for "NOT SAVED TO SHEET" to find records to add to the sheet by hand. */
 const ORDER_TAG = "ORDER NOT SAVED TO SHEET";
 const SIGNUP_TAG = "NEWSLETTER SIGN-UP NOT SAVED TO SHEET";
 

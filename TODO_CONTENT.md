@@ -57,8 +57,8 @@ Everything below is a placeholder on the live site today. File references show w
 - [ ] **Order WhatsApp number** (currently Skaylon's, +91 80759 15386 — replace with Neeram's), phone and email — `src/data/content.ts` → `site.orders`. Checkout sends orders
       there; until the WhatsApp number is set, customers have to pick the chat themselves.
 - [ ] Payment details (UPI ID / bank account) to send customers after confirming — orders are paid before delivery.
-- [ ] Orders are saved to `data/orders.jsonl` locally but only logged on Vercel — connect an email service or database
-      so orders whose customer never sends the message aren't lost.
+- [ ] Set up the order sheet (`docs/ORDER_SHEET_SETUP.md`) so orders whose customer never sends the WhatsApp
+      message aren't lost — until then they're only in Workers Logs.
 
 ## Photography
 
@@ -73,9 +73,8 @@ All non-bottle imagery was cropped from the Figma export and is low resolution f
 
 ## Services to connect
 
-- [ ] Email service for newsletter + "Notify me" sign-ups (currently written to `data/subscribers.jsonl` locally,
-      only logged on Vercel) — `src/app/api/subscribe/route.ts`.
-- [ ] Order storage / admin (orders are written to `data/orders.jsonl` locally) — `src/app/api/checkout/route.ts`.
+- [ ] Email service for newsletter + "Notify me" sign-ups (currently saved to the order sheet's Newsletter tab)
+      — `src/app/api/subscribe/route.ts`.
 
 ## Phase 2
 

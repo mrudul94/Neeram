@@ -5,10 +5,10 @@ Every order placed on the website will appear as a new row in a Google Sheet tha
 **You will need:**
 
 - The Google account that should own the orders (for example the shop's Gmail). Use the same account all the way through.
-- Access to the website's project on Vercel (vercel.com), or someone who has it for the last part.
+- Access to the website's Cloudflare account (dash.cloudflare.com), or someone who has it, for the last part.
 - A computer. These screens are hard to use on a phone.
 
-**What you will end up with:** three values to paste into Vercel: an email address that ends in `iam.gserviceaccount.com`, a private key, and a sheet ID.
+**What you will end up with:** three values to paste into Cloudflare: an email address that ends in `iam.gserviceaccount.com`, a private key, and a sheet ID.
 
 > **A word on the "robot" account.** The website can't log in as you. Instead, you create a small robot account (Google calls it a *service account*) that is allowed to add rows to your one order sheet and nothing else. It cannot see your email, your Drive or any other file.
 
@@ -62,7 +62,7 @@ The key is the robot's password. Treat it like one.
 
 **Keep this file safe:**
 
-- Don't email it, put it in WhatsApp, or upload it anywhere other than Vercel (Part 6).
+- Don't email it, put it in WhatsApp, or upload it anywhere other than Cloudflare (Part 6).
 - Don't put it inside the website's code folder.
 - Once Part 6 is done, delete it from your Downloads (and empty the bin), or keep it in a password manager.
 
@@ -122,27 +122,33 @@ The key is the robot's password. Treat it like one.
 - Don't delete row 1 on either tab, and don't insert, delete or reorder the website's columns (A–P for orders, A–C for Newsletter). Add your own columns after them if you need more.
 - Fill in **Delivery**, **Total** and **Status** yourself (for example `Paid`, `Shipped`). The website leaves them blank and never changes a row once it's added.
 - Share the sheet only with the people who handle orders. It contains customers' names, phone numbers and addresses.
+- **The same order number on two rows is one order, not two.** If Google is slow to answer, the website tries again, and very occasionally both attempts get through. Delete one of the two rows.
 
-## Part 6: Add the three values in Vercel
+## Part 6: Add the three values in Cloudflare
 
-1. Go to **https://vercel.com**, sign in, and open the Neeram project.
-2. Click **Settings** (top menu), then **Environment Variables** (left menu).
-3. Add the first value:
-   - **Key:** `GOOGLE_SERVICE_ACCOUNT_EMAIL`
+The website runs on Cloudflare Workers. The three values are stored there as **secrets**: Cloudflare keeps them encrypted, and once saved nobody can read them back, not even you.
+
+1. Go to **https://dash.cloudflare.com** and sign in.
+2. In the left menu, click **Compute (Workers)** → **Workers & Pages** (on some accounts it's just **Workers & Pages**).
+3. Click the **neeram** Worker in the list.
+4. Click the **Settings** tab, then find the **Variables and Secrets** section.
+5. Click **+ Add**. Fill in the first value:
+   - **Type:** choose **Secret** (not "Text").
+   - **Variable name:** `GOOGLE_SERVICE_ACCOUNT_EMAIL`
    - **Value:** the robot's email from Part 3
-   - **Environments:** tick **Production** only. Untick Preview and Development, so test versions of the site never write to the real sheet.
-   - Click **Save**.
-4. Add the second value the same way:
-   - **Key:** `GOOGLE_PRIVATE_KEY`
-   - **Value:** the private key from Part 4, starting `-----BEGIN PRIVATE KEY-----` and ending `-----END PRIVATE KEY-----\n`
-   - If there's a **Sensitive** switch, turn it on.
-   - **Environments:** Production only. **Save**.
-5. Add the third:
-   - **Key:** `GOOGLE_SHEET_ID`
+6. Click **+ Add variable** (or **+ Add** again) for the second value:
+   - **Type:** **Secret**
+   - **Variable name:** `GOOGLE_PRIVATE_KEY`
+   - **Value:** the private key from Part 4, starting `-----BEGIN PRIVATE KEY-----` and ending `-----END PRIVATE KEY-----
+`
+7. And the third:
+   - **Type:** **Secret**
+   - **Variable name:** `GOOGLE_SHEET_ID`
    - **Value:** the sheet ID from Part 5, step 10
-   - **Environments:** Production only. **Save**.
-6. Vercel only picks up new values on the next deploy. Click **Deployments** (top menu). On the top (newest) deployment, click the **⋯** menu → **Redeploy** → **Redeploy**. Wait until it says **Ready**.
-7. Now delete the key file from your computer (see Part 4).
+8. Click **Deploy** (bottom right). Cloudflare puts the values live straight away; there's nothing to redeploy.
+9. Now delete the key file from your computer (see Part 4).
+
+> **Good to know:** these secrets apply to every version of the live Worker. The developer's local preview of the site never uses them, so testing on their computer can't write to your sheet.
 
 ## Part 7: Check it works
 
@@ -153,20 +159,20 @@ The key is the robot's password. Treat it like one.
 
 ### If no row appears
 
-1. In Vercel, open the project → **Logs** (top menu).
+1. In Cloudflare, open **Workers & Pages** → **neeram** → the **Observability** tab (on some accounts it's called **Logs**). Logs are only kept for a few days, so check soon after a problem.
 2. In the search box, type `NOT SAVED TO SHEET`. This finds both kinds of problem:
    - `ORDER NOT SAVED TO SHEET`: an order, listed **in full** (name, phone, address, items).
    - `NEWSLETTER SIGN-UP NOT SAVED TO SHEET`: a sign-up, with the email and page.
 
-   The website tries twice before giving up, so nothing is lost. You can copy these into the sheet by hand.
+   If Google was slow or briefly down, the website already tried a second time before logging it, so nothing is lost. You can copy these into the sheet by hand.
 3. The text after the tag says why:
 
 | Message contains | What it means | Fix |
 |---|---|---|
-| `Sheet not set up` | One of the three values is missing in Vercel, or you didn't redeploy | Check Part 6, all three under **Production**, then redeploy |
-| `Google sign-in failed: 400` / `invalid_grant` | The private key or email is wrong | Paste the email and key again (Part 3 and Part 4), then redeploy. If in doubt, make a new key |
+| `Sheet not set up` | One of the three values is missing in Cloudflare | Check Part 6: all three are there, each spelled exactly as shown, and you clicked **Deploy** |
+| `Google sign-in failed: 400` / `invalid_grant` | The private key or email is wrong | Replace the email and key secrets (Part 3, Part 4, Part 6). If in doubt, make a new key |
 | `Sheets append failed: 403` | The sheet isn't shared with the robot, or the Sheets API is off | Share the sheet with the robot's email as **Editor** (Part 5), and check Part 2 |
-| `Sheets append failed: 404` | The sheet ID is wrong | Copy the ID again from the sheet's address (Part 5, step 10), then redeploy |
+| `Sheets append failed: 404` | The sheet ID is wrong | Copy the ID again from the sheet's address (Part 5, step 10) and replace the `GOOGLE_SHEET_ID` secret |
 | `Sheets append failed: 400` … `Unable to parse range: Newsletter` (sign-ups only) | The Newsletter tab is missing or renamed | Add or rename the tab to exactly `Newsletter` (Part 5, step 5) |
 | `aborted` or `timeout` | Google took longer than 5 seconds twice | Usually a brief Google hiccup. If it keeps happening, tell the website's developer |
 
@@ -179,6 +185,6 @@ Customers can always finish their order on WhatsApp, even when the sheet isn't w
 If the key may have been seen by someone else, or a person who had it leaves:
 
 1. Part 4 again: **Add key** → **Create new key** → JSON.
-2. Put the new private key into `GOOGLE_PRIVATE_KEY` in Vercel and redeploy.
+2. In Cloudflare (Part 6), edit the `GOOGLE_PRIVATE_KEY` secret, paste the new private key, and click **Deploy**.
 3. Place a test order to confirm it works.
 4. Back on the robot's **Keys** tab, delete the old key (bin icon next to the older key ID).

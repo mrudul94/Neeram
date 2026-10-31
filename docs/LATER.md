@@ -14,11 +14,11 @@ Each was built test-first, and all 194 unit tests pass.
 - [x] Test that the setup guide's header rows match the code (`807ded9`)
 - [x] `formatPhone` returns unrecognised numbers unchanged (`86a137f`)
 - [x] Sheet dates written as `YYYY-MM-DD HH:mm` in IST (`02c2988`)
-- [ ] Push these commits (waiting for your go-ahead)
+- [x] Push these commits
 
 ## 2. Hosting on Cloudflare instead of Vercel
 
-Done in local commits, not yet pushed:
+Done and pushed:
 
 - [x] OpenNext adapter, `wrangler.jsonc` and `open-next.config.ts`; `npm run preview` works (`ab54c91`)
 - [x] Checked in the local Cloudflare preview:
@@ -28,12 +28,12 @@ Done in local commits, not yet pushed:
 - [x] Images served as pre-sized WebP with no resizing service, so no Cloudflare Images cost (`c6b769a`). The hero's attributes were also fixed (`5376725`).
 - [x] Cloudflare Turnstile on checkout and newsletter, verified server-side, with test keys in e2e (`192839a`). Also checked in the preview: a valid token passes, no token gets a 400, and the honeypot is still silent.
 
-Written but not committed yet (in the working tree):
+Docs (commit "Replace Vercel references with Cloudflare and add a launch checklist"):
 
-- [ ] Replace every Vercel reference with the Cloudflare equivalent. Covers `.env.example`, `.dev.vars.example`, `README.md`, `TODO_CONTENT.md`, `NEERAM_BUILD_PROMPT.md`, `.gitignore`, a comment in `src/lib/records.ts`, and `docs/ORDER_SHEET_SETUP.md` (Cloudflare secrets, Workers Logs, and the "same order number twice = one order" note).
+- [x] Replace every Vercel reference with the Cloudflare equivalent. Covers `.env.example`, `.dev.vars.example`, `README.md`, `TODO_CONTENT.md`, `NEERAM_BUILD_PROMPT.md`, `.gitignore`, a comment in `src/lib/records.ts`, and `docs/ORDER_SHEET_SETUP.md` (Cloudflare secrets, Workers Logs, and the "same order number twice = one order" note).
   - `neeram.vercel.app` in `src/app/(site)/about/page.tsx` and `TODO_CONTENT.md` is deliberately kept: it's the address of the old site the content came from.
-- [ ] `docs/LAUNCH_CHECKLIST.md`, the step-by-step version of section 3 below.
-- [ ] Run unit tests, e2e and the Cloudflare preview once more on the final tree, then commit and push.
+- [x] `docs/LAUNCH_CHECKLIST.md`, the step-by-step version of section 3 below.
+- [ ] Run unit tests, e2e and the Cloudflare preview once more on the final tree.
 
 ## 3. Before launch
 
@@ -46,4 +46,11 @@ Written but not committed yet (in the working tree):
 - [ ] **`SITE_LIVE`:** nothing in the code reads this variable yet. Decide what it should switch (for example search indexing or a "coming soon" notice) and build that before relying on it.
 - [ ] **Workers plan:** the built Worker is about 1.2 MB gzipped. Check the Free plan's size and CPU-time limits; Workers Paid ($5 a month) may be needed.
 - [ ] **Cloudflare account access:** keep it tight, since Workers Logs can contain customer details.
+- [ ] **Mobile performance.** Lighthouse lab runs on 31 Oct 2026 (local production build) scored poorly on mobile:
+  - home: 68, with the main content (LCP) loading at 6.1 s and 390 ms of main-thread blocking (TBT);
+  - product page: 58, with LCP 5.4 s and TBT 960 ms;
+  - checkout: 65, with LCP 5.1 s and TBT 640 ms;
+  - desktop home was fine at 97.
+
+  First paint is under about 1 s everywhere, so something after it delays the main content. Run `/webperf` again to find out what.
 - [ ] **Nice to have:** a hero photo at least 1800 px wide. The current one is 720 × 680, so it looks soft on large screens.

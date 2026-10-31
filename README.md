@@ -114,9 +114,11 @@ the customer choose a chat, so set it before launch.
 
 ## Forms and orders
 
-Newsletter sign-ups, notify-me requests and orders are appended to `data/*.jsonl` (git-ignored). This is for local
-development only: Vercel's filesystem is read-only, so there they are only logged. Connect an email service / database
-before launch (`src/lib/store-json.ts`, `src/app/api/subscribe/route.ts`).
+On the live site, orders and newsletter / notify-me sign-ups are appended to a Google Sheet after the response is
+sent (`src/lib/records.ts`, `src/lib/sheet.ts`); setup is in `docs/ORDER_SHEET_SETUP.md`. If the sheet can't be
+reached, the full record is logged to Workers Logs tagged `ORDER NOT SAVED TO SHEET` /
+`NEWSLETTER SIGN-UP NOT SAVED TO SHEET`. In local development and tests they go to `data/*.jsonl` (git-ignored)
+instead. Both forms have a honeypot field and a Cloudflare Turnstile check (`src/lib/turnstile.ts`).
 
 ## Images
 
@@ -126,5 +128,14 @@ The jar cut-outs and food photos were extracted from the design export by `scrip
 
 ## Deploying
 
-Push to a Git repo and import it in Vercel. Set `NEXT_PUBLIC_SITE_URL` (used for canonical URLs, Open Graph and
-JSON-LD).
+The site runs on Cloudflare Workers through the OpenNext adapter (`wrangler.jsonc`, `open-next.config.ts`).
+
+- `npm run preview` builds the Worker and runs it locally in the Cloudflare runtime, reading secrets from
+  `.dev.vars` (copy `.dev.vars.example`).
+- `npm run deploy` builds and deploys it (needs `npx wrangler login` first).
+- `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_TURNSTILE_SITE_KEY` are read at build time, so set them wherever the
+  build runs. Secrets (`TURNSTILE_SECRET_KEY`, `GOOGLE_*`) are set on the Worker, never committed.
+- Images are served as-is (`images.unoptimized`): every image is already a pre-sized WebP, so no paid image
+  resizing is needed.
+
+Before launch, go through `docs/LAUNCH_CHECKLIST.md`.

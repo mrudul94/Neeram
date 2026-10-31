@@ -28,7 +28,7 @@ Figma file. Otherwise use the tokens in section 2, which were sampled from the e
 
 ## 1. Tech stack
 
-- **Next.js (App Router) + TypeScript**, deployed to Vercel.
+- **Next.js (App Router) + TypeScript**, deployed to Cloudflare Workers (OpenNext adapter).
 - **Tailwind CSS** with the design tokens below as theme values (no random hex codes in components).
 - **GSAP + ScrollTrigger** for the bottle animation; **Lenis** for smooth scrolling (synced with ScrollTrigger).
 - **Zustand** for the cart (persisted to localStorage).

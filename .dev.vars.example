@@ -1,0 +1,12 @@
+# Copy to .dev.vars (gitignored) for the local Cloudflare preview (`npm run preview`).
+# The live Worker never reads this file; its secrets are set in the Cloudflare dashboard.
+
+# Cloudflare's always-pass test secret. Build with NEXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
+# to match. Never use test keys on the live site.
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+
+# Leave empty to see the "ORDER NOT SAVED TO SHEET" fallback, or point at a test sheet.
+# Never use the client's real sheet here.
+GOOGLE_SERVICE_ACCOUNT_EMAIL=
+GOOGLE_PRIVATE_KEY=
+GOOGLE_SHEET_ID=
