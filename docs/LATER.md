@@ -53,4 +53,5 @@ Docs (commit "Replace Vercel references with Cloudflare and add a launch checkli
   - desktop home was fine at 97.
 
   First paint is under about 1 s everywhere, so something after it delays the main content. Run `/webperf` again to find out what.
+- [ ] **Check the scroll bottle on real phones** (Android Chrome and iPhone Safari): the whole bottle shows on the first screen, travels into the dark coconut-oil panel, and lands there. It was fixed and tested only in desktop Chrome's phone emulation (390×844 and 360×780, touch scrolling, address bar hiding mid-scroll). If it misbehaves on a real phone, the fallback is to show the bottle photo in the hero and again in the panel on screens under 768 px, with no travel.
 - [ ] **Nice to have:** a hero photo at least 1800 px wide. The current one is 720 × 680, so it looks soft on large screens.

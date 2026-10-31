@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { isLoaderDone, whenLoaderDone } from "@/lib/loader";
 import { useCart } from "@/store/cart";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -32,13 +31,8 @@ export function SmoothScroll() {
     const tick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
-    // No scrolling under the first-visit loader.
-    lenis.stop();
-    const unlock = whenLoaderDone(() => {
-      if (!useCart.getState().drawerOpen) lenis.start();
-    });
+    if (useCart.getState().drawerOpen) lenis.stop();
     return () => {
-      unlock();
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = instance = null;
@@ -47,7 +41,7 @@ export function SmoothScroll() {
 
   useEffect(() => {
     if (drawerOpen) lenisRef.current?.stop();
-    else if (isLoaderDone()) lenisRef.current?.start();
+    else lenisRef.current?.start();
   }, [drawerOpen]);
 
   // New page: start at the top unless navigating to an anchor.

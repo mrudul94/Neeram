@@ -7,6 +7,7 @@ import { formatPrice } from "@/lib/format";
 import { usePackChoice } from "@/store/pack";
 import { AddToCartButton } from "../AddToCart";
 import { cx } from "../ui";
+import { BottleStill } from "./BottleStage";
 import { ENTER, EXIT, FADE, PACK_SLUG, play, reducedMotion } from "./swap";
 
 /**
@@ -23,7 +24,10 @@ export function FeatureStage() {
 
   return (
     <>
-      <div id="bottle-slot-feature" className="relative aspect-[2/3] h-[min(52svh,30rem)] md:h-[min(56svh,32rem)]" />
+      <div id="bottle-slot-feature" className="relative aspect-[2/3] h-[min(52svh,30rem)] md:h-[min(56svh,32rem)]">
+        {/* Shown until the scroll bottle is running (see BottleStage), so this panel is never empty. */}
+        <BottleStill className="feature-fallback" />
+      </div>
 
       <div role="group" aria-label="Choose a size" className="relative z-20 mt-8 flex gap-2 md:absolute md:bottom-20 md:left-10 md:mt-0 lg:gap-3">
         {packs.map((p) => {

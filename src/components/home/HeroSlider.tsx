@@ -24,7 +24,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
       className="relative isolate z-10 bg-ink text-cream md:min-h-[max(100svh,46rem)]"
     >
       <div aria-hidden className="absolute inset-y-0 right-0 -z-10 w-full md:w-[62%]">
-        <Image src={slide.image.src} alt="" fill preload data-loader-asset sizes="(max-width: 767px) 100vw, 62vw" className="object-cover object-[30%_50%]" />
+        <Image src={slide.image.src} alt="" fill preload sizes="(max-width: 767px) 100vw, 62vw" className="object-cover object-[30%_50%]" />
         <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/70 to-ink md:bg-gradient-to-r md:from-ink md:via-ink/55 md:to-ink/20" />
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink to-transparent" />
       </div>
@@ -35,7 +35,9 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           role={many ? "group" : undefined}
           aria-roledescription={many ? "slide" : undefined}
           aria-label={many ? `${index + 1} of ${slides.length}` : undefined}
-          className="grid flex-1 items-center gap-6 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-10"
+          // Phones: the bottle fills whatever the first screen has left below the text, so the
+          // whole bottle is visible on load (svh: measured with the address bar showing).
+          className="grid flex-1 items-center gap-6 max-md:min-h-[calc(100svh-7.5rem)] max-md:grid-rows-[auto_minmax(12rem,1fr)] md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-10"
         >
           <div className="md:py-12">
             <Eyebrow ml={slide.eyebrowMalayalam}>{slide.eyebrow}</Eyebrow>
@@ -58,10 +60,10 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           </div>
 
           {slide.productSlug === "coconut-oil" && (
-            <div className="flex justify-center md:justify-end md:self-end">
+            <div className="flex justify-center max-md:h-full max-md:self-stretch md:justify-end md:self-end">
               <div
                 id="bottle-slot-hero"
-                className="relative aspect-[2/3] h-[min(62svh,34rem)] md:h-[min(75svh,47rem)] md:-mb-6"
+                className="relative aspect-[2/3] h-full md:h-[min(75svh,47rem)] md:-mb-6"
               >
                 <BottleMover />
               </div>

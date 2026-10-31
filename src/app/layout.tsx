@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { CartDrawer } from "@/components/CartDrawer";
-import { Loader } from "@/components/Loader";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { site } from "@/data/content";
 import { fontVariables } from "./fonts";
@@ -31,7 +30,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={fontVariables}>
       <body className="min-h-dvh">
-        <Loader />
         <a href="#main" className="sr-only z-50 bg-ink px-4 py-2 text-cream focus:not-sr-only focus:fixed focus:top-2 focus:left-2">
           Skip to content
         </a>
