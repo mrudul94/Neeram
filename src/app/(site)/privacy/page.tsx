@@ -59,7 +59,7 @@ const sections: LegalSection[] = [
     title: "Cookies and browser storage",
     body: (
       <>
-        <p>We only use what the site needs to work. Your browser remembers your cart, and that you closed our notice about this. Both stay on your device, and clearing your browser data removes them.</p>
+        <p>We only use what the site needs to work. Your browser remembers your cart, and your choice on our cookie notice. Both stay on your device, and clearing your browser data removes them.</p>
         <p>Cloudflare&rsquo;s security check may set a cookie to tell people from bots. There are no advertising or analytics cookies.</p>
       </>
     ),

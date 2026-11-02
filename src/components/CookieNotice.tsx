@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { rectsOverlap } from "@/lib/rects";
-import { Eyebrow, buttonClass } from "./ui";
+import { buttonClass } from "./ui";
 
 const KEY = "neeram-notice-ok";
 const SHOW_AFTER_MS = 1200;
@@ -12,6 +12,8 @@ const LEAVE_MS = 150;
 /** The bottle's scrub keeps it moving after the scroll stops. */
 const SETTLE_MS = 750;
 const listeners = new Set<() => void>();
+/** Three buttons fit one row on a 360 px phone with slightly tighter lettering. */
+const narrow = "w-full text-[0.6875rem]! tracking-[0.08em]! md:text-xs!";
 
 const isDismissed = () => {
   try {
@@ -21,9 +23,12 @@ const isDismissed = () => {
   }
 };
 
-const dismiss = () => {
+/** The site has no optional cookies yet, so both choices behave the same; analytics or ads would have to honour this. */
+type Choice = "all" | "necessary";
+
+const save = (choice: Choice) => {
   try {
-    localStorage.setItem(KEY, "1");
+    localStorage.setItem(KEY, choice);
   } catch {}
   listeners.forEach((l) => l());
 };
@@ -36,9 +41,7 @@ const subscribe = (onChange: () => void) => {
 };
 
 /**
- * One-time notice: the site only uses what it needs to work, so there is nothing to accept
- * or reject. If analytics or ads are ever added, this must become a real consent banner.
- * It stays out of the way of anything marked data-keep-clear (the bottle, the checkout
+ * One-time cookie notice. It stays out of the way of anything marked data-keep-clear (the bottle, the checkout
  * button): it waits, or fades out, while its corner of the screen would cover one.
  */
 export function CookieNotice() {
@@ -49,6 +52,7 @@ export function CookieNotice() {
   const [ready, setReady] = useState(false);
   const [clear, setClear] = useState(false);
   const [leaving, setLeaving] = useState(false);
+  const [managing, setManaging] = useState(false);
 
   // Waits a moment after the page loads, so it doesn't compete with the hero.
   useEffect(() => {
@@ -68,7 +72,9 @@ export function CookieNotice() {
     let settle: ReturnType<typeof setTimeout>;
     const check = () => {
       if (!card.current) return;
-      const box = card.current.getBoundingClientRect();
+      // Its resting place, not where the entrance slide has it right now.
+      const { offsetLeft: left, offsetTop: top, offsetWidth: width, offsetHeight: height } = card.current;
+      const box = { left, top, width, height, right: left + width, bottom: top + height };
       const blocked = [...document.querySelectorAll("[data-keep-clear]")].some((el) => rectsOverlap(box, el.getBoundingClientRect(), 16));
       setClear(!blocked);
     };
@@ -89,12 +95,14 @@ export function CookieNotice() {
 
   if (dismissed) return null;
 
-  const close = () => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return dismiss();
+  const close = (choice: Choice) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return save(choice);
     setLeaving(true);
-    setTimeout(dismiss, LEAVE_MS);
+    setTimeout(() => save(choice), LEAVE_MS);
   };
-  const shown = ready && clear && !leaving;
+  // Stays put while someone is reading Manage, even if the taller card now meets a keep-clear item.
+  const shown = ready && (clear || managing) && !leaving;
+  const outline = `eyebrow inline-flex h-11 items-center justify-center border border-ink px-1 transition-colors hover:bg-ink hover:text-cream ${narrow}`;
 
   return (
     <aside
@@ -102,29 +110,37 @@ export function CookieNotice() {
       aria-label="Cookie notice"
       data-shown={shown || undefined}
       inert={!shown}
-      className="cookie-notice fixed inset-x-4 bottom-4 z-30 flex gap-3 rounded-[6px] border border-gold/45 bg-ink p-4 text-cream shadow-[0_12px_32px_rgb(22_19_15/0.35)] md:inset-x-auto md:bottom-6 md:left-6 md:w-[22.5rem]"
+      className="cookie-notice fixed inset-x-4 bottom-4 z-30 rounded-[6px] border border-ink/15 border-t-2 border-t-orange bg-cream p-4 text-ink shadow-[0_12px_32px_rgb(22_19_15/0.3)] md:right-6 md:bottom-6 md:left-auto md:w-[34rem] md:p-5"
     >
-      <svg aria-hidden viewBox="0 0 24 32" className="mt-0.5 h-8 w-6 shrink-0">
-        <defs>
-          <linearGradient id="notice-oil" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#f6db8c" />
-            <stop offset="0.45" stopColor="#e4b04a" />
-            <stop offset="1" stopColor="#a8701c" />
-          </linearGradient>
-        </defs>
-        <path d="M12 1C12 1 2 13.5 2 20.5a10 10 0 0 0 20 0C22 13.5 12 1 12 1Z" fill="url(#notice-oil)" />
-      </svg>
-      <div className="min-w-0 flex-1">
-        <Eyebrow className="text-[0.6875rem]">Good to know</Eyebrow>
-        <p className="mt-2 font-sans text-sm leading-snug">We only remember what&rsquo;s in your cart. No ads, no tracking.</p>
-        <div className="mt-3 flex items-center gap-5">
-          <button type="button" onClick={close} className={buttonClass("orange", "h-11! shrink-0 px-5!")}>
-            Got it
-          </button>
-          <Link href="/privacy#browser-storage" className="tap text-[0.8125rem] underline underline-offset-4 hover:text-orange">
-            Privacy policy
-          </Link>
-        </div>
+      <h2 className="eyebrow text-[0.8125rem]">Cookies on this website</h2>
+      <p className="mt-2 font-sans text-sm leading-snug text-muted">
+        We only store what the site needs: your cart, this choice and a security check. No analytics or marketing cookies.{" "}
+        <Link href="/privacy#browser-storage" className="tap text-orange-text underline underline-offset-2 hover:text-orange">
+          Privacy policy
+        </Link>
+      </p>
+      {managing && (
+        <dl id="cookie-details" className="mt-3 space-y-2 border-t border-ink/20 pt-3 text-[0.8125rem] leading-snug">
+          <div>
+            <dt className="font-semibold">Strictly necessary: always on</dt>
+            <dd className="text-muted">Your cart, this choice, and the security check on our forms. The site can&rsquo;t work without them.</dd>
+          </div>
+          <div>
+            <dt className="font-semibold">Analytics and marketing: not used</dt>
+            <dd className="text-muted">This site has none, so there is nothing to switch on or off.</dd>
+          </div>
+        </dl>
+      )}
+      <div className="mt-4 grid grid-cols-3 gap-2">
+        <button type="button" aria-expanded={managing} aria-controls="cookie-details" onClick={() => setManaging((m) => !m)} className={outline}>
+          Manage
+        </button>
+        <button type="button" onClick={() => close("necessary")} className={outline}>
+          Reject all
+        </button>
+        <button type="button" onClick={() => close("all")} className={buttonClass("orange", `h-11! px-1! ${narrow}`)}>
+          Accept all
+        </button>
       </div>
     </aside>
   );

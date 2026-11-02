@@ -7,7 +7,7 @@ test("the cookie notice stays gone after OK, across a reload", async ({ page }) 
   await page.goto("/shop");
   await expect(notice(page)).toBeVisible();
 
-  await notice(page).getByRole("button", { name: "Got it" }).click();
+  await notice(page).getByRole("button", { name: "Accept all" }).click();
   await expect(notice(page)).toBeHidden();
 
   await page.reload();
@@ -29,11 +29,21 @@ test("on phones the notice stays off the bottle's first screen, then appears fur
   await expect(notice(page)).toBeVisible();
 });
 
-test("on desktop the notice appears beside the hero bottle, not over it", async ({ page, isMobile }) => {
+test("on desktop the notice sits bottom right and waits while it would cover the bottle or buy buttons", async ({ page, isMobile, viewport }) => {
   test.skip(isMobile, "Desktop only");
   await page.goto("/");
+  await page.waitForTimeout(1800);
+  await expect(notice(page)).toBeHidden();
+
+  await page.getByRole("heading", { name: /A short shelf/ }).scrollIntoViewIfNeeded();
   await expect(notice(page)).toBeVisible();
-  expect(overlap((await notice(page).boundingBox())!, (await page.locator(".bottle-mover").boundingBox())!)).toBe(false);
+  const box = (await notice(page).boundingBox())!;
+  expect(Math.round(viewport!.width - (box.x + box.width))).toBe(24);
+
+  await page.goto("/products/coconut-oil");
+  await page.waitForTimeout(1800);
+  const buy = page.getByRole("button", { name: "Buy now" });
+  if (await notice(page).isVisible()) expect(overlap((await notice(page).boundingBox())!, (await buy.boundingBox())!)).toBe(false);
 });
 
 test("the notice never covers the checkout button", async ({ page }) => {
@@ -46,6 +56,24 @@ test("the notice never covers the checkout button", async ({ page }) => {
   if (await notice(page).isVisible()) expect(overlap((await notice(page).boundingBox())!, (await submit.boundingBox())!)).toBe(false);
   await expect(submit).toBeEnabled();
   await submit.click({ trial: true });
+});
+
+test("Reject all closes the notice, saves the choice and leaves the cart working", async ({ page }) => {
+  await page.goto("/shop");
+  await notice(page).getByRole("button", { name: "Reject all" }).click();
+  await expect(notice(page)).toBeHidden();
+  expect(await page.evaluate(() => localStorage.getItem("neeram-notice-ok"))).toBe("necessary");
+
+  await page.goto("/products/coconut-oil");
+  await page.getByRole("button", { name: /^Add/ }).locator("visible=true").first().click();
+  await expect(page.getByRole("dialog", { name: /Your cart/ })).toBeVisible();
+});
+
+test("Manage explains what is stored", async ({ page }) => {
+  await page.goto("/shop");
+  await notice(page).getByRole("button", { name: "Manage" }).click();
+  await expect(notice(page).getByText("Strictly necessary: always on")).toBeVisible();
+  await expect(notice(page).getByText("Analytics and marketing: not used")).toBeVisible();
 });
 
 test("the notice sits above the mobile buy bar, which stays usable", async ({ page, isMobile }) => {

@@ -70,7 +70,7 @@ export function PackPicker({ slug, className }: { slug: string; className?: stri
       <legend className="eyebrow text-[0.6875rem] text-muted">
         Choose a size · <span className="text-ink">{chosen.label}</span>
       </legend>
-      <div className="mt-3 grid grid-cols-4 gap-2">
+      <div className="mt-3 grid grid-cols-5 gap-1.5 lg:gap-2">
         {product.packs!.map((p) => {
           const on = p.id === chosen.id;
           return (
@@ -81,14 +81,14 @@ export function PackPicker({ slug, className }: { slug: string; className?: stri
               aria-label={`${p.label}, ${formatPrice(p.price ?? product.price)}`}
               onClick={() => choose(slug, p.id)}
               className={cx(
-                "flex flex-col items-center gap-1.5 border px-1 pt-2 pb-2.5 transition-colors duration-200",
+                "flex min-w-0 flex-col items-center gap-1.5 border px-0.5 pt-2 pb-2.5 transition-colors duration-200",
                 on ? "border-orange bg-sand ring-1 ring-orange" : "border-ink/25 hover:border-ink",
               )}
             >
               <span className="grid h-14 w-full place-items-center">
                 <Image src={p.image.src} alt="" width={p.image.width} height={p.image.height} sizes="4rem" className="max-h-14 w-auto max-w-full object-contain" />
               </span>
-              <span className="text-sm leading-none font-medium">{p.size}</span>
+              <span className="text-sm leading-none font-medium whitespace-nowrap md:max-lg:text-xs">{p.size}</span>
               <span className="eyebrow text-[0.5625rem] leading-none text-muted">{p.form === "Packet" ? "Packet" : "Bottle"}</span>
               <span className="text-[0.8125rem] leading-none tabular-nums">{formatPrice(p.price ?? product.price)}</span>
             </button>
@@ -136,7 +136,7 @@ export function PurchasePanel({ slug }: { slug: string }) {
   const product = getProduct(slug);
   if (!product) return null;
   return (
-    <div className="space-y-3">
+    <div data-keep-clear className="space-y-3">
       <div className="flex gap-3">
         <QtyStepper label={product.name} value={qty} onChange={setQty} />
         <AddToCartButton slug={slug} pack={pack?.id} qty={qty} className="flex-1">
