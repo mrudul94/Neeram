@@ -10,7 +10,8 @@ import { Shelf } from "@/components/Shelf";
 import { SubscribeForm } from "@/components/SubscribeForm";
 import { Eyebrow, MalayalamDisplay, SpecTable, cx } from "@/components/ui";
 import { site } from "@/data/content";
-import { getProduct, isAvailable, products, type Product } from "@/data/products";
+import { getProduct, isAvailable, products, type Product, type Spec } from "@/data/products";
+import { packagedDetails } from "@/lib/legal";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -85,7 +86,7 @@ function TitleBlock({ product }: { product: Product }) {
   );
 }
 
-const accordions = (product: Product) => [
+const accordions = (product: Product): { title: string; body?: string; specs?: Spec[] }[] => [
   {
     title: "Ingredients",
     body: product.category === "Oil" ? "100% coconut oil. [Confirm the exact wording for the label and listing.]" : `100% ${product.name.toLowerCase()}.`,
@@ -101,6 +102,7 @@ const accordions = (product: Product) => [
     title: "Shipping & returns",
     body: "[Delivery areas, delivery times, charges and the returns policy.]",
   },
+  { title: "Product information", specs: packagedDetails(product) },
 ];
 
 function AvailableProduct({ product }: { product: Product }) {
@@ -152,7 +154,7 @@ function AvailableProduct({ product }: { product: Product }) {
                     +
                   </span>
                 </summary>
-                <p className="pb-5 font-serif leading-relaxed text-muted">{a.body}</p>
+                {a.specs ? <SpecTable specs={a.specs} className="mb-5" /> : <p className="pb-5 font-serif leading-relaxed text-muted">{a.body}</p>}
               </details>
             ))}
           </div>

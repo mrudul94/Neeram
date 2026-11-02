@@ -1,19 +1,56 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Eyebrow } from "@/components/ui";
+import { site } from "@/data/content";
+import { toBeConfirmed } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Help",
   description: "Shipping, returns, order tracking and contact details for Neeram.",
 };
 
-// Every body here is a placeholder for the client to replace (see TODO_CONTENT.md).
+const link = "underline decoration-orange underline-offset-4 hover:text-orange";
+const officer = site.grievanceOfficer;
+
+// Bracketed text is for the client to supply (see TODO_CONTENT.md).
 const sections = [
-  { id: "shipping", title: "Shipping & delivery", body: "[Where you deliver, how long it takes, and what it costs.]" },
+  {
+    id: "shipping",
+    title: "Shipping & delivery",
+    body: "We confirm the delivery charge on WhatsApp after you order, and your order ships once it is paid. [Delivery areas and times: to be confirmed.]",
+  },
   { id: "returns", title: "Returns & refunds", body: "[What can be returned, within how many days, and how refunds are paid.]" },
   { id: "track", title: "Track an order", body: "[How customers track an order — courier link, WhatsApp number, or email.]" },
-  { id: "contact", title: "Contact us", body: "[Phone, WhatsApp, email and business hours.]" },
-  { id: "privacy", title: "Privacy policy", body: "[Privacy policy text.]" },
-  { id: "terms", title: "Terms of service", body: "[Terms of service text, including FSSAI licence number and registered business address.]" },
+  {
+    id: "contact",
+    title: "Contact us",
+    body: (
+      <>
+        Phone: {toBeConfirmed(site.support.phone)}. Email: {toBeConfirmed(site.support.email)}. Hours: {toBeConfirmed(site.support.hours)}.
+        <br />
+        <br />
+        Grievance Officer: {toBeConfirmed(officer.name)}, {toBeConfirmed(officer.designation)}. Phone: {toBeConfirmed(officer.phone)}. Email: {toBeConfirmed(officer.email)}.
+      </>
+    ),
+  },
+  {
+    id: "privacy",
+    title: "Privacy policy",
+    body: (
+      <Link href="/privacy" className={link}>
+        Read our privacy policy
+      </Link>
+    ),
+  },
+  {
+    id: "terms",
+    title: "Terms of service",
+    body: (
+      <Link href="/terms" className={link}>
+        Read our terms of service
+      </Link>
+    ),
+  },
 ];
 
 export default function HelpPage() {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { products } from "@/data/products";
-import { site } from "@/data/content";
+import { legalLinks, site } from "@/data/content";
+import { toBeConfirmed } from "@/lib/format";
 import { SubscribeForm } from "./SubscribeForm";
 import { Wordmark } from "./Wordmark";
 
@@ -20,8 +21,7 @@ const columns: { title: string; links: { label: string; href: string | null }[] 
     links: [
       { label: "About us", href: "/about" },
       { label: "The kitchen", href: "/#kitchen" },
-      { label: "Privacy policy", href: "/help#privacy" },
-      { label: "Terms of service", href: "/help#terms" },
+      ...legalLinks,
     ],
   },
   { title: "Follow", links: Object.entries(site.socials).map(([label, href]) => ({ label, href })) },
@@ -61,7 +61,7 @@ export function Footer() {
           ))}
         </div>
         <p className="mt-10 border-t border-cream/20 pt-4 text-xs text-cream/90">
-          © 2026 {site.legalName} · {site.address}
+          © 2026 {site.legalName} · {toBeConfirmed(site.address)}
           {site.fssaiLicence && <> · FSSAI Lic. No. {site.fssaiLicence}</>}
         </p>
         <Wordmark className="mt-8 block w-full text-orange md:mt-10" />

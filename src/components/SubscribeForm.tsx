@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useId, useRef, useState, type FormEvent } from "react";
 import { HONEYPOT_FIELD } from "@/lib/bot-check";
 import { Honeypot } from "./Honeypot";
@@ -83,6 +84,13 @@ export function SubscribeForm({ topic, submitLabel = "Subscribe", tone = "dark",
       {checking && <Turnstile ref={turnstile} onToken={(t) => (token.current = t)} className="mt-3" />}
       <p role="status" aria-live="polite" className={cx("mt-3 min-h-5 text-sm", status === "error" && (tone === "dark" ? "text-orange" : "text-orange-text"))}>
         {status === "done" || status === "error" ? message : ""}
+      </p>
+      <p className={cx("mt-1 text-xs", tone === "dark" ? "text-cream/70" : "text-muted")}>
+        By signing up you agree to our{" "}
+        <Link href="/privacy" className="tap underline underline-offset-2 hover:text-orange">
+          Privacy Policy
+        </Link>
+        .
       </p>
     </form>
   );

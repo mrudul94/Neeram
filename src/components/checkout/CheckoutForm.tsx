@@ -219,6 +219,18 @@ export function CheckoutForm() {
               {formError}
             </p>
           )}
+          {/* New tabs, so reading these doesn't lose what's typed in the form. */}
+          <p className="mb-3 text-center text-[0.8125rem] text-muted">
+            By sending this order you agree to our{" "}
+            <Link href="/terms" target="_blank" className="tap underline underline-offset-2 hover:text-orange-text">
+              Terms
+            </Link>{" "}
+            and{" "}
+            <Link href="/privacy" target="_blank" className="tap underline underline-offset-2 hover:text-orange-text">
+              Privacy Policy
+            </Link>
+            .
+          </p>
           <button type="submit" value="whatsapp" disabled={busy} className={buttonClass("orange", "h-14 w-full")}>
             {busy ? "Sending…" : `Send order on WhatsApp · ${formatPrice(total)}`}
           </button>

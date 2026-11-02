@@ -68,11 +68,40 @@ export type Certificate = {
   height: number;
 };
 
+export const legalLinks = [
+  { label: "Privacy policy", href: "/privacy" },
+  { label: "Terms of service", href: "/terms" },
+];
+
 export const site = {
   name: "Neeram",
-  legalName: "Neeram Coconut Oil",
+  legalName: "Neeram Coconut Industries Private Limited",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  address: "[Business address, Kerala]",
+  // Blank details below show as "[to be confirmed]" (see TODO_CONTENT.md).
+  address: null as string | null,
+  gstin: null as string | null,
+  /** Named on the Privacy Policy, Terms and Help pages, as the E-Commerce Rules 2020 require. */
+  grievanceOfficer: {
+    name: null as string | null,
+    designation: null as string | null,
+    phone: null as string | null,
+    email: null as string | null,
+  },
+  support: {
+    phone: null as string | null,
+    email: null as string | null,
+    hours: null as string | null,
+  },
+  /** How long order records are kept, for the Privacy Policy. */
+  dataRetention: null as string | null,
+  /** Courts named in the Terms, e.g. "Kasaragod, Kerala". */
+  jurisdiction: null as string | null,
+  /** Details every product listing shows (src/lib/legal.ts). */
+  packaged: {
+    manufacturer: null as string | null,
+    mrp: null as string | null,
+    bestBefore: null as string | null,
+  },
   aboutText:
     "Neeram started up on 21 August 2020 and is owned by Sharath K Sasikumar, with 29 coconut producer companies in Kerala behind it. The oil is pressed at our own mill in Anakkallu, Kerala, from coconuts bought straight from member farms. It is sealed at the mill, in clear bottles and pouches, with nothing added.",
   /**

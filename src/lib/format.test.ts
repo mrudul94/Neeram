@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatPrice } from "./format";
+import { formatPrice, toBeConfirmed } from "./format";
 
 describe("formatPrice", () => {
   it("formats rupees with a spaced symbol", () => {
@@ -20,5 +20,15 @@ describe("formatPrice", () => {
 
   it("shows zero as a price, not as unknown", () => {
     expect(formatPrice(0)).toBe("₹ 0");
+  });
+});
+
+describe("toBeConfirmed", () => {
+  it("keeps a value that has been supplied", () => {
+    expect(toBeConfirmed("Kochi, Kerala")).toBe("Kochi, Kerala");
+  });
+
+  it.each([null, undefined, "", "   "])("shows a visible gap for %j", (value) => {
+    expect(toBeConfirmed(value)).toBe("[to be confirmed]");
   });
 });
