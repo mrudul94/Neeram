@@ -47,12 +47,11 @@ Docs (commit "Replace Vercel references with Cloudflare and add a launch checkli
 - [ ] **`SITE_LIVE=1`:** set it as a build variable at launch, or the site stays out of search (`docs/LAUNCH_CHECKLIST.md`).
 - [ ] **Workers plan:** the built Worker is about 1.2 MB gzipped. Check the Free plan's size and CPU-time limits; Workers Paid ($5 a month) may be needed.
 - [ ] **Cloudflare account access:** keep it tight, since Workers Logs can contain customer details.
-- [ ] **Mobile performance.** Lighthouse lab runs on 31 Oct 2026 (local production build) scored poorly on mobile:
-  - home: 68, with the main content (LCP) loading at 6.1 s and 390 ms of main-thread blocking (TBT);
-  - product page: 58, with LCP 5.4 s and TBT 960 ms;
-  - checkout: 65, with LCP 5.1 s and TBT 640 ms;
-  - desktop home was fine at 97.
+- [ ] **Mobile performance: improved, target not met.** Lighthouse mobile, local production build, median of 3 (2 Nov 2026), target score 90+, LCP under 2.5 s, TBT under 200 ms:
+  - home: 55 to 69, LCP 9.2 s to 4.7 s, TBT 558 to 516 ms;
+  - coconut oil: 58 to 71, LCP 9.2 s to 4.4 s, TBT 803 to 464 ms;
+  - checkout with a cart: 69 to 89, LCP 5.3 s to 0.8 s, TBT 515 to 431 ms;
+  - CLS is under 0.1 on all three.
 
-  First paint is under about 1 s everywhere, so something after it delays the main content. Run `/webperf` again to find out what.
-- [ ] **Check the scroll bottle on real phones** (Android Chrome and iPhone Safari): the whole bottle shows on the first screen, travels into the dark coconut-oil panel, and lands there. It was fixed and tested only in desktop Chrome's phone emulation (390×844 and 360×780, touch scrolling, address bar hiding mid-scroll). If it misbehaves on a real phone, the fallback is to show the bottle photo in the hero and again in the panel on screens under 768 px, with no travel.
+  What's left is mainly React and Next itself (about 220 KB of scripts and one long hydration task). Measure the live site on a real phone and with PageSpeed Insights before doing more; local simulation on this PC is noisy. If it's still short, the next step is fewer client components on the first screen.
 - [ ] **Nice to have:** a hero photo at least 1800 px wide. The current one is 720 × 680, so it looks soft on large screens.
