@@ -3,6 +3,7 @@ import Link from "next/link";
 import { hasSizes, isAvailable, lowestPrice, type Product } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { AddToCartButton } from "./AddToCart";
+import { NearView } from "./NearView";
 import { cx } from "./ui";
 
 /** Products standing on one thin line, info cells below split by vertical hairlines. */
@@ -29,18 +30,20 @@ function ShelfItem({ product: p, first }: { product: Product; first: boolean }) 
   return (
     <li className="group relative flex flex-col" style={{ scrollSnapAlign: "start" }}>
       <div className="relative flex h-[13rem] items-end justify-center border-b border-ink md:h-[15.5rem]">
-        <Image
-          src={img.src}
-          alt=""
-          width={img.width}
-          height={img.height}
-          sizes="10rem"
-          className={cx(
-            "w-auto drop-shadow-[0_10px_8px_rgb(22_19_15/0.18)] transition-transform duration-300 group-hover:-translate-y-1",
-            !available && "opacity-85 grayscale-[0.55]",
-          )}
-          style={{ height: `${Math.round(p.shelfScale * 92)}%` }}
-        />
+        <NearView className="flex h-full items-end justify-center">
+          <Image
+            src={img.src}
+            alt=""
+            width={img.width}
+            height={img.height}
+            sizes="10rem"
+            className={cx(
+              "w-auto drop-shadow-[0_10px_8px_rgb(22_19_15/0.18)] transition-transform duration-300 group-hover:-translate-y-1",
+              !available && "opacity-85 grayscale-[0.55]",
+            )}
+            style={{ height: `${Math.round(p.shelfScale * 92)}%` }}
+          />
+        </NearView>
         {!available && (
           <span className="eyebrow absolute top-2 right-2 bg-ink px-2 py-1 text-[0.5625rem] text-cream">Coming soon</span>
         )}

@@ -34,7 +34,12 @@ export function CartDrawer() {
   }, [open]);
 
   // Close when navigating (e.g. to checkout or a product page).
-  useEffect(() => closeDrawer(), [pathname, closeDrawer]);
+  const shownOn = useRef(pathname);
+  useEffect(() => {
+    if (shownOn.current === pathname) return;
+    shownOn.current = pathname;
+    closeDrawer();
+  }, [pathname, closeDrawer]);
 
   return (
     <dialog

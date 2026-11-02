@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { CartDrawer } from "@/components/CartDrawer";
-import { CookieNotice } from "@/components/CookieNotice";
+import { CartDrawerLazy } from "@/components/CartDrawerLazy";
+import { CookieNoticeLazy } from "@/components/CookieNoticeLazy";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { site } from "@/data/content";
 import { isSiteLive } from "@/lib/seo";
@@ -38,9 +38,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         {children}
-        <CartDrawer />
+        <CartDrawerLazy />
         <SmoothScroll />
-        <CookieNotice />
+        <CookieNoticeLazy />
       </body>
     </html>
   );

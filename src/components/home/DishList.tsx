@@ -6,7 +6,7 @@ import { Eyebrow } from "../ui";
 
 export function DishList() {
   return (
-    <section id="kitchen" aria-labelledby="dishes-title" className="scroll-mt-4 bg-ink py-20 text-cream md:py-28">
+    <section id="kitchen" aria-labelledby="dishes-title" className="defer-render scroll-mt-4 bg-ink py-20 text-cream md:py-28">
       <div className="wrap">
         <Eyebrow>From the Neeram kitchen</Eyebrow>
         <h2 id="dishes-title" className="display mt-4 text-[clamp(3.5rem,7.6vw,6.25rem)]">
@@ -55,7 +55,7 @@ export function DishList() {
               sizes="(max-width: 767px) 100vw, 20rem"
               className="w-full"
             />
-            <figcaption className="mt-3 font-serif text-[0.9375rem] text-cream/85 italic">
+            <figcaption className="mt-3 font-[family-name:var(--font-inter-italic)] text-[0.9375rem] text-cream/85 italic">
               Sambar · with Neeram Tamarind and Turmeric
             </figcaption>
           </figure>

@@ -11,7 +11,7 @@ const callouts = [
 
 export function LookBeforeYouOpen() {
   return (
-    <section aria-labelledby="look-title" className="py-20 md:py-28">
+    <section aria-labelledby="look-title" className="defer-render py-20 md:py-28">
       <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10">
         <div>
           <Eyebrow>The Neeram bottle</Eyebrow>

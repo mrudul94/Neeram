@@ -162,3 +162,36 @@ test("every renamed image still loads", async ({ page }) => {
   }
   expect(broken).toEqual([]);
 });
+
+test("at 360 px the mobile buy bar keeps the price on one line", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 780 });
+  await page.goto("/products/coconut-oil");
+  const button = page.locator(".mobile-buy-bar").getByRole("button", { name: /^Add/ });
+  await expect(button).toBeVisible();
+  const text = await button.evaluate((b) => {
+    const range = document.createRange();
+    range.selectNodeContents(b);
+    return { lines: new Set([...range.getClientRects()].map((r) => Math.round(r.top))).size, clipped: b.scrollWidth > b.clientWidth };
+  });
+  expect(text).toEqual({ lines: 1, clipped: false });
+});
+
+test("Turnstile only loads on checkout, or once someone starts on a sign-up form", async ({ page }) => {
+  const turnstile: string[] = [];
+  page.on("request", (r) => {
+    if (r.url().includes("challenges.cloudflare.com")) turnstile.push(r.url());
+  });
+  for (const path of ["/", "/products/coconut-oil", "/shop"]) {
+    await page.goto(path);
+    await page.waitForTimeout(800);
+  }
+  expect(turnstile).toEqual([]);
+
+  await page.locator("footer").getByPlaceholder("Email address").focus();
+  await expect.poll(() => turnstile.length).toBeGreaterThan(0);
+});
+
+test("checkout's heading is in the first HTML, before any JavaScript runs", async ({ request }) => {
+  const html = await (await request.get("/checkout")).text();
+  expect(html).toMatch(/<h1[^>]*>Checkout<\/h1>/);
+});

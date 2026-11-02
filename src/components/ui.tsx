@@ -12,7 +12,7 @@ export function Eyebrow({ children, className, ml, as: Tag = "p" }: { children: 
       <span aria-hidden className="h-px w-6 shrink-0 bg-orange" />
       <span>{children}</span>
       {ml && (
-        <span lang="ml" className="font-ml text-[0.8125rem] font-medium normal-case tracking-normal">
+        <span lang="ml" className="font-ml text-[0.8125rem] leading-5 font-medium normal-case tracking-normal">
           {ml}
         </span>
       )}

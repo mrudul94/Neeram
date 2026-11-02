@@ -1,14 +1,11 @@
 "use client";
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { getPack, getProduct } from "@/data/products";
 import { FRAME_COUNT, STILL_SRC, USE_FRAMES, frameSrc } from "@/lib/bottle";
+import { afterPageLoad, loadMotion, type Motion } from "@/lib/motion";
 import { usePackChoice } from "@/store/pack";
 import { BASELINE, ENTER, EXIT, FADE, PACK_SLUG, play, reducedMotion, shadowWidth } from "./swap";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /** Progress below/above which the bottle counts as at rest (photo shown). Set a little
  * inside the travel so the bottle is already moving and turning when it swaps. */
@@ -30,73 +27,21 @@ const REST_MARGIN = 0.01;
 export function BottleStage({ children }: { children: ReactNode }) {
   const stageRef = useRef<HTMLDivElement>(null);
 
-  // Starts on page load. Until it runs (or if it never does), a still bottle shows in the
-  // feature slot as well, so the landing panel is never empty; [data-live] hides it.
+  // The animation code loads after the page does (or on the first scroll), so it can't hold up
+  // the first paint. Until it runs (or if it never does), a still bottle shows in the feature
+  // slot as well, so the landing panel is never empty; [data-live] hides it.
   useEffect(() => {
-    const stage = stageRef.current!;
-    const mover = stage.querySelector<HTMLElement>(".bottle-mover");
-    const heroSlot = stage.querySelector<HTMLElement>("#bottle-slot-hero");
-    const featureSlot = stage.querySelector<HTMLElement>("#bottle-slot-feature");
-    if (!mover || !heroSlot || !featureSlot) return;
-    // Reduced motion: the bottle still travels to the feature, but without tilt,
-    // sweep or turn.
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Mobile browsers resize the viewport as their address bar shows and hides; the
-    // landing point doesn't depend on viewport height, so there's no need to re-measure.
-    ScrollTrigger.config({ ignoreMobileResize: true });
-
-    // Layout positions (offsetTop/Left), not getBoundingClientRect: an animation on a
-    // slot's ancestors (e.g. the size switch) can't skew the measurement.
-    const pagePos = (el: HTMLElement) => {
-      let x = 0;
-      let y = 0;
-      for (let e: HTMLElement | null = el; e; e = e.offsetParent as HTMLElement | null) {
-        x += e.offsetLeft;
-        y += e.offsetTop;
-      }
-      return { x, y };
-    };
-    const delta = () => {
-      const h = pagePos(heroSlot);
-      const f = pagePos(featureSlot);
-      return { x: f.x - h.x, y: f.y - h.y, scale: featureSlot.offsetHeight / heroSlot.offsetHeight };
-    };
-
-    const canvas = mover.querySelector("canvas");
-    const turn = USE_FRAMES && !reduced && canvas ? frameTurn(mover, canvas) : null;
-
-    const tl = gsap.timeline({
-      onUpdate: turn ? () => turn.update(tl.progress()) : undefined,
-      scrollTrigger: {
-        trigger: stage,
-        start: "top top",
-        endTrigger: featureSlot,
-        end: "center center",
-        scrub: 0.6,
-        invalidateOnRefresh: true,
-      },
+    let live = true;
+    let stop: (() => void) | undefined;
+    const cancel = afterPageLoad(() => {
+      void loadMotion().then((motion) => {
+        if (live) stop = startTravel(stageRef.current!, motion);
+      });
     });
-    tl.to(mover, { x: () => delta().x, y: () => delta().y, scale: () => delta().scale, ease: "power1.inOut", duration: 1 }, 0);
-    if (!USE_FRAMES && !reduced) addPhotoMotion(tl, mover);
-    stage.setAttribute("data-live", "");
-
-    // Fonts, images and late layout can move the slots after first paint.
-    const refresh = () => ScrollTrigger.refresh();
-    document.fonts?.ready.then(refresh);
-    if (document.readyState !== "complete") window.addEventListener("load", refresh, { once: true });
-    const ro = new ResizeObserver(refresh);
-    ro.observe(stage);
-
     return () => {
-      ro.disconnect();
-      window.removeEventListener("load", refresh);
-      stage.removeAttribute("data-live");
-      turn?.dispose();
-      tl.scrollTrigger?.kill();
-      tl.kill();
-      gsap.set(mover, { clearProps: "transform" });
-      // Only what the timeline set: React owns the shadow's size and the sheen's mask.
-      gsap.set(mover.querySelectorAll(".bottle-tilt, .bottle-sheen, .bottle-shadow"), { clearProps: "transform,opacity,filter,backgroundPosition" });
+      live = false;
+      cancel();
+      stop?.();
     };
   }, []);
 
@@ -107,12 +52,85 @@ export function BottleStage({ children }: { children: ReactNode }) {
   );
 }
 
+function startTravel(stage: HTMLElement, motion: Motion) {
+  const { gsap, ScrollTrigger } = motion;
+  const mover = stage.querySelector<HTMLElement>(".bottle-mover");
+  const heroSlot = stage.querySelector<HTMLElement>("#bottle-slot-hero");
+  const featureSlot = stage.querySelector<HTMLElement>("#bottle-slot-feature");
+  if (!mover || !heroSlot || !featureSlot) return;
+  // Reduced motion: the bottle still travels to the feature, but without tilt,
+  // sweep or turn.
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Mobile browsers resize the viewport as their address bar shows and hides; the
+  // landing point doesn't depend on viewport height, so there's no need to re-measure.
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
+  // Layout positions (offsetTop/Left), not getBoundingClientRect: an animation on a
+  // slot's ancestors (e.g. the size switch) can't skew the measurement.
+  const pagePos = (el: HTMLElement) => {
+    let x = 0;
+    let y = 0;
+    for (let e: HTMLElement | null = el; e; e = e.offsetParent as HTMLElement | null) {
+      x += e.offsetLeft;
+      y += e.offsetTop;
+    }
+    return { x, y };
+  };
+  const delta = () => {
+    const h = pagePos(heroSlot);
+    const f = pagePos(featureSlot);
+    return { x: f.x - h.x, y: f.y - h.y, scale: featureSlot.offsetHeight / heroSlot.offsetHeight };
+  };
+
+  const canvas = mover.querySelector("canvas");
+  const turn = USE_FRAMES && !reduced && canvas ? frameTurn(motion, mover, canvas) : null;
+
+  const tl = gsap.timeline({
+    onUpdate: () => {
+      // The sweep layer stays out of the first paint; it only matters once the bottle moves.
+      if (tl.progress() > 0) stage.setAttribute("data-moving", "");
+      turn?.update(tl.progress());
+    },
+    scrollTrigger: {
+      trigger: stage,
+      start: "top top",
+      endTrigger: featureSlot,
+      end: "center center",
+      scrub: 0.6,
+      invalidateOnRefresh: true,
+    },
+  });
+  tl.to(mover, { x: () => delta().x, y: () => delta().y, scale: () => delta().scale, ease: "power1.inOut", duration: 1 }, 0);
+  if (!USE_FRAMES && !reduced) addPhotoMotion(gsap, tl, mover);
+  stage.setAttribute("data-live", "");
+
+  // Fonts, images and late layout can move the slots after first paint.
+  const refresh = () => ScrollTrigger.refresh();
+  document.fonts?.ready.then(refresh);
+  if (document.readyState !== "complete") window.addEventListener("load", refresh, { once: true });
+  const ro = new ResizeObserver(refresh);
+  ro.observe(stage);
+
+  return () => {
+    ro.disconnect();
+    window.removeEventListener("load", refresh);
+    stage.removeAttribute("data-live");
+  stage.removeAttribute("data-moving");
+    turn?.dispose();
+    tl.scrollTrigger?.kill();
+    tl.kill();
+    gsap.set(mover, { clearProps: "transform" });
+    // Only what the timeline set: React owns the shadow's size and the sheen's mask.
+    gsap.set(mover.querySelectorAll(".bottle-tilt, .bottle-sheen, .bottle-shadow"), { clearProps: "transform,opacity,filter,backgroundPosition" });
+  };
+}
+
 /**
  * Photo mode, on the travel timeline (0-1): a light 3D turn (rotateY 0 → −12° → +8° → 0
  * with a ±3° lean), one light sweep across the bottle, and a shadow that stretches and
  * softens in flight and settles on landing.
  */
-function addPhotoMotion(tl: gsap.core.Timeline, mover: HTMLElement) {
+function addPhotoMotion(gsap: Motion["gsap"], tl: gsap.core.Timeline, mover: HTMLElement) {
   const tilt = mover.querySelector(".bottle-tilt");
   const sheen = mover.querySelector(".bottle-sheen");
   const shadow = mover.querySelector(".bottle-shadow");
@@ -140,7 +158,7 @@ function addPhotoMotion(tl: gsap.core.Timeline, mover: HTMLElement) {
  * position has loaded and been drawn, so on a slow connection the photo keeps
  * travelling instead of the bottle disappearing.
  */
-function frameTurn(mover: HTMLElement, canvas: HTMLCanvasElement) {
+function frameTurn({ gsap, ScrollTrigger }: Motion, mover: HTMLElement, canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext("2d")!;
   const set = window.matchMedia("(max-width: 767px)").matches ? "mobile" : "desktop";
   const frames: (HTMLImageElement | null)[] = new Array(FRAME_COUNT).fill(null);
@@ -266,7 +284,7 @@ export function BottleStill({ priority, className }: { priority?: boolean; class
         height={1500}
         fetchPriority={priority ? "high" : "auto"}
         loading={priority ? "eager" : "lazy"}
-        decoding="async"
+        decoding={priority ? "sync" : "async"}
         className="absolute inset-0 h-full w-full object-contain"
       />
     </picture>
@@ -295,13 +313,25 @@ export function BottleMover() {
   /** The image on screen has started (or finished) its exit. */
   const out = useRef(false);
 
-  // Preload every size so a switch never waits on the network or flashes.
+  // Fetch the other sizes as the size buttons come near, so a switch never waits on the network
+  // or flashes, without competing with the first screen's images.
   useEffect(() => {
-    for (const p of packs.slice(1)) {
-      const img = new window.Image();
-      img.src = p.image.src;
-      void img.decode().catch(() => {});
-    }
+    const slot = document.querySelector("#bottle-slot-feature");
+    if (!slot) return;
+    const seen = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        seen.disconnect();
+        for (const p of packs.slice(1)) {
+          const img = new window.Image();
+          img.src = p.image.src;
+          void img.decode().catch(() => {});
+        }
+      },
+      { rootMargin: "100px" },
+    );
+    seen.observe(slot);
+    return () => seen.disconnect();
   }, [packs]);
 
   useEffect(() => {

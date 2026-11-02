@@ -101,7 +101,7 @@ describe("resolveLines", () => {
       key: "coconut-oil:pouch-500",
       sizeLabel: "500 ml packet",
       lineTotal: 250,
-      image: { src: "/images/packs/neeram-coconut-oil-500ml-packet.webp" },
+      image: { src: "/images/packs/neeram-coconut-oil-500ml-packet-thumb.webp" },
     });
   });
 

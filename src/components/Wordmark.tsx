@@ -1,10 +1,7 @@
 "use client";
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useId, useRef, useState } from "react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { afterPageLoad, loadMotion, type Motion } from "@/lib/motion";
 
 const W = 1200;
 const H = 330;
@@ -25,15 +22,19 @@ export function Wordmark({ className }: { className?: string }) {
   const textRef = useRef<SVGTextElement>(null);
   /** Left edge of each letter's slot, plus the right edge of the last one. */
   const [edges, setEdges] = useState<number[] | null>(null);
+  const motion = useRef<Motion | null>(null);
   const id = useId().replace(/[^a-zA-Z0-9-]/g, "");
 
-  // Measure the letters once the display font has loaded.
+  // After the page has loaded: fetch the animation code, then measure the letters once the
+  // display font is in.
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let live = true;
-    document.fonts.ready.then(() => {
+    const cancel = afterPageLoad(async () => {
+      const [loaded] = await Promise.all([loadMotion(), document.fonts.ready]);
       const text = textRef.current;
       if (!live || !text) return;
+      motion.current = loaded;
       const boxes = [...WORD].map((_, i) => text.getExtentOfChar(i));
       // Split halfway across each gap, so no letter's slot shows a sliver of its neighbour.
       const cuts = boxes.slice(1).map((b, i) => (boxes[i].x + boxes[i].width + b.x) / 2);
@@ -41,11 +42,13 @@ export function Wordmark({ className }: { className?: string }) {
     });
     return () => {
       live = false;
+      cancel();
     };
   }, []);
 
   useEffect(() => {
-    if (!edges) return;
+    if (!edges || !motion.current) return;
+    const { gsap, ScrollTrigger } = motion.current;
     const svg = svgRef.current!;
     const letters = svg.querySelectorAll(".wordmark-letter");
     const tween = gsap.fromTo(
@@ -98,7 +101,17 @@ export function Wordmark({ className }: { className?: string }) {
       svg.addEventListener("pointerleave", onLeave);
     }
 
+    // Sections above lay out as they come near, which moves this; keep the trigger aligned.
+    let settle: ReturnType<typeof setTimeout>;
+    const moved = new ResizeObserver(() => {
+      clearTimeout(settle);
+      settle = setTimeout(() => ScrollTrigger.refresh(), 200);
+    });
+    moved.observe(document.body);
+
     return () => {
+      clearTimeout(settle);
+      moved.disconnect();
       svg.removeEventListener("pointerenter", onEnter);
       svg.removeEventListener("pointermove", onMove);
       svg.removeEventListener("pointerleave", onLeave);

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { AddToCartButton, ChosenPackLabel, MobileBuyBar, PackPicker, PackPrice, PurchasePanel } from "@/components/AddToCart";
 import { JsonLd } from "@/components/JsonLd";
+import { NearView } from "@/components/NearView";
 import { OilBand } from "@/components/OilBand";
 import { Gallery } from "@/components/product/Gallery";
 import { Shelf } from "@/components/Shelf";
@@ -165,13 +166,15 @@ function AvailableProduct({ product }: { product: Product }) {
         <ul className="mt-8 flex gap-6">
           {tempering.map((p) => (
             <li key={p.slug} className="flex w-20 flex-col items-center text-center">
-              <Image
-                src={p.images[0].src}
-                alt=""
-                width={p.images[0].width}
-                height={p.images[0].height}
-                className={cx("h-24 w-auto", !isAvailable(p) && "opacity-80 grayscale-[0.55]")}
-              />
+              <NearView className="flex h-24 justify-center">
+                <Image
+                  src={p.images[0].src}
+                  alt=""
+                  width={p.images[0].width}
+                  height={p.images[0].height}
+                  className={cx("h-24 w-auto", !isAvailable(p) && "opacity-80 grayscale-[0.55]")}
+                />
+              </NearView>
               <span className="mt-2 text-[0.8125rem]">{p.name}</span>
               {!isAvailable(p) && <span className="eyebrow mt-0.5 text-[0.5625rem] text-cream/80">Soon</span>}
             </li>

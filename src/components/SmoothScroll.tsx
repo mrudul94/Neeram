@@ -1,13 +1,10 @@
 "use client";
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
+import type Lenis from "lenis";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { afterPageLoad, loadMotion } from "@/lib/motion";
 import { useCart } from "@/store/cart";
-
-gsap.registerPlugin(ScrollTrigger);
 
 let instance: Lenis | null = null;
 
@@ -25,17 +22,30 @@ export function SmoothScroll() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const lenis = new Lenis({ anchors: true, lerp: 0.12 });
-    lenisRef.current = instance = lenis;
-    lenis.on("scroll", ScrollTrigger.update);
-    const tick = (time: number) => lenis.raf(time * 1000);
-    gsap.ticker.add(tick);
-    gsap.ticker.lagSmoothing(0);
-    if (useCart.getState().drawerOpen) lenis.stop();
+    let live = true;
+    let stop = () => {};
+    // Loaded after the page: native scrolling works fine until then.
+    const cancel = afterPageLoad(() => {
+      void Promise.all([import("lenis"), loadMotion()]).then(([{ default: LenisClass }, { gsap, ScrollTrigger }]) => {
+        if (!live) return;
+        const lenis = new LenisClass({ anchors: true, lerp: 0.12 });
+        lenisRef.current = instance = lenis;
+        lenis.on("scroll", ScrollTrigger.update);
+        const tick = (time: number) => lenis.raf(time * 1000);
+        gsap.ticker.add(tick);
+        gsap.ticker.lagSmoothing(0);
+        if (useCart.getState().drawerOpen) lenis.stop();
+        stop = () => {
+          gsap.ticker.remove(tick);
+          lenis.destroy();
+          lenisRef.current = instance = null;
+        };
+      });
+    });
     return () => {
-      gsap.ticker.remove(tick);
-      lenis.destroy();
-      lenisRef.current = instance = null;
+      live = false;
+      cancel();
+      stop();
     };
   }, []);
 

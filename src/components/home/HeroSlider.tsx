@@ -24,7 +24,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
       className="relative isolate z-10 bg-ink text-cream md:min-h-[max(100svh,46rem)]"
     >
       <div aria-hidden className="absolute inset-y-0 right-0 -z-10 w-full md:w-[62%]">
-        <Image src={slide.image.src} alt="" fill preload sizes="(max-width: 767px) 100vw, 62vw" className="object-cover object-[30%_50%]" />
+        <Image src={slide.image.src} alt="" fill loading="eager" sizes="(max-width: 767px) 100vw, 62vw" className="object-cover object-[30%_50%]" />
         <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/70 to-ink md:bg-gradient-to-r md:from-ink md:via-ink/55 md:to-ink/20" />
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink to-transparent" />
       </div>
@@ -46,7 +46,8 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
             </Eyebrow>
             <p className="display mt-5 text-[clamp(3.25rem,6.6vw,5.9rem)]">
               {slide.headline.map((line) => (
-                <span key={line} className="block">
+                // One line each, so the wider fallback font can't wrap them and push the bottle down.
+                <span key={line} className="block min-[340px]:whitespace-nowrap">
                   {line}
                 </span>
               ))}

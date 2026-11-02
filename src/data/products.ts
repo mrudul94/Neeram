@@ -14,6 +14,8 @@ export type ProductImage = {
   height: number;
   /** Transparent cutout that stands on a shelf line. */
   cutout?: boolean;
+  /** Small copy, for gallery thumbnails. */
+  thumbSrc?: string;
 };
 
 /** A size / pack a product is sold in. The first pack is the default. */
@@ -31,6 +33,8 @@ export type Pack = {
   image: ProductImage;
   /** Height on the feature stage as a share of the bottle slot (the 500 ml photo is ~0.79). */
   stageHeight: number;
+  /** Small copy of the image, for size buttons, the cart and checkout. */
+  thumb: ProductImage;
 };
 
 export type Product = {
@@ -79,6 +83,7 @@ export const products: Product[] = [
     images: [
       {
         src: "/images/jars/neeram-coconut-oil-500ml-bottle.webp",
+        thumbSrc: "/images/packs/neeram-coconut-oil-500ml-bottle-thumb.webp",
         alt: "Neeram Coconut Oil, 500 ml clear bottle with the Neeram label",
         width: 460,
         height: 1200,
@@ -86,18 +91,21 @@ export const products: Product[] = [
       },
       {
         src: "/images/photos/mustard-seeds-curry-leaves-tempering-in-coconut-oil.webp",
+        thumbSrc: "/images/photos/mustard-seeds-curry-leaves-tempering-in-coconut-oil-thumb.webp",
         alt: "Mustard seeds, curry leaves and dried chilli tempering in coconut oil in an iron pan",
         width: 720,
         height: 680,
       },
       {
         src: "/images/gallery/neeram-coconut-oil-label-close-up.webp",
+        thumbSrc: "/images/gallery/neeram-coconut-oil-label-close-up-thumb.webp",
         alt: "Close-up of the Neeram Coconut Oil label: double filtered",
         width: 900,
         height: 900,
       },
       {
         src: "/images/gallery/neeram-coconut-oil-bottle-cap-close-up.webp",
+        thumbSrc: "/images/gallery/neeram-coconut-oil-bottle-cap-close-up-thumb.webp",
         alt: "Close-up of the sealed Neeram bottle cap and neck",
         width: 900,
         height: 900,
@@ -122,6 +130,7 @@ export const products: Product[] = [
         price: 130,
         image: { src: "/images/jars/neeram-coconut-oil-500ml-bottle.webp", alt: "Neeram Coconut Oil, 500 ml clear bottle", width: 460, height: 1200, cutout: true },
         stageHeight: 0.79,
+        thumb: { src: "/images/packs/neeram-coconut-oil-500ml-bottle-thumb.webp", alt: "", width: 77, height: 200, cutout: true },
       },
       {
         id: "bottle-1l",
@@ -131,6 +140,7 @@ export const products: Product[] = [
         price: 260,
         image: { src: "/images/packs/neeram-coconut-oil-1l-bottle.webp", alt: "Neeram Coconut Oil, 1 litre clear bottle", width: 386, height: 1200, cutout: true },
         stageHeight: 0.89,
+        thumb: { src: "/images/packs/neeram-coconut-oil-1l-bottle-thumb.webp", alt: "", width: 64, height: 200, cutout: true },
       },
       {
         id: "bottle-200",
@@ -140,6 +150,7 @@ export const products: Product[] = [
         price: 70,
         image: { src: "/images/packs/neeram-coconut-oil-200ml-bottle.webp", alt: "Neeram Coconut Oil, 200 ml clear bottle", width: 289, height: 960, cutout: true },
         stageHeight: 0.6,
+        thumb: { src: "/images/packs/neeram-coconut-oil-200ml-bottle-thumb.webp", alt: "", width: 60, height: 200, cutout: true },
       },
       {
         id: "pouch-500",
@@ -149,6 +160,7 @@ export const products: Product[] = [
         price: 125,
         image: { src: "/images/packs/neeram-coconut-oil-500ml-packet.webp", alt: "Neeram Coconut Oil, 500 ml packet", width: 960, height: 876, cutout: true },
         stageHeight: 0.62,
+        thumb: { src: "/images/packs/neeram-coconut-oil-500ml-packet-thumb.webp", alt: "", width: 219, height: 200, cutout: true },
       },
       {
         id: "pouch-1l",
@@ -158,6 +170,7 @@ export const products: Product[] = [
         price: 250,
         image: { src: "/images/packs/neeram-coconut-oil-1l-packet.webp", alt: "Neeram Coconut Oil, 1 litre packet", width: 836, height: 1200, cutout: true },
         stageHeight: 0.8,
+        thumb: { src: "/images/packs/neeram-coconut-oil-1l-packet-thumb.webp", alt: "", width: 139, height: 200, cutout: true },
       },
     ],
   },

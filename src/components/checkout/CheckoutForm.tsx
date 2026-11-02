@@ -74,7 +74,16 @@ export function CheckoutForm() {
   const lines = resolveLines(rawLines);
   const total = subtotal(lines);
 
-  if (!hydrated) return <div className="min-h-[60vh]" />;
+  // The heading is in the first HTML, so the page shows it before the cart has loaded.
+  if (!hydrated) {
+    return (
+      <div className="mx-auto grid min-h-[60vh] max-w-[90rem] md:grid-cols-[minmax(0,1fr)_minmax(0,0.75fr)]">
+        <div className="px-5 pt-8 pb-16 md:pt-10 md:pr-16 md:pl-[max(2.5rem,calc((100vw-75rem)/2))]">
+          <h1 className="display text-[clamp(3.5rem,8vw,6rem)]">Checkout</h1>
+        </div>
+      </div>
+    );
+  }
   if (!lines.length) {
     return (
       <div className="wrap py-20">
@@ -207,7 +216,7 @@ export function CheckoutForm() {
               <p className="text-[0.9375rem] font-medium">{PAYMENT.title}</p>
               <p className="mt-0.5 text-[0.8125rem] text-muted">{PAYMENT.note}</p>
             </div>
-            <p className="mt-3 font-serif text-sm text-muted italic">Nothing is charged on this website.</p>
+            <p className="mt-3 font-[family-name:var(--font-inter-italic)] text-sm text-muted italic">Nothing is charged on this website.</p>
             <Field label="Note for us (optional)" name="note" error={errors.note} className="mt-6">
               <textarea {...err("note")} rows={3} maxLength={500} placeholder="Delivery time, gift message…" className={cx(input, "h-auto py-3")} />
             </Field>
@@ -309,7 +318,7 @@ export function CheckoutForm() {
               <dd className="display text-[2rem]">{formatPrice(total)}</dd>
             </div>
           </dl>
-          <p className="mt-2 font-serif text-sm text-muted italic">Prices include taxes.</p>
+          <p className="mt-2 font-[family-name:var(--font-inter-italic)] text-sm text-muted italic">Prices include taxes.</p>
         </div>
       </aside>
     </div>

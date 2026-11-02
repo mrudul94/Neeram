@@ -45,9 +45,9 @@ export function Gallery({ images, watermark }: { images: ProductImage[]; waterma
                 className={cx("relative grid size-[4.5rem] place-items-center overflow-hidden bg-sand md:size-[5.5rem]", i === active ? "outline outline-1 outline-ink outline-offset-2" : "opacity-80 hover:opacity-100")}
               >
                 {im.cutout ? (
-                  <Image src={im.src} alt="" width={im.width} height={im.height} sizes="3rem" className="h-[85%] w-auto" />
+                  <Image src={im.thumbSrc ?? im.src} alt="" width={im.width} height={im.height} sizes="3rem" className="h-[85%] w-auto" />
                 ) : (
-                  <Image src={im.src} alt="" fill sizes="6rem" className="object-cover" />
+                  <Image src={im.thumbSrc ?? im.src} alt="" fill sizes="6rem" className="object-cover" />
                 )}
               </button>
             </li>

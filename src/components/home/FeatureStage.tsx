@@ -45,7 +45,7 @@ export function FeatureStage() {
               )}
             >
               <span className="grid h-14 w-full place-items-center">
-                <Image src={p.image.src} alt="" width={p.image.width} height={p.image.height} sizes="4rem" className="max-h-14 w-auto max-w-full object-contain" />
+                <Image src={p.thumb.src} alt="" width={p.thumb.width} height={p.thumb.height} sizes="4rem" className="max-h-14 w-auto max-w-full object-contain" />
               </span>
               <span className="text-sm leading-none font-medium">{p.size}</span>
               <span className="eyebrow text-[0.5625rem] leading-none">{p.form === "Packet" ? "Packet" : "Bottle"}</span>

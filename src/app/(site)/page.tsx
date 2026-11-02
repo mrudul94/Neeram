@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { preload } from "react-dom";
 import { AboutHelp } from "@/components/home/AboutHelp";
 import { BottleStage } from "@/components/home/BottleStage";
@@ -30,7 +31,7 @@ export default function HomePage() {
         <OilFeature />
       </BottleStage>
 
-      <section aria-labelledby="shelf-title" className="py-20 md:py-28">
+      <section aria-labelledby="shelf-title" className="defer-render py-20 md:py-28">
         <div className="wrap">
           <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_21rem] md:items-end">
             <div>
@@ -55,9 +56,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      <DishList />
-      <LookBeforeYouOpen />
-      <AboutHelp />
+      <Suspense>
+        <DishList />
+      </Suspense>
+      <Suspense>
+        <LookBeforeYouOpen />
+      </Suspense>
+      <Suspense>
+        <AboutHelp />
+      </Suspense>
     </>
   );
 }

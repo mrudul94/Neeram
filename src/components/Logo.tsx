@@ -25,7 +25,7 @@ export function Logo({ className, href = "/" }: { className?: string; href?: str
   );
   if (href === null) return mark;
   return (
-    <Link href={href} title="Home" className="inline-flex">
+    <Link href={href} prefetch={false} title="Home" className="inline-flex">
       {mark}
     </Link>
   );

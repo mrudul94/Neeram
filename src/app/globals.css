@@ -15,10 +15,10 @@
   --color-stone: #c9bfa9;
   --color-leaf: #4c9a2a;
 
-  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --font-display: var(--font-anton-rupee), var(--font-anton), "Arial Narrow", sans-serif;
   /* Paragraph text uses Inter too (the `font-serif` name is kept so components don't change). */
-  --font-serif: var(--font-inter), system-ui, sans-serif;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-inter-rupee), var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-inter-rupee), var(--font-inter), system-ui, sans-serif;
   --font-ml-display: var(--font-baloo-chettan), var(--font-noto-ml), sans-serif;
   --font-ml: var(--font-noto-ml), sans-serif;
 
@@ -120,6 +120,12 @@
   }
 }
 
+/* Below-the-fold sections: the browser skips their layout until they're near the screen. */
+.defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
 /* Cookie notice (src/components/CookieNotice.tsx): slides up and fades in, leaves with a quick fade. */
 .cookie-notice {
   opacity: 0;
@@ -182,6 +188,11 @@
   opacity: 0.3;
   mix-blend-mode: screen;
   mask: url(/bottle/neeram-coconut-oil-500ml-bottle.webp) center / contain no-repeat;
+  /* Invisible at rest, so it's left out until the bottle moves. */
+  display: none;
+}
+.bottle-stage[data-moving] .bottle-sheen {
+  display: block;
 }
 @media (max-width: 767px) {
   .bottle-sheen {

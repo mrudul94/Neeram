@@ -109,7 +109,7 @@ export function resolveLines(lines: CartLine[]): ResolvedLine[] {
         product,
         packInfo: pack,
         sizeLabel: pack?.label ?? product.sizeLabel,
-        image: pack?.image ?? product.images[0],
+        image: pack?.thumb ?? product.images[0],
         lineTotal: price === null ? null : price * line.qty,
       },
     ];
