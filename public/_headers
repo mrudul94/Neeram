@@ -2,3 +2,10 @@
 # Built JS/CSS have content hashes in their names, so they can be cached for a year.
 /_next/static/*
   Cache-Control: public,max-age=31536000,immutable
+
+# Images have no hash in their names, so a week, not a year: a replaced photo reaches returning
+# visitors within a week. To update one immediately, give the file a new name.
+/images/*
+  Cache-Control: public,max-age=604800,stale-while-revalidate=2592000
+/bottle/*
+  Cache-Control: public,max-age=604800,stale-while-revalidate=2592000
