@@ -40,10 +40,17 @@ Everything below is a placeholder on the live site today. File references show w
 - [ ] Returns & refunds policy.
 - [ ] How to track an order.
 - [ ] Contact details: phone, WhatsApp, email, hours.
-- [ ] Privacy policy.
-- [ ] Terms of service, including **FSSAI licence number** and registered business address (the bottle label shows
-      FSSAI 11321014000289 and Govindan Oil Mill, Kasaragod — confirm what should appear on the site).
-      Set it as `fssaiLicence` in `src/data/content.ts`; it then shows in the footer and on product pages.
+- [ ] Lawyer review of the draft Privacy Policy (`/privacy`) and Terms (`/terms`).
+- [ ] For `site` in `src/data/content.ts` (blanks show as "[to be confirmed]"):
+  - legal company name (currently "Neeram Coconut Industries Private Limited", from the About page), registered
+    address and GSTIN;
+  - **FSSAI licence number** (the bottle label shows FSSAI 11321014000289 and Govindan Oil Mill, Kasaragod — confirm
+    what should appear on the site, and which company holds it);
+  - Grievance Officer: name, designation, phone and email;
+  - support phone, email and hours;
+  - how long order records are kept, and which courts the Terms should name;
+  - manufacturer name and address, MRP and best-before for product listings.
+- [ ] Delivery partners, for the Privacy Policy.
 - [ ] **Certificates** (FSSAI licence, Agmark, ISO 22000, organic, …) — scans of Neeram's own certificates for the
       About page. Add each to `certificates` in `src/data/content.ts` and the image to `public/images/certificates/`;
       the "Certified & licensed" strip appears once there is one. Do **not** use the certificates on

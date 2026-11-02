@@ -42,7 +42,8 @@ Docs (commit "Replace Vercel references with Cloudflare and add a launch checkli
 - [ ] **Turnstile widget:** create it in the Cloudflare dashboard. The site key goes in `NEXT_PUBLIC_TURNSTILE_SITE_KEY` at build time; the secret goes in `TURNSTILE_SECRET_KEY` as a Worker secret.
 - [ ] **WAF rate-limit rule** on `POST /api/*`, for example 10 requests per 10 s per IP, then block. It needs the custom domain on Cloudflare.
 - [ ] **A real test order and newsletter sign-up** on the live site. Check the rows appear in the sheet, then delete them.
-- [ ] **Legal pages:** returns and refunds policy, privacy policy, and terms of service with the FSSAI licence number and registered address (see `TODO_CONTENT.md`).
+- [ ] **Legal pages:** draft Privacy Policy and Terms are built, with a cookie notice, a checkout agreement line and product information. Still needs a lawyer's review and the client's details (section 3 of `docs/LAUNCH_CHECKLIST.md`).
+- [ ] **If analytics or ads are ever added,** the cookie notice (`src/components/CookieNotice.tsx`) must become a real consent banner, and the Privacy Policy must change. Today it can truthfully say there are none.
 - [ ] **`SITE_LIVE`:** nothing in the code reads this variable yet. Decide what it should switch (for example search indexing or a "coming soon" notice) and build that before relying on it.
 - [ ] **Workers plan:** the built Worker is about 1.2 MB gzipped. Check the Free plan's size and CPU-time limits; Workers Paid ($5 a month) may be needed.
 - [ ] **Cloudflare account access:** keep it tight, since Workers Logs can contain customer details.
