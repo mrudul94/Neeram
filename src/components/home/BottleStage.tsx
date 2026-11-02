@@ -361,7 +361,7 @@ export function BottleMover() {
   const box = isDefault ? undefined : { top: "auto", bottom: `${BASELINE}%`, height: `${shown.stageHeight * 100}%` };
 
   return (
-    <div data-frames={(USE_FRAMES && isDefault) || undefined} className="bottle-mover pointer-events-none absolute inset-0 z-10 origin-top-left">
+    <div data-keep-clear data-frames={(USE_FRAMES && isDefault) || undefined} className="bottle-mover pointer-events-none absolute inset-0 z-10 origin-top-left">
       <span ref={shadowRef} aria-hidden className="bottle-shadow" style={{ width: `${shadow}%`, left: `${(100 - shadow) / 2}%` }} />
       <div ref={swapRef} className="bottle-swap absolute inset-0">
         <div className="bottle-tilt absolute inset-0">

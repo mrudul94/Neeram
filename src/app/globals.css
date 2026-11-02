@@ -11,6 +11,7 @@
   /* Small orange text on cream/sand: brand orange is only 2.5:1 there, this is 4.7:1+. */
   --color-orange-text: #a03f00;
   --color-turmeric: #e3a21a;
+  --color-gold: #d9a23a;
   --color-muted: #5e564b;
   --color-stone: #c9bfa9;
   --color-leaf: #4c9a2a;
@@ -120,10 +121,37 @@
   }
 }
 
-/* The cookie notice stands on top of the mobile buy bar, which is 73 px tall. */
+/* Cookie notice (src/components/CookieNotice.tsx): slides up and fades in, leaves with a quick fade. */
+.cookie-notice {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition:
+    opacity 150ms ease-out,
+    transform 0s linear 150ms,
+    visibility 0s linear 150ms;
+}
+.cookie-notice[data-shown] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 300ms ease-out,
+    transform 300ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cookie-notice {
+    transform: none;
+    transition: none;
+  }
+  .cookie-notice[data-shown] {
+    transition: none;
+  }
+}
+/* It stands on top of the mobile buy bar, which is 73 px tall. */
 @media (width < 48rem) {
   body:has(.mobile-buy-bar) .cookie-notice {
-    bottom: 73px;
+    bottom: calc(73px + 1rem);
   }
 }
 

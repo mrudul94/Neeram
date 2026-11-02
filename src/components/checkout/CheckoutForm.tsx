@@ -231,7 +231,7 @@ export function CheckoutForm() {
             </Link>
             .
           </p>
-          <button type="submit" value="whatsapp" disabled={busy} className={buttonClass("orange", "h-14 w-full")}>
+          <button data-keep-clear type="submit" value="whatsapp" disabled={busy} className={buttonClass("orange", "h-14 w-full")}>
             {busy ? "Sending…" : `Send order on WhatsApp · ${formatPrice(total)}`}
           </button>
           {(smsNumber || site.orders.email) && (

@@ -49,7 +49,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
               ))}
             </h1>
             <p className="mt-6 max-w-[27rem] font-serif text-lg leading-snug text-cream/90 md:text-xl">{slide.body}</p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <div data-keep-clear className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
               <ButtonLink href={slide.cta.href} arrow>
                 {slide.cta.label}
               </ButtonLink>

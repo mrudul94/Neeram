@@ -7,22 +7,45 @@ test("the cookie notice stays gone after OK, across a reload", async ({ page }) 
   await page.goto("/shop");
   await expect(notice(page)).toBeVisible();
 
-  await notice(page).getByRole("button", { name: "OK" }).click();
+  await notice(page).getByRole("button", { name: "Got it" }).click();
   await expect(notice(page)).toBeHidden();
 
   await page.reload();
   await page.getByRole("heading", { name: "The shelf" }).waitFor();
+  await page.waitForTimeout(1800); // Longer than its entrance delay.
   await expect(notice(page)).toBeHidden();
 });
 
-test("on phones the notice waits for the first scroll on the home page", async ({ page, isMobile }) => {
+const overlap = (a: { x: number; y: number; width: number; height: number }, b: typeof a) =>
+  a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
+
+test("on phones the notice stays off the bottle's first screen, then appears further down", async ({ page, isMobile }) => {
   test.skip(!isMobile, "Phones only");
   await page.goto("/");
-  await page.locator("#bottle-slot-hero img").first().waitFor();
+  await page.waitForTimeout(1800);
   await expect(notice(page)).toBeHidden();
 
-  await page.evaluate(() => window.scrollTo(0, 200));
+  await page.getByRole("heading", { name: /A short shelf/ }).scrollIntoViewIfNeeded();
   await expect(notice(page)).toBeVisible();
+});
+
+test("on desktop the notice appears beside the hero bottle, not over it", async ({ page, isMobile }) => {
+  test.skip(isMobile, "Desktop only");
+  await page.goto("/");
+  await expect(notice(page)).toBeVisible();
+  expect(overlap((await notice(page).boundingBox())!, (await page.locator(".bottle-mover").boundingBox())!)).toBe(false);
+});
+
+test("the notice never covers the checkout button", async ({ page }) => {
+  await page.goto("/products/coconut-oil");
+  await page.getByRole("button", { name: /^Add/ }).locator("visible=true").first().click();
+  await page.getByRole("link", { name: "Checkout" }).click();
+  const submit = page.getByRole("button", { name: /Send order on WhatsApp/ });
+  await submit.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(1800);
+  if (await notice(page).isVisible()) expect(overlap((await notice(page).boundingBox())!, (await submit.boundingBox())!)).toBe(false);
+  await expect(submit).toBeEnabled();
+  await submit.click({ trial: true });
 });
 
 test("the notice sits above the mobile buy bar, which stays usable", async ({ page, isMobile }) => {

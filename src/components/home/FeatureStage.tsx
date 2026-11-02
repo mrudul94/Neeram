@@ -29,7 +29,7 @@ export function FeatureStage() {
         <BottleStill className="feature-fallback" />
       </div>
 
-      <div role="group" aria-label="Choose a size" className="relative z-20 mt-8 flex gap-2 md:absolute md:bottom-20 md:left-10 md:mt-0 lg:gap-3">
+      <div data-keep-clear role="group" aria-label="Choose a size" className="relative z-20 mt-8 flex gap-2 md:absolute md:bottom-20 md:left-10 md:mt-0 lg:gap-3">
         {packs.map((p) => {
           const on = p.id === chosen.id;
           return (
