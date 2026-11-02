@@ -28,7 +28,7 @@ export function LookBeforeYouOpen() {
         <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] md:grid-cols-[17.5rem_1fr]">
           <div className="relative grid place-items-center bg-sand px-6 py-10 md:py-14">
             <Image
-              src="/images/jars/coconut-oil.webp"
+              src="/images/jars/neeram-coconut-oil-500ml-bottle.webp"
               alt="Neeram Coconut Oil in its clear 500 ml bottle"
               width={460}
               height={1200}

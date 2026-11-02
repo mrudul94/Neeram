@@ -48,7 +48,7 @@ export function DishList() {
 
           <figure>
             <Image
-              src="/images/photos/sambar.webp"
+              src="/images/photos/kerala-sambar-with-rice-on-banana-leaf.webp"
               alt="Sambar in a steel bowl on a banana leaf, with rice and tamarind"
               width={380}
               height={469}

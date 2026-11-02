@@ -58,7 +58,7 @@ export type Product = {
 };
 
 const jar = (slug: string, name: string, width: number, height: number): ProductImage => ({
-  src: `/images/jars/${slug}.webp`,
+  src: `/images/jars/neeram-${slug}-jar.webp`,
   alt: `Neeram ${name} in a clear jar with a black screw cap`,
   width,
   height,
@@ -78,26 +78,26 @@ export const products: Product[] = [
     status: "available",
     images: [
       {
-        src: "/images/jars/coconut-oil.webp",
+        src: "/images/jars/neeram-coconut-oil-500ml-bottle.webp",
         alt: "Neeram Coconut Oil, 500 ml clear bottle with the Neeram label",
         width: 460,
         height: 1200,
         cutout: true,
       },
       {
-        src: "/images/photos/tempering-pan.webp",
+        src: "/images/photos/mustard-seeds-curry-leaves-tempering-in-coconut-oil.webp",
         alt: "Mustard seeds, curry leaves and dried chilli tempering in coconut oil in an iron pan",
         width: 720,
         height: 680,
       },
       {
-        src: "/images/gallery/coconut-oil-label.webp",
+        src: "/images/gallery/neeram-coconut-oil-label-close-up.webp",
         alt: "Close-up of the Neeram Coconut Oil label: double filtered",
         width: 900,
         height: 900,
       },
       {
-        src: "/images/gallery/coconut-oil-cap.webp",
+        src: "/images/gallery/neeram-coconut-oil-bottle-cap-close-up.webp",
         alt: "Close-up of the sealed Neeram bottle cap and neck",
         width: 900,
         height: 900,
@@ -120,7 +120,7 @@ export const products: Product[] = [
         size: "500 ml",
         form: "Clear bottle",
         price: 130,
-        image: { src: "/images/jars/coconut-oil.webp", alt: "Neeram Coconut Oil, 500 ml clear bottle", width: 460, height: 1200, cutout: true },
+        image: { src: "/images/jars/neeram-coconut-oil-500ml-bottle.webp", alt: "Neeram Coconut Oil, 500 ml clear bottle", width: 460, height: 1200, cutout: true },
         stageHeight: 0.79,
       },
       {
@@ -129,7 +129,7 @@ export const products: Product[] = [
         size: "1 L",
         form: "Clear bottle",
         price: 260,
-        image: { src: "/images/packs/bottle-1l.webp", alt: "Neeram Coconut Oil, 1 litre clear bottle", width: 386, height: 1200, cutout: true },
+        image: { src: "/images/packs/neeram-coconut-oil-1l-bottle.webp", alt: "Neeram Coconut Oil, 1 litre clear bottle", width: 386, height: 1200, cutout: true },
         stageHeight: 0.89,
       },
       {
@@ -138,7 +138,7 @@ export const products: Product[] = [
         size: "200 ml",
         form: "Clear bottle",
         price: 70,
-        image: { src: "/images/packs/bottle-200.webp", alt: "Neeram Coconut Oil, 200 ml clear bottle", width: 289, height: 960, cutout: true },
+        image: { src: "/images/packs/neeram-coconut-oil-200ml-bottle.webp", alt: "Neeram Coconut Oil, 200 ml clear bottle", width: 289, height: 960, cutout: true },
         stageHeight: 0.6,
       },
       {
@@ -147,7 +147,7 @@ export const products: Product[] = [
         size: "500 ml",
         form: "Packet",
         price: 125,
-        image: { src: "/images/packs/pouch-500.webp", alt: "Neeram Coconut Oil, 500 ml packet", width: 960, height: 876, cutout: true },
+        image: { src: "/images/packs/neeram-coconut-oil-500ml-packet.webp", alt: "Neeram Coconut Oil, 500 ml packet", width: 960, height: 876, cutout: true },
         stageHeight: 0.62,
       },
       {
@@ -156,7 +156,7 @@ export const products: Product[] = [
         size: "1 L",
         form: "Packet",
         price: 250,
-        image: { src: "/images/packs/pouch-1l.webp", alt: "Neeram Coconut Oil, 1 litre packet", width: 836, height: 1200, cutout: true },
+        image: { src: "/images/packs/neeram-coconut-oil-1l-packet.webp", alt: "Neeram Coconut Oil, 1 litre packet", width: 836, height: 1200, cutout: true },
         stageHeight: 0.8,
       },
     ],

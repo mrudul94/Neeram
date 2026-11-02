@@ -3,17 +3,20 @@ import { CartDrawer } from "@/components/CartDrawer";
 import { CookieNotice } from "@/components/CookieNotice";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { site } from "@/data/content";
+import { isSiteLive } from "@/lib/seo";
 import { fontVariables } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Neeram — Kerala coconut oil and spices",
+    default: "Neeram Coconut Oil — Pure Coconut Oil from Kasaragod, Kerala",
     template: "%s · Neeram",
   },
   description:
-    "Neeram Coconut Oil: double-filtered coconut oil in a clear bottle, with Malabar tamarind, turmeric, black pepper, tamarind and shankupushpam coming soon.",
+    "Double-filtered coconut oil from Neeram, made at our own mill in Anakkallu, Kasaragod, Kerala. In clear bottles and packets, from 200 ml to 1 L.",
+  // The test site stays out of search until SITE_LIVE is set (src/lib/seo.ts).
+  ...(isSiteLive() ? {} : { robots: { index: false, follow: false } }),
   openGraph: {
     siteName: "Neeram",
     type: "website",

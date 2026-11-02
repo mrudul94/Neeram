@@ -51,6 +51,17 @@ Everything below is a placeholder on the live site today. File references show w
   - how long order records are kept, and which courts the Terms should name;
   - manufacturer name and address, MRP and best-before for product listings.
 - [ ] Delivery partners, for the Privacy Policy.
+
+## Search and local listings — `site` in `src/data/content.ts`
+
+Nothing here is invented: blanks stay out of the search markup until they're filled.
+
+- [ ] Map coordinates of the mill or office (`geo`), and its street address and PIN (`location`).
+- [ ] Social media links (`socials`).
+- [ ] Is there a shop or outlet customers can visit? If so, set `hasPublicLocation`. This also decides whether Neeram can
+      have a Google Business Profile (`docs/SEO_PLAN.md`).
+- [ ] Real stockists and towns where Neeram is sold. Don't list any town or shop that isn't confirmed.
+- [ ] Shelf life and delivery areas, for the FAQ on the coconut oil page.
 - [ ] **Certificates** (FSSAI licence, Agmark, ISO 22000, organic, …) — scans of Neeram's own certificates for the
       About page. Add each to `certificates` in `src/data/content.ts` and the image to `public/images/certificates/`;
       the "Certified & licensed" strip appears once there is one. Do **not** use the certificates on
@@ -71,8 +82,8 @@ Everything below is a placeholder on the live site today. File references show w
 
 All non-bottle imagery was cropped from the Figma export and is low resolution for large use:
 
-- [ ] Hero / tempering photo (`public/images/photos/tempering-pan.webp`, only 720 × 680 — upscaled in the hero).
-- [ ] Sambar photo for "What goes into what." (`public/images/photos/sambar.webp`, 380 × 469).
+- [ ] Hero / tempering photo (`public/images/photos/mustard-seeds-curry-leaves-tempering-in-coconut-oil.webp`, only 720 × 680 — upscaled in the hero).
+- [ ] Sambar photo for "What goes into what." (`public/images/photos/kerala-sambar-with-rice-on-banana-leaf.webp`, 380 × 469).
 - [ ] Studio cut-outs of the five spice jars (current ones are ~280 × 590, extracted from the design).
 - [ ] Optional: a lifestyle photo for the dark left panel of the coconut-oil feature (currently a plain stage, which
       keeps the landing bottle readable).

@@ -44,7 +44,7 @@ Docs (commit "Replace Vercel references with Cloudflare and add a launch checkli
 - [ ] **A real test order and newsletter sign-up** on the live site. Check the rows appear in the sheet, then delete them.
 - [ ] **Legal pages:** draft Privacy Policy and Terms are built, with a cookie notice, a checkout agreement line and product information. Still needs a lawyer's review and the client's details (section 3 of `docs/LAUNCH_CHECKLIST.md`).
 - [ ] **If analytics or ads are ever added,** they must only run after "Accept all" (`src/components/CookieNotice.tsx` saves the choice), Manage needs a real switch for them, and the Privacy Policy must change. Today Accept and Reject behave the same, because there is nothing optional.
-- [ ] **`SITE_LIVE`:** nothing in the code reads this variable yet. Decide what it should switch (for example search indexing or a "coming soon" notice) and build that before relying on it.
+- [ ] **`SITE_LIVE=1`:** set it as a build variable at launch, or the site stays out of search (`docs/LAUNCH_CHECKLIST.md`).
 - [ ] **Workers plan:** the built Worker is about 1.2 MB gzipped. Check the Free plan's size and CPU-time limits; Workers Paid ($5 a month) may be needed.
 - [ ] **Cloudflare account access:** keep it tight, since Workers Logs can contain customer details.
 - [ ] **Mobile performance.** Lighthouse lab runs on 31 Oct 2026 (local production build) scored poorly on mobile:

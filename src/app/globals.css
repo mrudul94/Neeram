@@ -181,11 +181,11 @@
   background: linear-gradient(110deg, transparent 47%, rgb(255 255 255 / 0.9) 50%, transparent 53%) 100% 0% / 300% 100% no-repeat;
   opacity: 0.3;
   mix-blend-mode: screen;
-  mask: url(/bottle/bottle-still.webp) center / contain no-repeat;
+  mask: url(/bottle/neeram-coconut-oil-500ml-bottle.webp) center / contain no-repeat;
 }
 @media (max-width: 767px) {
   .bottle-sheen {
-    mask-image: url(/bottle/bottle-still-mobile.webp);
+    mask-image: url(/bottle/neeram-coconut-oil-500ml-bottle-mobile.webp);
   }
 }
 /*

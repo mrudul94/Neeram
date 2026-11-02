@@ -40,14 +40,17 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           className="grid flex-1 items-center gap-6 max-md:min-h-[calc(100svh-7.5rem)] max-md:grid-rows-[auto_minmax(12rem,1fr)] md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-10"
         >
           <div className="md:py-12">
-            <Eyebrow ml={slide.eyebrowMalayalam}>{slide.eyebrow}</Eyebrow>
-            <h1 className="display mt-5 text-[clamp(3.25rem,6.6vw,5.9rem)]">
+            {/* The page's H1 says what and where; the big headline below keeps its look. */}
+            <Eyebrow as="h1" ml={slide.eyebrowMalayalam} className="flex-wrap gap-y-1">
+              {slide.eyebrow}
+            </Eyebrow>
+            <p className="display mt-5 text-[clamp(3.25rem,6.6vw,5.9rem)]">
               {slide.headline.map((line) => (
                 <span key={line} className="block">
                   {line}
                 </span>
               ))}
-            </h1>
+            </p>
             <p className="mt-6 max-w-[27rem] font-serif text-lg leading-snug text-cream/90 md:text-xl">{slide.body}</p>
             <div data-keep-clear className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
               <ButtonLink href={slide.cta.href} arrow>

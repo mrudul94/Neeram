@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { preload } from "react-dom";
 import { AboutHelp } from "@/components/home/AboutHelp";
 import { BottleStage } from "@/components/home/BottleStage";
@@ -6,10 +7,14 @@ import { DishList } from "@/components/home/DishList";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { LookBeforeYouOpen } from "@/components/home/LookBeforeYouOpen";
 import { OilFeature } from "@/components/home/OilFeature";
+import { JsonLd } from "@/components/JsonLd";
 import { Shelf } from "@/components/Shelf";
 import { ButtonLink, Eyebrow } from "@/components/ui";
 import { heroSlides } from "@/data/content";
 import { products } from "@/data/products";
+import { organizationSchema, websiteSchema } from "@/lib/schema";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function HomePage() {
   // The bottle photo is the LCP image; fetch it before anything discovered later.
@@ -18,6 +23,8 @@ export default function HomePage() {
 
   return (
     <>
+      <JsonLd data={organizationSchema()} />
+      <JsonLd data={websiteSchema()} />
       <BottleStage>
         <HeroSlider slides={heroSlides} />
         <OilFeature />

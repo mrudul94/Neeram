@@ -25,7 +25,7 @@ Copy `.env.example` to `.env.local` to set the site URL (optional for local work
 | `src/app/api/` | `subscribe` (newsletter + notify-me), `checkout` (save an order and build its WhatsApp message). |
 | `src/components/home/BottleStage.tsx` | The scroll-spinning bottle. |
 | `src/store/cart.ts` | Cart (Zustand, persisted to `localStorage` as `neeram-cart`). |
-| `public/bottle/` | `bottle-still*.webp` (product photo at rest) and `{desktop,mobile}/` — the 120 bottle frames (WebP). |
+| `public/bottle/` | `neeram-coconut-oil-500ml-bottle*.webp` (product photo at rest) and `{desktop,mobile}/` — the 120 bottle frames (WebP). |
 | `public/images/` | Jar cut-outs, photos and gallery images. |
 | `scripts/` | Bottle rendering and image-preparation scripts. |
 | `design/`, `blender/` | Source design export and 3D scene. |
@@ -34,7 +34,7 @@ Copy `.env.example` to `.env.local` to set the site URL (optional for local work
 
 The home page wraps the hero and the coconut-oil feature in `BottleStage`. The bottle is one wrapper
 (`BottleMover`, inside `#bottle-slot-hero`) holding the CSS shadow, the product photo
-(`public/bottle/bottle-still.webp`) and a `<canvas>`, stacked at the same size. A GSAP timeline scrubbed by
+(`public/bottle/neeram-coconut-oil-500ml-bottle.webp`) and a `<canvas>`, stacked at the same size. A GSAP timeline scrubbed by
 ScrollTrigger (`start: top top`, `end: feature slot center center`) translates and scales **the wrapper** onto
 `#bottle-slot-feature` while the canvas draws frames 1 → 120 → 1 (one full turn, `Math.round(progress × 120) % 120`,
 ending label-forward). The wrapper stays in document flow, so it scrolls with the page once the scrub ends.
@@ -43,7 +43,7 @@ ending label-forward). The wrapper stays in document flow, so it scrolls with th
   the wrapper gets `.is-moving` and the canvas fades in over 200 ms. The photo hides only once the canvas is fully in,
   and comes back instantly when leaving, so the swap never shows the background through a half-faded pair.
 - The photo is aligned pixel-for-pixel with frame 1 (1000 × 1500 with transparent padding;
-  `bottle-still-mobile.webp` is the same image downscaled to 600 × 900 like the mobile frames). If the bottle or camera
+  `neeram-coconut-oil-500ml-bottle-mobile.webp` is the same image downscaled to 600 × 900 like the mobile frames). If the bottle or camera
   changes, re-export the photo to match frame 1.
 - The photo is the LCP image (preloaded, `fetchpriority="high"`). Frames start loading after the page `load` event,
   coarse-to-fine; the nearest loaded frame is always drawn.

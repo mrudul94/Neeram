@@ -8,7 +8,7 @@ export function Logo({ className, href = "/" }: { className?: string; href?: str
   const mark = (
     <span className={cx("inline-flex flex-col items-center leading-none", className)}>
       <Image
-        src="/images/logo/neeram-logo.webp"
+        src="/images/logo/neeram-coconut-oil-logo.webp"
         alt="Neeram Coconut Oil"
         width={320}
         height={247}

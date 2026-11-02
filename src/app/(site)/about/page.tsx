@@ -4,9 +4,10 @@ import { ButtonLink, Eyebrow, MalayalamDisplay } from "@/components/ui";
 import { site } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "About us",
+  title: "About Us: Coconut Oil from Kasaragod, Kerala",
   description:
-    "How Neeram started in August 2020, with 29 coconut producer companies in Kerala behind it: traditional, honestly made coconut oil that pays farmers fairly.",
+    "How Neeram started in August 2020, with 29 coconut producer companies in Kerala behind it: traditional coconut oil made at our own mill in Anakkallu, Kasaragod.",
+  alternates: { canonical: "/about" },
 };
 
 // Story text supplied by Neeram. Mill figures are from the Neeram oil mill page
@@ -25,7 +26,7 @@ const chapters = [
       "In May 2018, 29 coconut producer companies united with a single goal: to channel our expertise into creating an authentic, traditional coconut oil that families could trust blindly. On 21 August 2020, just in time for the festive spirit of Onam, Neeram was born.",
     ],
     image: {
-      src: "/images/about/mill-opening.webp",
+      src: "/images/about/neeram-oil-mill-opening-ceremony.webp",
       alt: "Lighting the traditional lamp at the opening of the Neeram oil mill",
       width: 960,
       height: 640,
@@ -90,7 +91,7 @@ export default function AboutPage() {
           </p>
           <figure>
             <Image
-              src="/images/about/oil-mill.webp"
+              src="/images/about/neeram-oil-mill-anakkallu-kasaragod.webp"
               alt="The Neeram oil mill at Anakkallu, Kerala: a red and white mill building with a covered loading bay"
               width={1249}
               height={902}
@@ -246,7 +247,7 @@ export default function AboutPage() {
             </div>
           </div>
           <Image
-            src="/images/about/neeram-banner.webp"
+            src="/images/about/neeram-coconut-oil-packs-banner.webp"
             alt="Neeram Coconut Oil in a 500 ml pouch and two clear bottles, on a wooden table in front of coconut palm leaves"
             width={1800}
             height={1110}

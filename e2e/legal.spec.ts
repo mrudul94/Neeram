@@ -118,3 +118,47 @@ test("images are cached in the browser for a week", () => {
     expect(headers).toContain(`${path}\n  Cache-Control: public,max-age=604800,stale-while-revalidate=2592000`);
   }
 });
+
+const jsonLd = async (page: import("@playwright/test").Page) =>
+  (await page.locator('script[type="application/ld+json"]').allTextContents()).map((t) => JSON.parse(t));
+
+test("the home page has one H1 saying what and where, with valid business markup", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.locator("h1")).toContainText(/coconut oil/i);
+  await expect(page.locator("h1")).toContainText(/Kasaragod, Kerala/i);
+  await expect(page).toHaveTitle(/Coconut Oil from Kasaragod, Kerala/);
+  const types = (await jsonLd(page)).map((s) => s["@type"]);
+  expect(types).toEqual(expect.arrayContaining(["Organization", "WebSite"]));
+});
+
+test("the coconut oil page has product, breadcrumb and FAQ markup with no placeholders", async ({ page }) => {
+  await page.goto("/products/coconut-oil");
+  const schemas = await jsonLd(page);
+  expect(schemas.map((s) => s["@type"])).toEqual(expect.arrayContaining(["Product", "BreadcrumbList", "FAQPage"]));
+  expect(JSON.stringify(schemas)).not.toMatch(/to be confirmed|client to confirm/);
+
+  await page.getByText("Do you deliver to my area?").click();
+  await expect(page.getByText(/Delivery areas: \[client to confirm\]/)).toBeVisible();
+});
+
+test("the test site stays out of search but can be crawled", async ({ page, request }) => {
+  await page.goto("/");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  const robots = await (await request.get("/robots.txt")).text();
+  expect(robots).toMatch(/Allow: \//);
+  expect(robots).not.toMatch(/Disallow: \/\s*$/m);
+  expect(await (await request.get("/sitemap.xml")).text()).not.toContain("<loc>");
+});
+
+test("every renamed image still loads", async ({ page }) => {
+  const broken: string[] = [];
+  page.on("response", (r) => {
+    if (r.request().resourceType() === "image" && r.status() >= 400) broken.push(r.url());
+  });
+  for (const path of ["/", "/about", "/shop", "/products/coconut-oil", "/products/turmeric"]) {
+    await page.goto(path);
+    await page.waitForTimeout(600);
+  }
+  expect(broken).toEqual([]);
+});

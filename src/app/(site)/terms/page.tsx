@@ -7,6 +7,7 @@ import { toBeConfirmed } from "@/lib/format";
 export const metadata: Metadata = {
   title: "Terms of service",
   description: "The terms for ordering from Neeram: orders, payment, delivery, returns and complaints.",
+  alternates: { canonical: "/terms" },
 };
 
 const link = "underline decoration-orange underline-offset-4 hover:text-orange";

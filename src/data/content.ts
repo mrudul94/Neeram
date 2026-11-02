@@ -20,14 +20,14 @@ export const heroSlides: HeroSlide[] = [
     id: "coconut-oil",
     productSlug: "coconut-oil",
     tab: "Velichenna",
-    eyebrow: "No. 01 · Coconut Oil",
+    eyebrow: "Coconut oil · Kasaragod, Kerala",
     eyebrowMalayalam: "വെളിച്ചെണ്ണ",
     headline: ["The oil every", "Kerala kitchen", "starts with."],
     body: "Mustard seeds, curry leaves, a dried chilli — and before all of them, a spoon of coconut oil in the pan.",
     cta: { label: "Shop coconut oil", href: "/products/coconut-oil" },
     secondary: { label: "The recipe", href: "/products/coconut-oil#tempering" },
     image: {
-      src: "/images/photos/tempering-pan.webp",
+      src: "/images/photos/mustard-seeds-curry-leaves-tempering-in-coconut-oil.webp",
       alt: "Mustard seeds and curry leaves crackling in coconut oil in an iron pan",
     },
   },
@@ -79,6 +79,19 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   // Blank details below show as "[to be confirmed]" (see TODO_CONTENT.md).
   address: null as string | null,
+  /** For search engines (src/lib/schema.ts). Blank parts are left out of the markup. */
+  location: {
+    streetAddress: null as string | null,
+    locality: "Kasaragod" as string | null,
+    region: "Kerala" as string | null,
+    postalCode: null as string | null,
+    country: "IN" as string | null,
+  },
+  /** Map coordinates of the mill or office. */
+  geo: { latitude: null as number | null, longitude: null as number | null },
+  /** True only if customers can visit a shop or outlet: it makes the markup say LocalBusiness. */
+  hasPublicLocation: false as boolean,
+  foundingDate: "2020-08-21",
   gstin: null as string | null,
   /** Named on the Privacy Policy, Terms and Help pages, as the E-Commerce Rules 2020 require. */
   grievanceOfficer: {

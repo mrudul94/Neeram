@@ -6,6 +6,7 @@ import { toBeConfirmed } from "@/lib/format";
 export const metadata: Metadata = {
   title: "Privacy policy",
   description: "What Neeram collects when you order or sign up, who receives it, and your rights.",
+  alternates: { canonical: "/privacy" },
 };
 
 const officer = site.grievanceOfficer;

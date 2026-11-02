@@ -4,14 +4,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { AddToCartButton, ChosenPackLabel, MobileBuyBar, PackPicker, PackPrice, PurchasePanel } from "@/components/AddToCart";
+import { JsonLd } from "@/components/JsonLd";
 import { OilBand } from "@/components/OilBand";
 import { Gallery } from "@/components/product/Gallery";
 import { Shelf } from "@/components/Shelf";
 import { SubscribeForm } from "@/components/SubscribeForm";
 import { Eyebrow, MalayalamDisplay, SpecTable, cx } from "@/components/ui";
 import { site } from "@/data/content";
-import { getProduct, isAvailable, products, type Product, type Spec } from "@/data/products";
+import { getProduct, isAvailable, lowestPrice, products, type Product, type Spec } from "@/data/products";
+import { OIL_STORAGE, productFaqs } from "@/lib/faq";
+import { formatPrice } from "@/lib/format";
 import { packagedDetails } from "@/lib/legal";
+import { breadcrumbSchema, faqSchema, productSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -20,14 +24,19 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/products/[slug]">): Promise<Metadata> {
   const product = getProduct((await params).slug);
   if (!product) return {};
-  const title = isAvailable(product) ? `${product.name} (${product.sizeLabel})` : `${product.name} — coming soon`;
+  const isOil = product.category === "Oil";
+  const title = !isAvailable(product) ? `${product.name} — coming soon` : isOil ? `${product.name} from Kasaragod, Kerala, 200 ml to 1 L` : `${product.name} (${product.sizeLabel})`;
+  // The mill is only confirmed for the oil, so the spices don't claim it.
+  const description = isOil
+    ? `${product.description} Made at our own mill in Anakkallu, Kasaragod, Kerala. From ${formatPrice(lowestPrice(product))}.`
+    : product.description;
   return {
     title,
-    description: product.description,
+    description,
     alternates: { canonical: `/products/${product.slug}` },
     openGraph: {
       title: `${title} · Neeram`,
-      description: product.description,
+      description,
       images:
         product.slug === "coconut-oil"
           ? [{ url: "/og-coconut-oil.jpg", width: 1200, height: 630, alt: product.images[0].alt }]
@@ -72,6 +81,7 @@ function TitleBlock({ product }: { product: Product }) {
     <>
       <Eyebrow className="mt-5">
         No. {product.number} · {product.category}
+        {product.category === "Oil" && " · Kasaragod, Kerala"}
       </Eyebrow>
       <h1 className="display mt-4 text-[clamp(3.5rem,7vw,6rem)]">{product.name}</h1>
       <p className="mt-3 text-lg">
@@ -95,7 +105,7 @@ const accordions = (product: Product): { title: string; body?: string; specs?: S
     title: "Storage",
     body:
       product.category === "Oil"
-        ? "Keep the cap closed, away from sunlight and the stove. Coconut oil turns solid below about 24 °C — stand the bottle in warm water and it will clear again."
+        ? OIL_STORAGE
         : "Close the cap tightly and keep the jar in a cool, dry place away from sunlight.",
   },
   {
@@ -108,28 +118,14 @@ const accordions = (product: Product): { title: string; body?: string; specs?: S
 function AvailableProduct({ product }: { product: Product }) {
   const others = products.filter((p) => p.slug !== product.slug);
   const tempering = ["coconut-oil", "turmeric", "black-pepper"].map((s) => getProduct(s)!);
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: `Neeram ${product.name} ${product.sizeLabel}`,
-    description: product.description,
-    sku: `NRM-${product.number}`,
-    brand: { "@type": "Brand", name: site.name },
-    image: product.images.map((i) => new URL(i.src, site.url).toString()),
-    ...(product.price !== null && {
-      offers: {
-        "@type": "Offer",
-        price: product.price,
-        priceCurrency: "INR",
-        availability: "https://schema.org/InStock",
-        url: new URL(`/products/${product.slug}`, site.url).toString(),
-      },
-    }),
-  };
+  const faqs = productFaqs(product);
+  const faq = faqSchema(faqs);
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <JsonLd data={productSchema(product)} />
+      <JsonLd data={breadcrumbSchema(product)} />
+      {faq && <JsonLd data={faq} />}
 
       {/* minmax(0,1fr) on phones: an auto column grows to fit the size buttons and the page scrolls sideways. */}
       <div className="mx-auto grid max-w-[90rem] grid-cols-[minmax(0,1fr)] gap-8 pb-24 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-12 md:pb-20 lg:gap-16">
@@ -186,6 +182,34 @@ function AvailableProduct({ product }: { product: Product }) {
         </AddToCartButton>
       </OilBand>
 
+      {faqs.length > 0 && (
+        <section aria-labelledby="faq-title" className="wrap pt-20 md:pt-28">
+          <div className="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-16">
+            <div>
+              <Eyebrow>Good to know</Eyebrow>
+              <h2 id="faq-title" className="display mt-4 text-[clamp(2.5rem,5vw,4rem)]">
+                Questions about
+                <br />
+                Neeram coconut oil
+              </h2>
+            </div>
+            <div className="border-t border-ink">
+              {faqs.map((f) => (
+                <details key={f.question} className="group border-b border-ink">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-medium [&::-webkit-details-marker]:hidden">
+                    {f.question}
+                    <span aria-hidden className="text-xl leading-none transition-transform group-open:rotate-45">
+                      +
+                    </span>
+                  </summary>
+                  <p className="pb-5 font-serif leading-relaxed text-muted">{f.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section aria-labelledby="same-shelf" className="wrap py-20 md:py-28">
         <h2 id="same-shelf" className="display text-[clamp(2.5rem,5vw,4rem)]">
           On the same shelf
@@ -203,6 +227,7 @@ function ComingSoonProduct({ product }: { product: Product }) {
   const others = products.filter((p) => p.slug !== product.slug);
   return (
     <>
+      <JsonLd data={breadcrumbSchema(product)} />
       <div className="mx-auto grid max-w-[90rem] gap-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-12 lg:gap-16">
         <div className="relative grid aspect-[4/5] place-items-center overflow-hidden bg-sand md:aspect-auto md:min-h-[44rem]">
           <MalayalamDisplay aria-hidden className="absolute inset-x-0 top-[6%] text-center text-[clamp(3.5rem,8vw,7.5rem)] whitespace-nowrap text-ink/[0.07]">

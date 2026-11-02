@@ -13,6 +13,6 @@ export const frameSrc = (set: FrameSet, index: number) => `/bottle/${set}/${Stri
 
 /** Product photo shown at rest; same canvas size and alignment as frame 1. */
 export const STILL_SRC: Record<FrameSet, string> = {
-  desktop: "/bottle/bottle-still.webp",
-  mobile: "/bottle/bottle-still-mobile.webp",
+  desktop: "/bottle/neeram-coconut-oil-500ml-bottle.webp",
+  mobile: "/bottle/neeram-coconut-oil-500ml-bottle-mobile.webp",
 };

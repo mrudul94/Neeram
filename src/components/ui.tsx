@@ -6,9 +6,9 @@ export function cx(...classes: (string | false | null | undefined)[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function Eyebrow({ children, className, ml }: { children: ReactNode; className?: string; ml?: string }) {
+export function Eyebrow({ children, className, ml, as: Tag = "p" }: { children: ReactNode; className?: string; ml?: string; as?: "p" | "h1" }) {
   return (
-    <p className={cx("eyebrow flex items-center gap-3", className)}>
+    <Tag className={cx("eyebrow flex items-center gap-3", className)}>
       <span aria-hidden className="h-px w-6 shrink-0 bg-orange" />
       <span>{children}</span>
       {ml && (
@@ -16,7 +16,7 @@ export function Eyebrow({ children, className, ml }: { children: ReactNode; clas
           {ml}
         </span>
       )}
-    </p>
+    </Tag>
   );
 }
 
