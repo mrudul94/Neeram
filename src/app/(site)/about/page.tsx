@@ -6,7 +6,7 @@ import { site } from "@/data/content";
 export const metadata: Metadata = {
   title: "About us",
   description:
-    "How 29 coconut producer companies in Kerala came together in 2018 to make Neeram: traditional, honestly made coconut oil that pays farmers fairly.",
+    "How Neeram started in August 2020, with 29 coconut producer companies in Kerala behind it: traditional, honestly made coconut oil that pays farmers fairly.",
 };
 
 // Story text supplied by Neeram. Mill figures are from the Neeram oil mill page
@@ -22,7 +22,7 @@ const chapters = [
     title: "The transition to purity",
     body: [
       "When the agricultural landscape shifted, so did we. We realized that our true strength lay in our direct access to the finest, hand-picked coconuts and our unyielding commitment to unadulterated quality.",
-      "In May 2018, 29 coconut producer companies united with a single goal: to channel our expertise into creating an authentic, traditional coconut oil that families could trust blindly. Just in time for the festive spirit of Onam, Neeram was born.",
+      "In May 2018, 29 coconut producer companies united with a single goal: to channel our expertise into creating an authentic, traditional coconut oil that families could trust blindly. On 21 August 2020, just in time for the festive spirit of Onam, Neeram was born.",
     ],
     image: {
       src: "/images/about/mill-opening.webp",
@@ -36,7 +36,7 @@ const chapters = [
     title: "Honest methods, traditional taste",
     body: [
       "We chose the name Neeram because it reflects our liquid gold — pure, transparent, and completely natural. By moving away from mass-industrial chemical processing, we focused on traditional methods that preserve the natural aroma, nutrients, and rich taste of the coconut.",
-      "Whether it is our meticulously roasted copra oil or our nutrient-rich cold-pressed variants, we ensure that what reaches your home is exactly how nature intended it to be.",
+      "With our nutrient-rich cold-pressed variants, we ensure that what reaches your home is exactly how nature intended it to be.",
     ],
   },
   {
@@ -49,7 +49,7 @@ const chapters = [
 
 const figures = [
   { value: "29", label: "Coconut producer companies" },
-  { value: "2018", label: "Neeram born, in time for Onam" },
+  { value: "2020", label: "Neeram born, 21 August, in time for Onam" },
   { value: "15 t", label: "Copra the mill can crush a day" },
   { value: "45 t", label: "Copra in store at the mill" },
 ];
@@ -57,16 +57,16 @@ const figures = [
 // "Why Neeram", from the Neeram site's About page.
 const promises = [
   { title: "Pure", body: "Free from adulteration, perfumes, additives, preservatives and chemicals." },
-  { title: "Two ways", body: "Roasted, for aroma and a sweet copra taste, or cold-pressed, with the copra left unroasted." },
   { title: "Every kind of cooking", body: "Tempering, deep and shallow frying, salad dressings — or straight from the spoon." },
   { title: "Packed to keep", body: "Pack sizes and materials chosen for easy carrying and a long shelf life." },
 ];
 
-// From copra to pack, in the order it happens at the mill.
+// From coconut to pack, in the order it happens.
 const steps = [
-  { title: "Dried", body: "Copra is dried with hot air at up to 80 °C — nine tonnes in twelve hours — from market condition to the right moisture." },
+  { title: "Collected", body: "Coconuts are collected from the farmers." },
+  { title: "Processed", body: "The coconuts are processed at the mill, ready for drying." },
+  { title: "Dried", body: "The coconut is dried with hot air at up to 80 °C  nine tonnes in twelve hours  to the right moisture." },
   { title: "Cut", body: "A copra cutter takes it down to pieces under 12 mm, a tonne an hour." },
-  { title: "Roasted", body: "For our roasted oil, the pieces go through a four-stage steam cooker that brings out the aroma and sweet taste of the copra. For cold-pressed oil, they are not roasted." },
   { title: "Pressed", body: "Two expellers crush the copra twice, 750 kg an hour." },
   { title: "Packed", body: "Form-fill-seal machines pack 1 litre, 500 ml and 100 ml pouches." },
 ];
@@ -156,14 +156,15 @@ export default function AboutPage() {
             </h2>
           </div>
           <p className="max-w-[38rem] font-serif text-lg leading-relaxed text-muted">
-            Neeram Coconut Industries Private Limited makes pure coconut oil — roasted, cold-pressed and virgin — at its
+            Neeram Coconut Industries Private Limited makes pure coconut oil — cold-pressed and virgin — at its
             own mill in Anakkallu, Kerala, packed in pouches, bottles and cans for cooking and for hair. The company was
             formed to spread the benefits of coconut to people. It has come a long way, with a long way still to go.
+            Started up on 21 August 2020. Owner: Sharath K Sasikumar.
           </p>
         </div>
-        <ul className="mt-12 grid border-t border-ink sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-12 grid border-t border-ink md:grid-cols-3">
           {promises.map((p) => (
-            <li key={p.title} className="border-b border-ink py-6 sm:pr-6 lg:border-b-0">
+            <li key={p.title} className="border-b border-ink py-6 md:border-b-0 md:pr-6">
               <h3 className="display text-2xl">{p.title}</h3>
               <p className="mt-2 max-w-[18rem] font-serif leading-relaxed text-muted">{p.body}</p>
             </li>
@@ -203,7 +204,7 @@ export default function AboutPage() {
           <div>
             <Eyebrow>Inside the mill</Eyebrow>
             <h2 id="mill-title" className="display mt-4 text-[clamp(2.75rem,5vw,4.25rem)]">
-              From copra
+              From coconut
               <br />
               to your kitchen.
             </h2>
