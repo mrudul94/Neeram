@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { CartDrawer } from "@/components/CartDrawer";
+import { CookieNotice } from "@/components/CookieNotice";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { site } from "@/data/content";
 import { fontVariables } from "./fonts";
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <CartDrawer />
         <SmoothScroll />
+        <CookieNotice />
       </body>
     </html>
   );

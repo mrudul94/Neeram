@@ -1,5 +1,8 @@
 import { expect, test } from "@playwright/test";
 
+// The cookie notice has its own tests (legal.spec.ts); keep it from covering these flows.
+test.beforeEach(({ page }) => page.addInitScript(() => localStorage.setItem("neeram-notice-ok", "1")));
+
 test("orders coconut oil in a chosen size through WhatsApp", async ({ page, context }) => {
   // Stand in for WhatsApp: record where the order tab goes, without leaving the test.
   await context.route("https://wa.me/**", (route) => route.fulfill({ status: 200, contentType: "text/html", body: "<p>WhatsApp</p>" }));

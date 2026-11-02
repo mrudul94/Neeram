@@ -120,6 +120,13 @@
   }
 }
 
+/* The cookie notice stands on top of the mobile buy bar, which is 73 px tall. */
+@media (width < 48rem) {
+  body:has(.mobile-buy-bar) .cookie-notice {
+    bottom: 73px;
+  }
+}
+
 /* Scroll-travelling bottle (src/components/home/BottleStage.tsx) */
 /* The still bottle in the feature slot is only for when the scroll bottle isn't running. */
 .bottle-stage[data-live] .feature-fallback {
