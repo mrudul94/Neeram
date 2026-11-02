@@ -67,3 +67,11 @@ describe("lowestPrice", () => {
     expect(lowestPrice(turmeric)).toBeNull();
   });
 });
+
+describe("coconut oil 1 L packet", () => {
+  it("is on sale at ₹ 250", () => {
+    const pack = getPack(getProduct("coconut-oil")!, "pouch-1l");
+    expect(pack?.label).toBe("1 L packet");
+    expect(pack?.price).toBe(250);
+  });
+});

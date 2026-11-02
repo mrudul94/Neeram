@@ -15,7 +15,7 @@ describe("legalLinks", () => {
 
 describe("packagedDetails", () => {
   it("lists the net quantity of every size on sale", () => {
-    expect(value("Net quantity")).toBe("500 ml, 1 L, 200 ml, 500 ml packet");
+    expect(value("Net quantity")).toBe("500 ml, 1 L, 200 ml, 500 ml packet, 1 L packet");
   });
 
   it("uses the size label for a product with one size", () => {

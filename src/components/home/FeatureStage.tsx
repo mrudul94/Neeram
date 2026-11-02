@@ -29,7 +29,7 @@ export function FeatureStage() {
         <BottleStill className="feature-fallback" />
       </div>
 
-      <div data-keep-clear role="group" aria-label="Choose a size" className="relative z-20 mt-8 flex gap-2 md:absolute md:bottom-20 md:left-10 md:mt-0 lg:gap-3">
+      <div data-keep-clear role="group" aria-label="Choose a size" className="relative z-20 mt-8 flex gap-1.5 md:absolute md:bottom-20 md:left-10 md:mt-0 lg:gap-3">
         {packs.map((p) => {
           const on = p.id === chosen.id;
           return (
@@ -40,7 +40,7 @@ export function FeatureStage() {
               aria-label={p.label}
               onClick={() => choose(PACK_SLUG, p.id)}
               className={cx(
-                "flex w-[4.5rem] flex-col items-center gap-1.5 border px-2 pt-2 pb-2.5 transition-colors duration-200 lg:w-20",
+                "flex w-[3.75rem] flex-col items-center gap-1.5 border px-1 pt-2 pb-2.5 transition-colors duration-200 lg:w-20 lg:px-2",
                 on ? "border-orange bg-cream/10 text-cream" : "border-cream/25 text-cream/70 hover:border-cream/60 hover:text-cream",
               )}
             >

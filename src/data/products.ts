@@ -150,6 +150,15 @@ export const products: Product[] = [
         image: { src: "/images/packs/pouch-500.webp", alt: "Neeram Coconut Oil, 500 ml packet", width: 960, height: 876, cutout: true },
         stageHeight: 0.62,
       },
+      {
+        id: "pouch-1l",
+        label: "1 L packet",
+        size: "1 L",
+        form: "Packet",
+        price: 250,
+        image: { src: "/images/packs/pouch-1l.webp", alt: "Neeram Coconut Oil, 1 litre packet", width: 836, height: 1200, cutout: true },
+        stageHeight: 0.8,
+      },
     ],
   },
   {
