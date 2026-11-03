@@ -42,8 +42,8 @@ Everything below is a placeholder on the live site today. File references show w
 - [x] Contact details: phone, email, hours. The order WhatsApp number is still to come (see Checkout).
 - [ ] Lawyer review of the draft Privacy Policy (`/privacy`) and Terms (`/terms`).
 - [ ] For `site` in `src/data/content.ts` (blanks show as "[to be confirmed]"):
-  - legal company name (currently "Neeram Coconut Industries Private Limited", from the About page), registered
-    address and GSTIN;
+  - legal company name (currently "Neeram Coconut Industries Private Limited", from the About page), whether the
+    Govindan Oil Mill address is its registered address, and GSTIN;
   - **FSSAI licence number** (the bottle label shows FSSAI 11321014000289 and Govindan Oil Mill, Kasaragod — confirm
     what should appear on the site, and which company holds it);
   - confirm Sharath K Sasikumar agrees to be named Grievance Officer, as Owner, with these contact details;

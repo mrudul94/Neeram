@@ -43,7 +43,10 @@ describe("organizationSchema", () => {
   });
 
   it("leaves out address parts, phone, email, coordinates and social links until they are filled", () => {
-    const org = organizationSchema({ support: { phone: null, email: null, hours: null } }) as Record<string, unknown>;
+    const org = organizationSchema({
+      location: { streetAddress: null, locality: "Kasaragod", region: "Kerala", postalCode: null, country: "IN" },
+      support: { phone: null, email: null, hours: null },
+    }) as Record<string, unknown>;
     expect(org.address).toEqual({ "@type": "PostalAddress", addressLocality: "Kasaragod", addressRegion: "Kerala", addressCountry: "IN" });
     for (const key of ["telephone", "email", "geo", "sameAs"]) expect(org).not.toHaveProperty(key);
   });

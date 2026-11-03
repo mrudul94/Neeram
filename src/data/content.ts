@@ -54,13 +54,13 @@ export const site = {
   legalName: "Neeram Coconut Industries Private Limited",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   // Blank details below show as "[to be confirmed]" (see TODO_CONTENT.md).
-  address: null as string | null,
+  address: "Govindan Oil Mill (Neeram), Anakkallu, Anakkallu Road, Kasaragod district, Kerala 671541" as string | null,
   /** For search engines (src/lib/schema.ts). Blank parts are left out of the markup. */
   location: {
-    streetAddress: null as string | null,
+    streetAddress: "Govindan Oil Mill (Neeram), Anakkallu, Anakkallu Road" as string | null,
     locality: "Kasaragod" as string | null,
     region: "Kerala" as string | null,
-    postalCode: null as string | null,
+    postalCode: "671541" as string | null,
     country: "IN" as string | null,
   },
   /** Map coordinates of the mill or office. */
