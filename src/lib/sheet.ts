@@ -25,19 +25,14 @@ export const ORDER_SHEET_HEADERS = [
   "Notes",
 ] as const;
 
-/** Row 1 of the "Newsletter" tab (A–C). */
-export const SIGNUP_SHEET_HEADERS = ["Date & time (IST)", "Email", "Page"] as const;
-
 /** Orders go to the first tab, whatever it's called. */
 export const ORDERS_RANGE = "A:P";
-export const NEWSLETTER_RANGE = "Newsletter!A:C";
 
 /** The narrowest scope that can add rows to a sheet shared with the service account. */
 const SCOPE = "https://www.googleapis.com/auth/spreadsheets";
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 
 export type SheetOrder = { orderNumber: string; items: PricedItem[]; total: number | null; details: CheckoutDetails; at: Date };
-export type SheetSignup = { email: string; topic: string; page: string; at: Date };
 export type SheetConfig = { email: string; privateKey: string; sheetId: string };
 type Cell = string | number;
 
@@ -81,16 +76,6 @@ export function orderRow(o: SheetOrder): Cell[] {
     "",
     text(d.note),
   ];
-}
-
-/**
- * One sign-up as a row. Product pages carry both "Notify me" and the footer newsletter,
- * so "Notify me" sign-ups name the product after the page.
- */
-export function signupRow(s: SheetSignup): Cell[] {
-  const product = s.topic === "newsletter" ? undefined : getProduct(s.topic);
-  const page = [s.page, product && `(Notify me: ${product.name})`].filter(Boolean).join(" ");
-  return [istDateTime(s.at), s.email, page];
 }
 
 /** The service account and sheet from env vars; null until all three are set. */

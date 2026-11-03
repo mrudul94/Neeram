@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { ORDER_SHEET_HEADERS, SIGNUP_SHEET_HEADERS } from "./sheet";
+import { ORDER_SHEET_HEADERS } from "./sheet";
 
 // The client sets up the sheet's header rows from the guide; the website writes columns in code order.
 const guide = readFileSync(path.join(process.cwd(), "docs/ORDER_SHEET_SETUP.md"), "utf8").split("\n").map((l) => l.trim());
@@ -23,13 +23,5 @@ describe("docs/ORDER_SHEET_SETUP.md", () => {
 
   it("lists the orders headings one per cell in the same order", () => {
     expect(perCellList("Order no")).toEqual([...ORDER_SHEET_HEADERS]);
-  });
-
-  it("has the Newsletter header row in the order the website writes it", () => {
-    expect(pasteLine("Date & time (IST)")).toEqual([...SIGNUP_SHEET_HEADERS]);
-  });
-
-  it("lists the Newsletter headings one per cell in the same order", () => {
-    expect(perCellList("Date & time (IST)")).toEqual([...SIGNUP_SHEET_HEADERS]);
   });
 });

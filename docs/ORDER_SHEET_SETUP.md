@@ -1,5 +1,7 @@
 # Setting up the Neeram order sheet
 
+> **Optional, and not in use.** Orders and new-stock requests are handled by hand on WhatsApp. Follow this only if Neeram later wants orders saved to a sheet automatically. The website no longer collects sign-ups, so skip the **Newsletter** tab and anything else about sign-ups.
+
 Every order placed on the website will appear as a new row in a Google Sheet that you own, and every newsletter or "Notify me" sign-up as a row on a second tab of the same sheet. This guide sets that up once. It takes about 30–45 minutes and needs no coding.
 
 **You will need:**

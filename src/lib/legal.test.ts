@@ -23,7 +23,11 @@ describe("packagedDetails", () => {
     expect(single?.value).toBe("200 ml");
   });
 
-  it.each(["Manufacturer", "MRP", "Best before", "FSSAI licence"])("shows %s as a visible gap until it is supplied", (label) => {
+  it("shows the shelf life as the best-before detail", () => {
+    expect(value("Best before")).toBe("6 months. See the date on the pack.");
+  });
+
+  it.each(["Manufacturer", "MRP", "FSSAI licence"])("shows %s as a visible gap until it is supplied", (label) => {
     expect(value(label)).toBe("[to be confirmed]");
   });
 });

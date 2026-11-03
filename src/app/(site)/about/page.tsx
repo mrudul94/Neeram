@@ -247,10 +247,10 @@ export default function AboutPage() {
             </div>
           </div>
           <Image
-            src="/images/about/neeram-coconut-oil-packs-banner.webp"
-            alt="Neeram Coconut Oil in a 500 ml pouch and two clear bottles, on a wooden table in front of coconut palm leaves"
-            width={1800}
-            height={1110}
+            src="/images/about/neeram-coconut-oil-1l-packet-and-bottles-banner.webp"
+            alt="Neeram Coconut Oil in a 1 litre packet and two clear bottles, beside a halved coconut on a wooden table"
+            width={1596}
+            height={985}
             sizes="(max-width: 767px) 100vw, 40rem"
             className="w-full"
           />

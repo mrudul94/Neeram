@@ -5,7 +5,7 @@ import { toBeConfirmed } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Privacy policy",
-  description: "What Neeram collects when you order or sign up, who receives it, and your rights.",
+  description: "What Neeram collects when you order or message us, who receives it, and your rights.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -28,7 +28,7 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>When you place an order: your name, mobile number, delivery address, any landmark or note you add, your email if you give it, and what you ordered.</p>
-        <p>When you sign up for the newsletter or a &ldquo;Notify me&rdquo; message: your email address and the page you signed up on.</p>
+        <p>When you message us on WhatsApp to hear about new stock: your number and your message.</p>
         <p>We do not take card or bank details on this website. Nothing is charged here.</p>
       </>
     ),
@@ -38,7 +38,7 @@ const sections: LegalSection[] = [
     title: "Why we use it",
     body: (
       <p>
-        To confirm and deliver your order, to contact you about it, to keep our records, and to send the messages you signed up for. You can unsubscribe at any time. We do not sell your data, and this
+        To confirm and deliver your order, to contact you about it, to keep our records, and to tell you about new stock if you ask us to. You can ask us to stop at any time. We do not sell your data, and this
         website has no advertising or analytics trackers.
       </p>
     ),
@@ -48,10 +48,9 @@ const sections: LegalSection[] = [
     title: "Who receives it",
     body: (
       <ul className="list-disc space-y-2 pl-5">
-        <li>Google: orders and sign-ups are saved in our Google Sheet.</li>
-        <li>WhatsApp: the order message goes through WhatsApp when you choose to send it, under WhatsApp&rsquo;s own terms.</li>
+        <li>WhatsApp: order and new-stock messages go through WhatsApp when you choose to send them, under WhatsApp&rsquo;s own terms.</li>
         <li>Cloudflare: hosts this website, keeps short-lived technical logs, and runs a security check on our forms that uses your IP address and browser details to block bots.</li>
-        <li>Delivery partners: your name, number and address, to deliver your order. [Delivery partners: to be confirmed.]</li>
+        <li>Courier companies: your name, number and address, to deliver your order.</li>
       </ul>
     ),
   },
@@ -68,7 +67,7 @@ const sections: LegalSection[] = [
   {
     id: "keep",
     title: "How long we keep it",
-    body: <p>Order records: {toBeConfirmed(site.dataRetention)}. Sign-ups: until you unsubscribe. We may keep some records longer where the law requires it.</p>,
+    body: <p>Order records: {toBeConfirmed(site.dataRetention)}. New-stock requests: until you ask us to stop. We may keep some records longer where the law requires it.</p>,
   },
   {
     id: "rights",

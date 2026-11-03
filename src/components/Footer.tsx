@@ -2,7 +2,7 @@ import Link from "next/link";
 import { products } from "@/data/products";
 import { legalLinks, site } from "@/data/content";
 import { toBeConfirmed } from "@/lib/format";
-import { SubscribeForm } from "./SubscribeForm";
+import { WhatsAppNotify } from "./WhatsAppNotify";
 import { Wordmark } from "./Wordmark";
 
 const columns: { title: string; links: { label: string; href: string | null }[] }[] = [
@@ -20,7 +20,6 @@ const columns: { title: string; links: { label: string; href: string | null }[] 
     title: "Neeram",
     links: [
       { label: "About us", href: "/about" },
-      { label: "The kitchen", href: "/#kitchen" },
       ...legalLinks,
     ],
   },
@@ -37,7 +36,7 @@ export function Footer() {
             <br />
             new stock lands.
           </h2>
-          <SubscribeForm topic="newsletter" className="lg:pb-2" />
+          <WhatsAppNotify message="Hi Neeram, please tell me when new stock lands." label="Message us on WhatsApp" className="lg:pb-2" />
         </div>
         <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-cream/80 pt-8 md:mt-12 md:grid-cols-4">
           {columns.map((col) => (

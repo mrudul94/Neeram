@@ -4,7 +4,6 @@ import { preload } from "react-dom";
 import { AboutHelp } from "@/components/home/AboutHelp";
 import { BottleStage } from "@/components/home/BottleStage";
 import { STILL_SRC } from "@/lib/bottle";
-import { DishList } from "@/components/home/DishList";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { LookBeforeYouOpen } from "@/components/home/LookBeforeYouOpen";
 import { OilFeature } from "@/components/home/OilFeature";
@@ -56,9 +55,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Suspense>
-        <DishList />
-      </Suspense>
       <Suspense>
         <LookBeforeYouOpen />
       </Suspense>

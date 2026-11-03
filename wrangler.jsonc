@@ -10,7 +10,7 @@
 		"directory": ".open-next/assets",
 		"binding": "ASSETS"
 	},
-	// Workers Logs: lets you search the dashboard for "NOT SAVED TO SHEET".
+	// Workers Logs: lets you see errors in the dashboard.
 	"observability": {
 		"enabled": true
 	}

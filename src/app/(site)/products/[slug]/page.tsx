@@ -9,7 +9,7 @@ import { NearView } from "@/components/NearView";
 import { OilBand } from "@/components/OilBand";
 import { Gallery } from "@/components/product/Gallery";
 import { Shelf } from "@/components/Shelf";
-import { SubscribeForm } from "@/components/SubscribeForm";
+import { WhatsAppNotify } from "@/components/WhatsAppNotify";
 import { Eyebrow, MalayalamDisplay, SpecTable, cx } from "@/components/ui";
 import { site } from "@/data/content";
 import { getProduct, isAvailable, lowestPrice, products, type Product, type Spec } from "@/data/products";
@@ -111,7 +111,7 @@ const accordions = (product: Product): { title: string; body?: string; specs?: S
   },
   {
     title: "Shipping & returns",
-    body: "[Delivery areas, delivery times, charges and the returns policy.]",
+    body: `${site.policies.delivery} We confirm the delivery charge on WhatsApp after you order. ${site.policies.returns}`,
   },
   { title: "Product information", specs: packagedDetails(product) },
 ];
@@ -256,9 +256,9 @@ function ComingSoonProduct({ product }: { product: Product }) {
           <div id="notify" className="mt-8 scroll-mt-8 border-t border-ink pt-6">
             <h2 className="display text-[2rem]">Coming soon</h2>
             <p className="mt-2 max-w-[28rem] font-serif text-muted">
-              {product.name} is not on the shelf yet. Leave your email and we&apos;ll write once, when it is.
+              {product.name} is not on the shelf yet. Message us on WhatsApp and we&apos;ll tell you when it is.
             </p>
-            <SubscribeForm topic={product.slug} submitLabel="Notify me" tone="light" className="mt-5" />
+            <WhatsAppNotify message={`Hi Neeram, please tell me when ${product.name} is available.`} label="Notify me on WhatsApp" tone="light" className="mt-3" />
           </div>
           <SpecTable specs={product.specs} className="mt-6" />
           <Link href="/products/coconut-oil" className="mt-8 inline-block font-serif text-muted underline underline-offset-4 hover:text-orange">

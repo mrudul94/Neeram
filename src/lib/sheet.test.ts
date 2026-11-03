@@ -1,7 +1,7 @@
 import { createVerify, generateKeyPairSync } from "node:crypto";
 import { describe, expect, it } from "vitest";
 import type { CheckoutDetails, PricedItem } from "./checkout";
-import { appendRow, NEWSLETTER_RANGE, ORDER_SHEET_HEADERS, ORDERS_RANGE, orderRow, SIGNUP_SHEET_HEADERS, sheetConfig, signupRow } from "./sheet";
+import { appendRow, ORDER_SHEET_HEADERS, ORDERS_RANGE, orderRow, sheetConfig } from "./sheet";
 
 const details: CheckoutDetails = {
   email: "",
@@ -98,24 +98,6 @@ describe("orderRow", () => {
   });
 });
 
-describe("signupRow", () => {
-  it("writes the time in India, the email and the page", () => {
-    const row = signupRow({ email: "anu@example.com", topic: "newsletter", page: "/about", at: new Date("2026-10-30T06:18:43Z") });
-    expect(row).toEqual(["2026-10-30 11:48", "anu@example.com", "/about"]);
-    expect(row).toHaveLength(SIGNUP_SHEET_HEADERS.length);
-  });
-
-  it("names the product for a Notify me sign-up, since product pages also have the footer newsletter", () => {
-    const row = signupRow({ email: "anu@example.com", topic: "turmeric", page: "/products/turmeric", at: new Date() });
-    expect(row[2]).toBe("/products/turmeric (Notify me: Turmeric)");
-  });
-
-  it("still names the product when the page is unknown", () => {
-    const row = signupRow({ email: "anu@example.com", topic: "turmeric", page: "", at: new Date() });
-    expect(row[2]).toBe("(Notify me: Turmeric)");
-  });
-});
-
 describe("sheetConfig", () => {
   const env = {
     GOOGLE_SERVICE_ACCOUNT_EMAIL: "orders@neeram.iam.gserviceaccount.com",
@@ -191,12 +173,6 @@ describe("appendRow", () => {
     expect(append.init.method).toBe("POST");
     expect(new Headers(append.init.headers).get("authorization")).toBe("Bearer tok");
     expect(JSON.parse(String(append.init.body))).toEqual({ values: [row] });
-  });
-
-  it("appends sign-ups to the Newsletter tab", async () => {
-    const google = fakeGoogle();
-    await appendRow(config, NEWSLETTER_RANGE, row, { fetch: google.fetch });
-    expect(new URL(google.calls[1].url).pathname).toBe("/v4/spreadsheets/1AbC/values/Newsletter!A%3AC:append");
   });
 
   it("passes the abort signal to both requests", async () => {

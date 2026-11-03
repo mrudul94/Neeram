@@ -112,13 +112,20 @@ export function orderMessage(o: { orderNumber: string; items: PricedItem[]; tota
   ].join("\n");
 }
 
+/** Opens WhatsApp with the message ready to send; until the number is set, the customer picks a chat. */
+export function whatsappLink(message: string) {
+  const { whatsapp } = site.orders;
+  const text = encodeURIComponent(message);
+  return whatsapp ? `https://wa.me/${whatsapp}?text=${text}` : `https://wa.me/?text=${text}`;
+}
+
 /** Links that send the order message to Neeram; null where the contact isn't set. */
 export function orderLinks(message: string, orderNumber: string) {
   const { whatsapp, phone, email } = site.orders;
   const text = encodeURIComponent(message);
   const smsNumber = phone ?? whatsapp;
   return {
-    whatsapp: whatsapp ? `https://wa.me/${whatsapp}?text=${text}` : `https://wa.me/?text=${text}`,
+    whatsapp: whatsappLink(message),
     sms: smsNumber ? `sms:+${smsNumber}?body=${text}` : null,
     email: email ? `mailto:${email}?subject=${encodeURIComponent(`Order ${orderNumber}`)}&body=${text}` : null,
   };

@@ -1,3 +1,4 @@
+import { site } from "@/data/content";
 import type { Product } from "@/data/products";
 import { formatPrice } from "./format";
 
@@ -27,11 +28,11 @@ export function productFaqs(product: Product): Faq[] {
     },
     {
       question: "How long does Neeram coconut oil last?",
-      answer: "Check the best-before date on the pack. Shelf life: [client to confirm].",
+      answer: "Neeram coconut oil has a shelf life of 6 months. Check the best-before date on the pack.",
     },
     {
       question: "Do you deliver to my area?",
-      answer: "Delivery areas: [client to confirm]. We confirm the delivery charge on WhatsApp after you order.",
+      answer: `Yes. ${site.policies.delivery} We confirm the delivery charge on WhatsApp after you order.`,
     },
     {
       question: "How do I order Neeram coconut oil?",

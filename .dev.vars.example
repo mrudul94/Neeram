@@ -5,7 +5,7 @@
 # to match. Never use test keys on the live site.
 TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 
-# Leave empty to see the "ORDER NOT SAVED TO SHEET" fallback, or point at a test sheet.
+# Leave empty (orders are handled on WhatsApp), or point at a test sheet.
 # Never use the client's real sheet here.
 GOOGLE_SERVICE_ACCOUNT_EMAIL=
 GOOGLE_PRIVATE_KEY=

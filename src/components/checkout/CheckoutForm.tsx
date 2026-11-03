@@ -47,10 +47,10 @@ function Step({ n, title, children }: { n: string; title: string; children: Reac
   );
 }
 
-function Choice({ name, value, checked, onChange, title, note, disabled }: { name: string; value: string; checked: boolean; onChange: (v: string) => void; title: string; note?: string; disabled?: boolean }) {
+function Choice({ name, value, checked, onChange, title, note }: { name: string; value: string; checked: boolean; onChange: (v: string) => void; title: string; note?: string }) {
   return (
-    <label className={cx("flex cursor-pointer items-center gap-4 border px-4 py-3.5", checked ? "border-ink border-[1.5px]" : "border-ink/70", disabled && "cursor-not-allowed opacity-60")}>
-      <input type="radio" name={name} value={value} checked={checked} disabled={disabled} onChange={() => onChange(value)} className="size-4 accent-orange" />
+    <label className={cx("flex cursor-pointer items-center gap-4 border px-4 py-3.5", checked ? "border-ink border-[1.5px]" : "border-ink/70")}>
+      <input type="radio" name={name} value={value} checked={checked} onChange={() => onChange(value)} className="size-4 accent-orange" />
       <span>
         <span className="block text-[0.9375rem] font-medium">{title}</span>
         {note && <span className="block text-[0.8125rem] text-muted">{note}</span>}
@@ -206,8 +206,7 @@ export function CheckoutForm() {
 
           <Step n="03" title="Delivery">
             <div className="space-y-3">
-              <Choice name="delivery" value="standard" checked onChange={() => {}} title="Standard delivery" note="[Delivery time] · charge confirmed on WhatsApp" />
-              <Choice name="delivery-alt" value="express" checked={false} onChange={() => {}} title="[Second delivery option, if offered]" disabled />
+              <Choice name="delivery" value="standard" checked onChange={() => {}} title="Standard delivery" note="Six to ten working days · charge confirmed on WhatsApp" />
             </div>
           </Step>
 

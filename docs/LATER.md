@@ -38,10 +38,9 @@ Docs (commit "Replace Vercel references with Cloudflare and add a launch checkli
 ## 3. Before launch
 
 - [ ] **Neeram's own WhatsApp number** in `src/data/content.ts` → `site.orders` (currently Skaylon's, +91 80759 15386).
-- [ ] **Google Sheet setup**, following `docs/ORDER_SHEET_SETUP.md`, then add the three `GOOGLE_*` secrets on the Worker.
 - [ ] **Turnstile widget:** create it in the Cloudflare dashboard. The site key goes in `NEXT_PUBLIC_TURNSTILE_SITE_KEY` at build time; the secret goes in `TURNSTILE_SECRET_KEY` as a Worker secret.
 - [ ] **WAF rate-limit rule** on `POST /api/*`, for example 10 requests per 10 s per IP, then block. It needs the custom domain on Cloudflare.
-- [ ] **A real test order and newsletter sign-up** on the live site. Check the rows appear in the sheet, then delete them.
+- [ ] **A real test order** on the live site. Check the WhatsApp message reaches Neeram.
 - [ ] **Legal pages:** draft Privacy Policy and Terms are built, with a cookie notice, a checkout agreement line and product information. Still needs a lawyer's review and the client's details (section 3 of `docs/LAUNCH_CHECKLIST.md`).
 - [ ] **If analytics or ads are ever added,** they must only run after "Accept all" (`src/components/CookieNotice.tsx` saves the choice), Manage needs a real switch for them, and the Privacy Policy must change. Today Accept and Reject behave the same, because there is nothing optional.
 - [ ] **`SITE_LIVE=1`:** set it as a build variable at launch, or the site stays out of search (`docs/LAUNCH_CHECKLIST.md`).

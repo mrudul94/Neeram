@@ -1,20 +1,20 @@
 {
   "eslint.config.mjs": {
-    "mtime": 1793077721.2313447,
-    "seen": 1793334465.5079947,
-    "ast_hash": "dfa1f5f6a7037bf39dc510f30b180002",
-    "semantic_hash": "dfa1f5f6a7037bf39dc510f30b180002"
+    "mtime": 1793344321.4558365,
+    "seen": 1793680685.733151,
+    "ast_hash": "3b4ca98413e6d3d0bffc0642ada459b9",
+    "semantic_hash": ""
   },
   "next.config.ts": {
-    "mtime": 1793254188.060253,
-    "seen": 1793334465.508004,
-    "ast_hash": "23e4dcd614472a82abb0e9d73fa2dc18",
-    "semantic_hash": "23e4dcd614472a82abb0e9d73fa2dc18"
+    "mtime": 1793344075.9316473,
+    "seen": 1793680685.7331545,
+    "ast_hash": "7892fcaa1ca26d3a770aef3361c04f56",
+    "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1793340461.944531,
-    "seen": 1793340570.7064605,
-    "ast_hash": "ac47c42e05f43dcc34c7f0846cd81ad8",
+    "mtime": 1793344096.4273572,
+    "seen": 1793680685.7331598,
+    "ast_hash": "062c1fd304e2c4116084921a3a371a72",
     "semantic_hash": ""
   },
   "scripts/convert_frames.mjs": {
@@ -60,22 +60,22 @@
     "semantic_hash": "52d023377f2c3bfe1a584334f60adf41"
   },
   "src/app/(site)/about/page.tsx": {
-    "mtime": 1793261975.3568132,
-    "seen": 1793334465.5080278,
-    "ast_hash": "c15d14c015708bf88800cba075ce13ab",
-    "semantic_hash": "c15d14c015708bf88800cba075ce13ab"
+    "mtime": 1793680627.755324,
+    "seen": 1793680685.7331831,
+    "ast_hash": "6f4aed6d9873ecc84a1f4afc54bb48f5",
+    "semantic_hash": ""
   },
   "src/app/(site)/help/page.tsx": {
-    "mtime": 1793079808.733199,
-    "seen": 1793334465.50803,
-    "ast_hash": "2e11cd708dc2d627c765941367f43994",
-    "semantic_hash": "2e11cd708dc2d627c765941367f43994"
+    "mtime": 1793598868.0158474,
+    "seen": 1793680685.7331853,
+    "ast_hash": "656f86f06595d29f250153e51d3c4f1f",
+    "semantic_hash": ""
   },
   "src/app/(site)/layout.tsx": {
-    "mtime": 1793078772.228043,
-    "seen": 1793334465.5080323,
-    "ast_hash": "d124e7e3a635e20605354261edfe5f0a",
-    "semantic_hash": "d124e7e3a635e20605354261edfe5f0a"
+    "mtime": 1793604058.6798694,
+    "seen": 1793680685.733187,
+    "ast_hash": "a28d61a357a730f70a57ae17ccb5318f",
+    "semantic_hash": ""
   },
   "src/app/(site)/not-found.tsx": {
     "mtime": 1793079809.6509817,
@@ -84,166 +84,160 @@
     "semantic_hash": "5cca71225474bc8298e3eec8f023e284"
   },
   "src/app/(site)/page.tsx": {
-    "mtime": 1793084945.905099,
-    "seen": 1793334465.5080366,
-    "ast_hash": "57d1af7e6b284a4d58ff6a1eb11db946",
-    "semantic_hash": "57d1af7e6b284a4d58ff6a1eb11db946"
+    "mtime": 1793604058.680861,
+    "seen": 1793680685.7331908,
+    "ast_hash": "5490814713b003463180ada227b79542",
+    "semantic_hash": ""
   },
   "src/app/(site)/products/[slug]/page.tsx": {
-    "mtime": 1793337969.839216,
-    "seen": 1793338011.3751955,
-    "ast_hash": "858df82ce938776c21211aa938b4f9b7",
+    "mtime": 1793604058.6857588,
+    "seen": 1793680685.7331946,
+    "ast_hash": "e25513ed598f25ee64608888393d886a",
     "semantic_hash": ""
   },
   "src/app/(site)/shop/page.tsx": {
-    "mtime": 1793079644.661422,
-    "seen": 1793334465.5080414,
-    "ast_hash": "f63a67b1b0fac645d17b9658d92791ea",
-    "semantic_hash": "f63a67b1b0fac645d17b9658d92791ea"
+    "mtime": 1793598868.0101347,
+    "seen": 1793680685.7331963,
+    "ast_hash": "aa617aeb0e2202b81a7dff2dc429b36a",
+    "semantic_hash": ""
   },
   "src/app/api/checkout/route.ts": {
-    "mtime": 1793338665.8182607,
-    "seen": 1793338688.1672494,
-    "ast_hash": "64706d6c5ad4dcb81e46359c3778db0d",
+    "mtime": 1793344436.9825556,
+    "seen": 1793680685.7332025,
+    "ast_hash": "f5831d4141858ca465bf3a0a244077fa",
     "semantic_hash": ""
   },
   "src/app/api/subscribe/route.ts": {
-    "mtime": 1793079725.1287036,
-    "seen": 1793334465.5080476,
-    "ast_hash": "798a342f187bd08310be64283b014760",
-    "semantic_hash": "798a342f187bd08310be64283b014760"
+    "mtime": 1793344440.1645577,
+    "seen": 1793680685.733206,
+    "ast_hash": "8199f1c7b7cdeac559f45802a4588feb",
+    "semantic_hash": ""
   },
   "src/app/fonts.ts": {
-    "mtime": 1793337165.2822855,
-    "seen": 1793337184.3255637,
-    "ast_hash": "12f6151f65505e6151de00f440c9fd9a",
+    "mtime": 1793604058.686762,
+    "seen": 1793680685.7332084,
+    "ast_hash": "42d235907dffc4c63400978bf1f1f098",
     "semantic_hash": ""
   },
   "src/app/layout.tsx": {
-    "mtime": 1793284545.8076162,
-    "seen": 1793334465.5080516,
-    "ast_hash": "f115783dcb25b158a5740ca1820fe620",
-    "semantic_hash": "f115783dcb25b158a5740ca1820fe620"
+    "mtime": 1793604058.6965442,
+    "seen": 1793680685.7332473,
+    "ast_hash": "7404edda36ff05a9a145adb5e607fc03",
+    "semantic_hash": ""
   },
   "src/components/AddToCart.tsx": {
-    "mtime": 1793337979.467871,
-    "seen": 1793338011.3752086,
-    "ast_hash": "46a16373196972e7a983cd94a44f938c",
+    "mtime": 1793604058.6975434,
+    "seen": 1793680685.7332659,
+    "ast_hash": "0ab7c06ad2fbd5b5dfe1ff726c29f7cd",
     "semantic_hash": ""
   },
   "src/components/CartDrawer.tsx": {
-    "mtime": 1793251076.9568193,
-    "seen": 1793334465.5080564,
-    "ast_hash": "0008fdf885d2e2c6be1faff6a4f2274a",
-    "semantic_hash": "0008fdf885d2e2c6be1faff6a4f2274a"
-  },
-  "src/components/Footer.tsx": {
-    "mtime": 1793261913.17352,
-    "seen": 1793334465.5080585,
-    "ast_hash": "ea16e74860a89e3051d303a4e10c8c6b",
-    "semantic_hash": "ea16e74860a89e3051d303a4e10c8c6b"
-  },
-  "src/components/Header.tsx": {
-    "mtime": 1793339240.118635,
-    "seen": 1793339254.9450188,
-    "ast_hash": "bfc0c737961cb05a10175a411593b623",
+    "mtime": 1793604058.698546,
+    "seen": 1793680685.73327,
+    "ast_hash": "86fba35f0de313b77f8165072766aa5f",
     "semantic_hash": ""
   },
-  "src/components/Loader.tsx": {
-    "mtime": 1793290101.1498616,
-    "seen": 1793334465.508063,
-    "ast_hash": "df6575ea6f5d64a55b754901b097c745",
-    "semantic_hash": "df6575ea6f5d64a55b754901b097c745"
+  "src/components/Footer.tsx": {
+    "mtime": 1793595002.6695824,
+    "seen": 1793680685.7332833,
+    "ast_hash": "632af59c12024e620607ab17395e7a80",
+    "semantic_hash": ""
+  },
+  "src/components/Header.tsx": {
+    "mtime": 1793424660.7719092,
+    "seen": 1793680685.7332866,
+    "ast_hash": "51c175dae98b16be08004f690b01f837",
+    "semantic_hash": ""
   },
   "src/components/Logo.tsx": {
-    "mtime": 1793248870.3921328,
-    "seen": 1793334465.5080647,
-    "ast_hash": "26014ff70f6e20a52eac11dd906e57e7",
-    "semantic_hash": "26014ff70f6e20a52eac11dd906e57e7"
+    "mtime": 1793604058.6995416,
+    "seen": 1793680685.7332997,
+    "ast_hash": "e355d208bf3e95bc2413458bee1eb5c1",
+    "semantic_hash": ""
   },
   "src/components/OilBand.tsx": {
-    "mtime": 1793079643.7960582,
-    "seen": 1793334465.508067,
-    "ast_hash": "c9b743d3b20aa229da48c88995e251da",
-    "semantic_hash": "c9b743d3b20aa229da48c88995e251da"
+    "mtime": 1793604058.7005434,
+    "seen": 1793680685.7333064,
+    "ast_hash": "f7619676b4bb99cb1eaffc6ada9385ca",
+    "semantic_hash": ""
   },
   "src/components/QtyStepper.tsx": {
-    "mtime": 1793078735.2436788,
-    "seen": 1793334465.508069,
-    "ast_hash": "912cf37145748bf45105da04a232dc78",
-    "semantic_hash": "912cf37145748bf45105da04a232dc78"
+    "mtime": 1793424660.7719092,
+    "seen": 1793680685.7333102,
+    "ast_hash": "aaa635ad890b368712e3deae867a2991",
+    "semantic_hash": ""
   },
   "src/components/Shelf.tsx": {
-    "mtime": 1793337988.615447,
-    "seen": 1793338011.375223,
-    "ast_hash": "79c3902d038c677a49198198b0dd8bf9",
+    "mtime": 1793604058.7012656,
+    "seen": 1793680685.733314,
+    "ast_hash": "42a8eb08adf45f8ffadccc9a5814eed5",
     "semantic_hash": ""
   },
   "src/components/SmoothScroll.tsx": {
-    "mtime": 1793284559.222293,
-    "seen": 1793334465.5080736,
-    "ast_hash": "d1a1cc82e143b7803d7842b74998052b",
-    "semantic_hash": "d1a1cc82e143b7803d7842b74998052b"
+    "mtime": 1793604058.701774,
+    "seen": 1793680685.7333179,
+    "ast_hash": "02e5c95d9785809d00cb55924b74ac8c",
+    "semantic_hash": ""
   },
   "src/components/SubscribeForm.tsx": {
-    "mtime": 1793080718.5813763,
-    "seen": 1793334465.5080755,
-    "ast_hash": "9fa20fec65a3cf2c6da0c7c2d3e38560",
-    "semantic_hash": "9fa20fec65a3cf2c6da0c7c2d3e38560"
+    "mtime": 1793595002.6785388,
+    "seen": 1793680685.7333217,
+    "ast_hash": "4da1683bd72743fdc3318a484ea80d68",
+    "semantic_hash": ""
   },
   "src/components/Wordmark.tsx": {
-    "mtime": 1793259419.343419,
-    "seen": 1793334465.5080779,
-    "ast_hash": "fcc46ad6c3ca87d4dca13920df0a0a50",
-    "semantic_hash": "fcc46ad6c3ca87d4dca13920df0a0a50"
+    "mtime": 1793604058.7027845,
+    "seen": 1793680685.733328,
+    "ast_hash": "4c8f5d4661b3b84dd64fee5d02d02d94",
+    "semantic_hash": ""
   },
   "src/components/checkout/CheckoutForm.tsx": {
-    "mtime": 1793338951.7368987,
-    "seen": 1793338986.3740592,
-    "ast_hash": "631f3a15b25490db9ae80ce5677adbde",
+    "mtime": 1793604058.7032928,
+    "seen": 1793680685.7333317,
+    "ast_hash": "b237dd9da7c90e2f2174a7f428ff4940",
     "semantic_hash": ""
   },
   "src/components/checkout/CheckoutHeader.tsx": {
-    "mtime": 1793338966.7488236,
-    "seen": 1793338986.374061,
-    "ast_hash": "a64530ce97d3786ed7721ea118e25aa0",
+    "mtime": 1793424790.9828203,
+    "seen": 1793680685.733335,
+    "ast_hash": "0c715ce4b027cb2155ed11ac8ead030b",
     "semantic_hash": ""
   },
   "src/components/home/AboutHelp.tsx": {
-    "mtime": 1793337572.6534214,
-    "seen": 1793337588.8096406,
-    "ast_hash": "573c380c38cd7a87bcc395231d363f5b",
+    "mtime": 1793604058.7048106,
+    "seen": 1793680685.7333388,
+    "ast_hash": "f4137d1e82cce6b856ef136d82647456",
     "semantic_hash": ""
   },
   "src/components/home/BottleStage.tsx": {
-    "mtime": 1793284566.3653636,
-    "seen": 1793334465.508088,
-    "ast_hash": "3770695bc9205b292b0a06d45463fbef",
-    "semantic_hash": "3770695bc9205b292b0a06d45463fbef"
+    "mtime": 1793604058.7063549,
+    "seen": 1793680685.7333426,
+    "ast_hash": "6dea6d3ed5de88f41cb26593ebedb7de",
+    "semantic_hash": ""
   },
   "src/components/home/DishList.tsx": {
-    "mtime": 1793078923.3101153,
-    "seen": 1793334465.5080898,
-    "ast_hash": "8372c1f280f77f61763f9973331081a4",
-    "semantic_hash": "8372c1f280f77f61763f9973331081a4"
+    "mtime": 1793604058.7081878,
+    "seen": 1793680685.7333457,
+    "ast_hash": "d96cb76e72d154ac7e21217e52c8e3bd",
+    "semantic_hash": ""
   },
   "src/components/home/FeatureStage.tsx": {
-    "mtime": 1793254188.0123,
-    "seen": 1793334465.508092,
-    "ast_hash": "23c0d77a9e92333ced269fca8040e924",
-    "semantic_hash": "23c0d77a9e92333ced269fca8040e924"
+    "mtime": 1793604058.7113466,
+    "seen": 1793680685.7333496,
+    "ast_hash": "5f9b8abc36a1ea40eb6d3174fca8d4ac",
+    "semantic_hash": ""
   },
   "src/components/home/HeroSlider.tsx": {
-    "mtime": 1793284546.643134,
-    "seen": 1793334465.5080936,
-    "ast_hash": "b6f7eaa85577597bfadccb410683d158",
-    "semantic_hash": "b6f7eaa85577597bfadccb410683d158"
+    "mtime": 1793604058.7134702,
+    "seen": 1793680685.733353,
+    "ast_hash": "d64816f2d661f7c4bd4ff90a4b5c7db1",
+    "semantic_hash": ""
   },
   "src/components/home/LookBeforeYouOpen.tsx": {
-    "mtime": 1793078925.549902,
-    "seen": 1793334465.5080967,
-    "ast_hash": "9f7a5791ecb72827beda73e2efab1c27",
-    "semantic_hash": "9f7a5791ecb72827beda73e2efab1c27"
+    "mtime": 1793604058.7139966,
+    "seen": 1793680685.7333577,
+    "ast_hash": "e809a6e42e28c927ae28653c4346abe3",
+    "semantic_hash": ""
   },
   "src/components/home/OilFeature.tsx": {
     "mtime": 1793336840.970871,
@@ -252,63 +246,57 @@
     "semantic_hash": ""
   },
   "src/components/home/swap.ts": {
-    "mtime": 1793254090.259386,
-    "seen": 1793334465.5081005,
+    "mtime": 1793429100.4311576,
+    "seen": 1793680685.7333667,
     "ast_hash": "f42c7af87342af81e360d31d7ad3d3e6",
     "semantic_hash": "f42c7af87342af81e360d31d7ad3d3e6"
   },
   "src/components/product/Gallery.tsx": {
-    "mtime": 1793080067.126292,
-    "seen": 1793334465.508103,
-    "ast_hash": "4e06df7aa6a4cf9ff31907de132d4ce0",
-    "semantic_hash": "4e06df7aa6a4cf9ff31907de132d4ce0"
+    "mtime": 1793604058.715317,
+    "seen": 1793680685.7333703,
+    "ast_hash": "5525f50bd30cdbf028a159db48863d5f",
+    "semantic_hash": ""
   },
   "src/components/shop/ShopList.tsx": {
-    "mtime": 1793337988.5779724,
-    "seen": 1793338011.3752518,
-    "ast_hash": "9ac76ead2fec6b3b6bf205fbd9a86d94",
+    "mtime": 1793425558.96695,
+    "seen": 1793680685.7333734,
+    "ast_hash": "b37b18fdaa5dcf382e71781eebc5d225",
     "semantic_hash": ""
   },
   "src/components/ui.tsx": {
-    "mtime": 1793339240.118635,
-    "seen": 1793339254.9450576,
-    "ast_hash": "b1b9f5a02683d1441d2d50474d308b45",
+    "mtime": 1793604058.7180772,
+    "seen": 1793680685.7333772,
+    "ast_hash": "46c0541e22afdec93e4c4ed679ceecf1",
     "semantic_hash": ""
   },
   "src/lib/bottle.ts": {
-    "mtime": 1793100949.1713948,
-    "seen": 1793334465.5081089,
-    "ast_hash": "ba53de23929de1ba13c431d46c0c8a73",
-    "semantic_hash": "ba53de23929de1ba13c431d46c0c8a73"
+    "mtime": 1793598868.9904253,
+    "seen": 1793680685.7333953,
+    "ast_hash": "a08d2e9a17326773179161c7c82e494e",
+    "semantic_hash": ""
   },
   "src/lib/checkout.ts": {
-    "mtime": 1793340539.055148,
-    "seen": 1793340570.706551,
-    "ast_hash": "4ed8cc4c3244062fb4f03baf09da8e87",
+    "mtime": 1793343812.5664718,
+    "seen": 1793680685.7334,
+    "ast_hash": "6a0c5b9cfe0950ef21f7c9e610af18f9",
     "semantic_hash": ""
   },
   "src/lib/format.ts": {
-    "mtime": 1793078646.4995668,
-    "seen": 1793334465.5081124,
-    "ast_hash": "1c888da86c360b47c4ee6cb9b8b76c9e",
-    "semantic_hash": "1c888da86c360b47c4ee6cb9b8b76c9e"
-  },
-  "src/lib/loader.ts": {
-    "mtime": 1793284284.0224442,
-    "seen": 1793334465.508114,
-    "ast_hash": "2c90b83de19b294d5e887b476764c5b9",
-    "semantic_hash": "2c90b83de19b294d5e887b476764c5b9"
+    "mtime": 1793595002.6655512,
+    "seen": 1793680685.7334085,
+    "ast_hash": "703c4470cb86bc4e7510ca3f9549d524",
+    "semantic_hash": ""
   },
   "src/lib/store-json.ts": {
-    "mtime": 1793079724.0481827,
-    "seen": 1793334465.508116,
-    "ast_hash": "c55834e4a556a43b00c913ae278de7a7",
-    "semantic_hash": "c55834e4a556a43b00c913ae278de7a7"
+    "mtime": 1793343769.6457894,
+    "seen": 1793680685.7334394,
+    "ast_hash": "766fd4d86d464ee9683f6e31ebc67557",
+    "semantic_hash": ""
   },
   "src/store/cart.ts": {
-    "mtime": 1793340539.9332452,
-    "seen": 1793340570.706561,
-    "ast_hash": "112dc75fa2a775066af40d803547f5ad",
+    "mtime": 1793604058.7325075,
+    "seen": 1793680685.7334523,
+    "ast_hash": "1b49a4306bd3df4b4de73837ba739eb8",
     "semantic_hash": ""
   },
   "src/store/pack.ts": {
@@ -330,21 +318,21 @@
     "semantic_hash": "c98dbebb744eadc1acc4b9f58bfe0f42"
   },
   "NEERAM_BUILD_PROMPT.md": {
-    "mtime": 1793077421.6606693,
-    "seen": 1793334465.508125,
-    "ast_hash": "4225de0e5540787d7954b21d15e2b263",
-    "semantic_hash": "4225de0e5540787d7954b21d15e2b263"
+    "mtime": 1793344991.465703,
+    "seen": 1793680685.7334673,
+    "ast_hash": "b4ea2204feacbcc5cf572627acd1997c",
+    "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1793338951.7426915,
-    "seen": 1793338986.3741019,
-    "ast_hash": "272bf37f7996119fb33703092128cdef",
+    "mtime": 1793598912.8308074,
+    "seen": 1793680685.7334695,
+    "ast_hash": "eec1adb2545fed03006bd7b21608e1b1",
     "semantic_hash": ""
   },
   "TODO_CONTENT.md": {
-    "mtime": 1793339974.7092361,
-    "seen": 1793340043.2875295,
-    "ast_hash": "e13be7b26413bd298d48a9b4b95457f8",
+    "mtime": 1793598869.0280464,
+    "seen": 1793680685.7334714,
+    "ast_hash": "c6fe3db905b83d8fadd2507aa61a549a",
     "semantic_hash": ""
   },
   "design/neeram-oil-wordmark.html": {
@@ -377,53 +365,11 @@
     "ast_hash": "2d1c937dbdd93a4621a813dd2caf7527",
     "semantic_hash": "2d1c937dbdd93a4621a813dd2caf7527"
   },
-  "public/bottle/bottle-still-mobile.webp": {
-    "mtime": 1793084821.346,
-    "seen": 1793334465.5081627,
-    "ast_hash": "8bce864ea53e2d6192dd442414f9df98",
-    "semantic_hash": "8bce864ea53e2d6192dd442414f9df98"
-  },
-  "public/bottle/bottle-still.webp": {
-    "mtime": 1793083121.5352435,
-    "seen": 1793334465.5081675,
-    "ast_hash": "197d5e603a6e3ac2fda779e407445e5a",
-    "semantic_hash": "197d5e603a6e3ac2fda779e407445e5a"
-  },
   "public/images/Main logo/Neeram Coconut Leaf Logo.png": {
     "mtime": 1793248670.1881204,
     "seen": 1793334465.5081816,
     "ast_hash": "3d13d6f129cc7a6baa2f131dc8f4fe8d",
     "semantic_hash": "3d13d6f129cc7a6baa2f131dc8f4fe8d"
-  },
-  "public/images/about/mill-opening.webp": {
-    "mtime": 1793260148.751,
-    "seen": 1793334465.508184,
-    "ast_hash": "e93c00044f2db58dedfd38b038595af6",
-    "semantic_hash": "e93c00044f2db58dedfd38b038595af6"
-  },
-  "public/images/about/neeram-banner.webp": {
-    "mtime": 1793260149.201,
-    "seen": 1793334465.5081863,
-    "ast_hash": "aa3f92091a932e3172e3a02ca55ad79d",
-    "semantic_hash": "aa3f92091a932e3172e3a02ca55ad79d"
-  },
-  "public/images/about/oil-mill.webp": {
-    "mtime": 1793260148.665,
-    "seen": 1793334465.5081887,
-    "ast_hash": "75ab7be1b16bee0c2b79a9ae232b8878",
-    "semantic_hash": "75ab7be1b16bee0c2b79a9ae232b8878"
-  },
-  "public/images/gallery/coconut-oil-cap.webp": {
-    "mtime": 1793078622.67,
-    "seen": 1793334465.5081916,
-    "ast_hash": "33d2ce11fc55eff2217a461277560a99",
-    "semantic_hash": "33d2ce11fc55eff2217a461277560a99"
-  },
-  "public/images/gallery/coconut-oil-label.webp": {
-    "mtime": 1793078622.336,
-    "seen": 1793334465.508194,
-    "ast_hash": "164c3c4220a5fe0878153a005cb55561",
-    "semantic_hash": "164c3c4220a5fe0878153a005cb55561"
   },
   "public/images/jars/Neeram Coconut Oil Bottle Product Photo.png": {
     "mtime": 1793250050.1383116,
@@ -443,78 +389,6 @@
     "ast_hash": "9481e8c98c54858a74c6aad2b9c7b8e0",
     "semantic_hash": "9481e8c98c54858a74c6aad2b9c7b8e0"
   },
-  "public/images/jars/black-pepper.webp": {
-    "mtime": 1793078611.743,
-    "seen": 1793334465.5082035,
-    "ast_hash": "300611cebc0e2c6f6eeb2879408983df",
-    "semantic_hash": "300611cebc0e2c6f6eeb2879408983df"
-  },
-  "public/images/jars/coconut-oil.webp": {
-    "mtime": 1793078621.613,
-    "seen": 1793334465.5082057,
-    "ast_hash": "0ade71159ed93669cf35f57a047e9679",
-    "semantic_hash": "0ade71159ed93669cf35f57a047e9679"
-  },
-  "public/images/jars/malabar-tamarind.webp": {
-    "mtime": 1793078606.818,
-    "seen": 1793334465.5082076,
-    "ast_hash": "5f114dc684a175a7a57491440862962c",
-    "semantic_hash": "5f114dc684a175a7a57491440862962c"
-  },
-  "public/images/jars/shankupushpam.webp": {
-    "mtime": 1793078616.643,
-    "seen": 1793334465.5082095,
-    "ast_hash": "8754a054026c323d6c594abd14f787af",
-    "semantic_hash": "8754a054026c323d6c594abd14f787af"
-  },
-  "public/images/jars/tamarind.webp": {
-    "mtime": 1793078614.211,
-    "seen": 1793334465.5082114,
-    "ast_hash": "203a72cf186b9dd08bf31658bf6452b8",
-    "semantic_hash": "203a72cf186b9dd08bf31658bf6452b8"
-  },
-  "public/images/jars/turmeric.webp": {
-    "mtime": 1793078609.248,
-    "seen": 1793334465.5082138,
-    "ast_hash": "ccd4dd636080d437acd5fdea62548399",
-    "semantic_hash": "ccd4dd636080d437acd5fdea62548399"
-  },
-  "public/images/logo/neeram-logo.png": {
-    "mtime": 1793248729.424,
-    "seen": 1793334465.5082161,
-    "ast_hash": "57bc23f2d789ac1266d23848edf8b2ef",
-    "semantic_hash": "57bc23f2d789ac1266d23848edf8b2ef"
-  },
-  "public/images/packs/bottle-1l.webp": {
-    "mtime": 1793250884.717,
-    "seen": 1793334465.5082204,
-    "ast_hash": "0e576a999b5151701f85cc02a65c1af3",
-    "semantic_hash": "0e576a999b5151701f85cc02a65c1af3"
-  },
-  "public/images/packs/bottle-200.webp": {
-    "mtime": 1793250884.415,
-    "seen": 1793334465.5082228,
-    "ast_hash": "11bd679a39dc75f4ed748a608d44699e",
-    "semantic_hash": "11bd679a39dc75f4ed748a608d44699e"
-  },
-  "public/images/packs/pouch-500.webp": {
-    "mtime": 1793250885.199,
-    "seen": 1793334465.508225,
-    "ast_hash": "999b72823291ff3b191004662ae9fd97",
-    "semantic_hash": "999b72823291ff3b191004662ae9fd97"
-  },
-  "public/images/photos/sambar.webp": {
-    "mtime": 1793078621.055,
-    "seen": 1793334465.508227,
-    "ast_hash": "b99871266bab34778c78404ab77adc42",
-    "semantic_hash": "b99871266bab34778c78404ab77adc42"
-  },
-  "public/images/photos/tempering-pan.webp": {
-    "mtime": 1793078619.419,
-    "seen": 1793334465.5082295,
-    "ast_hash": "2f048dc69e86dbb999ced9017f39b502",
-    "semantic_hash": "2f048dc69e86dbb999ced9017f39b502"
-  },
   "public/og-coconut-oil.jpg": {
     "mtime": 1793078622.878,
     "seen": 1793334465.5082316,
@@ -522,15 +396,15 @@
     "semantic_hash": "35985ff9cd97525e98a4a323f2bd5b70"
   },
   "src/data/content.ts": {
-    "mtime": 1793339068.1561792,
-    "seen": 1793339080.410774,
-    "ast_hash": "ce1346512bd121f2f9d1c9225b554b9e",
+    "mtime": 1793598868.9703684,
+    "seen": 1793680685.7333813,
+    "ast_hash": "d63e3c499f3bbf0b995dddad953063a7",
     "semantic_hash": ""
   },
   "src/data/products.ts": {
-    "mtime": 1793337956.407642,
-    "seen": 1793338011.3752575,
-    "ast_hash": "388e20bf8a593e792ce39aab75d8a5c9",
+    "mtime": 1793604058.719313,
+    "seen": 1793680685.7333894,
+    "ast_hash": "683702f8b6067c4467ca20778b343132",
     "semantic_hash": ""
   },
   "public/bottle/desktop/0001.webp": {
@@ -894,27 +768,27 @@
     "semantic_hash": ""
   },
   "src/data/products.test.ts": {
-    "mtime": 1793340514.351119,
-    "seen": 1793340570.7065437,
-    "ast_hash": "c82fa23e89efc0c8434b052b2a9e74a8",
+    "mtime": 1793597902.9725153,
+    "seen": 1793680685.7333856,
+    "ast_hash": "2dc38f243f5dbac0211972866d2f4917",
     "semantic_hash": ""
   },
   "src/lib/checkout.test.ts": {
-    "mtime": 1793340545.382514,
-    "seen": 1793340570.7065494,
-    "ast_hash": "111c4962459cbd7de604e79446ddb743",
+    "mtime": 1793343796.984659,
+    "seen": 1793680685.7333975,
+    "ast_hash": "123985897cdf2200f11fa54d29a9ef19",
     "semantic_hash": ""
   },
   "src/lib/format.test.ts": {
-    "mtime": 1793340513.495231,
-    "seen": 1793340570.7065525,
-    "ast_hash": "9447b206b2564975a3b67730bd7e052a",
+    "mtime": 1793594857.4614592,
+    "seen": 1793680685.7334065,
+    "ast_hash": "9d6db4d812172b70fbc2476903b256b5",
     "semantic_hash": ""
   },
   "src/store/cart.test.ts": {
-    "mtime": 1793340516.0390012,
-    "seen": 1793340570.7065594,
-    "ast_hash": "f1666ba00c9ee0ead426ddd45349c4aa",
+    "mtime": 1793604058.730828,
+    "seen": 1793680685.7334502,
+    "ast_hash": "750aeee2fbf72a3d77a7e8990ba770a1",
     "semantic_hash": ""
   },
   "vitest.config.ts": {
@@ -923,10 +797,436 @@
     "ast_hash": "ae7ab6a72f13c5888328a853cf48f795",
     "semantic_hash": ""
   },
+  "e2e/checkout.spec.ts": {
+    "mtime": 1793595045.7332716,
+    "seen": 1793680685.7331321,
+    "ast_hash": "da43ba181e433e2919963a5041b5672e",
+    "semantic_hash": ""
+  },
+  "e2e/legal.spec.ts": {
+    "mtime": 1793604058.653081,
+    "seen": 1793680685.7331445,
+    "ast_hash": "2a17a60a54b64a9f176b5e0521fb37d8",
+    "semantic_hash": ""
+  },
+  "open-next.config.ts": {
+    "mtime": 1793344087.2135708,
+    "seen": 1793680685.7331574,
+    "ast_hash": "a26da9cf19420ae021a10ecdc9c4b287",
+    "semantic_hash": ""
+  },
+  "playwright.config.ts": {
+    "mtime": 1793344559.493968,
+    "seen": 1793680685.7331614,
+    "ast_hash": "e402f814865fa6877ef817005a875242",
+    "semantic_hash": ""
+  },
+  "src/app/(site)/privacy/page.tsx": {
+    "mtime": 1793598868.0158474,
+    "seen": 1793680685.7331924,
+    "ast_hash": "0ff7efb8be7d0918f41dba2e0e41b56e",
+    "semantic_hash": ""
+  },
+  "src/app/(site)/terms/page.tsx": {
+    "mtime": 1793598868.0158474,
+    "seen": 1793680685.7331982,
+    "ast_hash": "f0ac64d6427d5795a06ec7d83d664cdb",
+    "semantic_hash": ""
+  },
+  "src/app/api/checkout/route.test.ts": {
+    "mtime": 1793344411.1515675,
+    "seen": 1793680685.7332003,
+    "ast_hash": "1d5dffa0fafc17506d4f787b846278b9",
+    "semantic_hash": ""
+  },
+  "src/app/api/subscribe/route.test.ts": {
+    "mtime": 1793344411.969036,
+    "seen": 1793680685.7332044,
+    "ast_hash": "cf95b7fc652e358ff9705541fd5525eb",
+    "semantic_hash": ""
+  },
+  "src/app/robots.ts": {
+    "mtime": 1793598862.9563942,
+    "seen": 1793680685.733258,
+    "ast_hash": "383115ab5900727a38ed321697570223",
+    "semantic_hash": ""
+  },
+  "src/app/sitemap.ts": {
+    "mtime": 1793598863.7898169,
+    "seen": 1793680685.733262,
+    "ast_hash": "19dc2e6a1002c75c35a44ddb184820f0",
+    "semantic_hash": ""
+  },
+  "src/components/CartDrawerLazy.tsx": {
+    "mtime": 1793604058.698546,
+    "seen": 1793680685.7332733,
+    "ast_hash": "41c1e369ecebe18511bc4c1c79c2077d",
+    "semantic_hash": ""
+  },
+  "src/components/CookieNotice.tsx": {
+    "mtime": 1793597550.8163087,
+    "seen": 1793680685.7332768,
+    "ast_hash": "d6f65300fa143a1d7793805a7898270e",
+    "semantic_hash": ""
+  },
+  "src/components/CookieNoticeLazy.tsx": {
+    "mtime": 1793604058.6995416,
+    "seen": 1793680685.73328,
+    "ast_hash": "108a24f2312eebe57ac95ed6d653d89d",
+    "semantic_hash": ""
+  },
+  "src/components/Honeypot.tsx": {
+    "mtime": 1793343551.35622,
+    "seen": 1793680685.7332897,
+    "ast_hash": "2cb4cc975fe65bdf8ed844691a0f5594",
+    "semantic_hash": ""
+  },
+  "src/components/JsonLd.tsx": {
+    "mtime": 1793598864.629093,
+    "seen": 1793680685.733293,
+    "ast_hash": "cf4cc0fdf297bc1b81e8b5b24efb792b",
+    "semantic_hash": ""
+  },
+  "src/components/LegalPage.tsx": {
+    "mtime": 1793594995.3023212,
+    "seen": 1793680685.7332964,
+    "ast_hash": "ddde2b9c29184194ef4379df1dc9e806",
+    "semantic_hash": ""
+  },
+  "src/components/NearView.tsx": {
+    "mtime": 1793604058.6995416,
+    "seen": 1793680685.7333028,
+    "ast_hash": "246f1a858cd48fa0b33df50dd586e3c9",
+    "semantic_hash": ""
+  },
+  "src/components/Turnstile.tsx": {
+    "mtime": 1793344837.6175587,
+    "seen": 1793680685.7333248,
+    "ast_hash": "bbb61f3e7dd1c2485ef35c34bf232116",
+    "semantic_hash": ""
+  },
+  "src/lib/bot-check.ts": {
+    "mtime": 1793344437.7730854,
+    "seen": 1793680685.7333927,
+    "ast_hash": "ddd23beba9417f07e376c84eac95f025",
+    "semantic_hash": ""
+  },
+  "src/lib/faq.ts": {
+    "mtime": 1793598861.2939465,
+    "seen": 1793680685.733402,
+    "ast_hash": "0b12be1abfe8427fb88b2eeea3ad18d4",
+    "semantic_hash": ""
+  },
+  "src/lib/fonts.test.ts": {
+    "mtime": 1793604058.7203245,
+    "seen": 1793680685.7334042,
+    "ast_hash": "5b166e77535afc736736549242096b2e",
+    "semantic_hash": ""
+  },
+  "src/lib/legal.test.ts": {
+    "mtime": 1793597843.878197,
+    "seen": 1793680685.7334106,
+    "ast_hash": "b97f3e1cfdc737f83666e3b3ebe2c10a",
+    "semantic_hash": ""
+  },
+  "src/lib/legal.ts": {
+    "mtime": 1793594994.4821923,
+    "seen": 1793680685.7334125,
+    "ast_hash": "c422996eedbac85bfbe80f3ed9c50ecc",
+    "semantic_hash": ""
+  },
+  "src/lib/motion.ts": {
+    "mtime": 1793604058.7203245,
+    "seen": 1793680685.7334146,
+    "ast_hash": "c31be36d4d016ab213c4d67f4e45b47f",
+    "semantic_hash": ""
+  },
+  "src/lib/records.test.ts": {
+    "mtime": 1793343747.4438677,
+    "seen": 1793680685.7334168,
+    "ast_hash": "cd604bc7b1e864b5ef24b7d6a54d7104",
+    "semantic_hash": ""
+  },
+  "src/lib/records.ts": {
+    "mtime": 1793344975.6484363,
+    "seen": 1793680685.7334185,
+    "ast_hash": "3b875e6f0626bdee6a24cf13f73c00ce",
+    "semantic_hash": ""
+  },
+  "src/lib/rects.test.ts": {
+    "mtime": 1793596386.1484132,
+    "seen": 1793680685.7334208,
+    "ast_hash": "a8fc0dc4f07302c00d2fbd0fbaa2a59a",
+    "semantic_hash": ""
+  },
+  "src/lib/rects.ts": {
+    "mtime": 1793596394.788625,
+    "seen": 1793680685.7334225,
+    "ast_hash": "1b2ddadaefd391933063228d6b14c115",
+    "semantic_hash": ""
+  },
+  "src/lib/schema.test.ts": {
+    "mtime": 1793598912.7796652,
+    "seen": 1793680685.7334244,
+    "ast_hash": "57f9e0a042f3deba35df5bb6a5085a2c",
+    "semantic_hash": ""
+  },
+  "src/lib/schema.ts": {
+    "mtime": 1793598860.430418,
+    "seen": 1793680685.733426,
+    "ast_hash": "db53533e695f0be670aa60d2ebb52eea",
+    "semantic_hash": ""
+  },
+  "src/lib/seo.test.ts": {
+    "mtime": 1793598747.2817223,
+    "seen": 1793680685.7334282,
+    "ast_hash": "ab5b69df2e35b909e2f04b05db547cb4",
+    "semantic_hash": ""
+  },
+  "src/lib/seo.ts": {
+    "mtime": 1793598862.1256783,
+    "seen": 1793680685.73343,
+    "ast_hash": "3ec66cca132a7e4298d33e255aff8832",
+    "semantic_hash": ""
+  },
+  "src/lib/sheet-guide.test.ts": {
+    "mtime": 1793343843.5567768,
+    "seen": 1793680685.7334318,
+    "ast_hash": "09d0d95ae7d2b6c701552dcd6799bb14",
+    "semantic_hash": ""
+  },
+  "src/lib/sheet.test.ts": {
+    "mtime": 1793343634.9391735,
+    "seen": 1793680685.7334335,
+    "ast_hash": "98b6405c78ed4f2c9d48933938af6cc5",
+    "semantic_hash": ""
+  },
+  "src/lib/sheet.ts": {
+    "mtime": 1793343715.0614183,
+    "seen": 1793680685.7334354,
+    "ast_hash": "73ffdacaadf8f3738113044cd151bd28",
+    "semantic_hash": ""
+  },
+  "src/lib/store-json.test.ts": {
+    "mtime": 1793341266.7739637,
+    "seen": 1793680685.7334375,
+    "ast_hash": "2668bbee94c8e1af8263951dcf426bc8",
+    "semantic_hash": ""
+  },
+  "src/lib/turnstile.test.ts": {
+    "mtime": 1793344367.734458,
+    "seen": 1793680685.7334416,
+    "ast_hash": "46f6bcc1f10fca36a6e7444572e25544",
+    "semantic_hash": ""
+  },
+  "src/lib/turnstile.ts": {
+    "mtime": 1793344381.4247155,
+    "seen": 1793680685.7334435,
+    "ast_hash": "d509affd33cb94fc21f76691fac5ac6a",
+    "semantic_hash": ""
+  },
+  "docs/LATER.md": {
+    "mtime": 1793604060.0071523,
+    "seen": 1793680685.733476,
+    "ast_hash": "62c468d62eb7b1c9db10ef87c06935f3",
+    "semantic_hash": ""
+  },
+  "docs/LAUNCH_CHECKLIST.md": {
+    "mtime": 1793598869.0411973,
+    "seen": 1793680685.7334783,
+    "ast_hash": "f79920f98f24e4fdb10218cda0886ecc",
+    "semantic_hash": ""
+  },
+  "docs/ORDER_SHEET_SETUP.md": {
+    "mtime": 1793344956.0227084,
+    "seen": 1793680685.7334805,
+    "ast_hash": "aa74de3bbf75729479573921b86aab30",
+    "semantic_hash": ""
+  },
+  "docs/SEO_PLAN.md": {
+    "mtime": 1793598866.2425327,
+    "seen": 1793680685.7334821,
+    "ast_hash": "181052afd80a1ad9d35a6ad12ffe92f3",
+    "semantic_hash": ""
+  },
+  "src/app/fonts/malayalam-chars.txt": {
+    "mtime": 1793604058.6902926,
+    "seen": 1793680685.733487,
+    "ast_hash": "8373bcdd1900b055d10778216ed04f8d",
+    "semantic_hash": ""
+  },
+  "public/bottle/neeram-coconut-oil-500ml-bottle-mobile.webp": {
+    "mtime": 1793084821.346,
+    "seen": 1793680685.7336829,
+    "ast_hash": "8bce864ea53e2d6192dd442414f9df98",
+    "semantic_hash": ""
+  },
+  "public/bottle/neeram-coconut-oil-500ml-bottle.webp": {
+    "mtime": 1793083121.5352435,
+    "seen": 1793680685.733685,
+    "ast_hash": "197d5e603a6e3ac2fda779e407445e5a",
+    "semantic_hash": ""
+  },
+  "public/images/about/neeram-coconut-oil-1l-packet-and-bottles-banner.webp": {
+    "mtime": 1793680627.223,
+    "seen": 1793680685.73369,
+    "ast_hash": "f04b50a66ebe27a51c1a84b0954a7245",
+    "semantic_hash": ""
+  },
+  "public/images/about/neeram-oil-mill-anakkallu-kasaragod.webp": {
+    "mtime": 1793260148.665,
+    "seen": 1793680685.7336922,
+    "ast_hash": "75ab7be1b16bee0c2b79a9ae232b8878",
+    "semantic_hash": ""
+  },
+  "public/images/about/neeram-oil-mill-opening-ceremony.webp": {
+    "mtime": 1793260148.751,
+    "seen": 1793680685.7336938,
+    "ast_hash": "e93c00044f2db58dedfd38b038595af6",
+    "semantic_hash": ""
+  },
+  "public/images/gallery/neeram-coconut-oil-bottle-cap-close-up-thumb.webp": {
+    "mtime": 1793604058.6540842,
+    "seen": 1793680685.7336957,
+    "ast_hash": "3f243a9c7cda39276a969fd488e59e37",
+    "semantic_hash": ""
+  },
+  "public/images/gallery/neeram-coconut-oil-bottle-cap-close-up.webp": {
+    "mtime": 1793078622.67,
+    "seen": 1793680685.7336972,
+    "ast_hash": "33d2ce11fc55eff2217a461277560a99",
+    "semantic_hash": ""
+  },
+  "public/images/gallery/neeram-coconut-oil-label-close-up-thumb.webp": {
+    "mtime": 1793604058.6540842,
+    "seen": 1793680685.733699,
+    "ast_hash": "893d059b5b2d195e4acd0803e3d0e0ba",
+    "semantic_hash": ""
+  },
+  "public/images/gallery/neeram-coconut-oil-label-close-up.webp": {
+    "mtime": 1793078622.336,
+    "seen": 1793680685.7337012,
+    "ast_hash": "164c3c4220a5fe0878153a005cb55561",
+    "semantic_hash": ""
+  },
+  "public/images/jars/neeram-black-pepper-jar.webp": {
+    "mtime": 1793604058.6560802,
+    "seen": 1793680685.7337103,
+    "ast_hash": "cc6caa8b7d9a34f4c2188c8b1f2902e8",
+    "semantic_hash": ""
+  },
+  "public/images/jars/neeram-coconut-oil-500ml-bottle.webp": {
+    "mtime": 1793604058.659021,
+    "seen": 1793680685.7337122,
+    "ast_hash": "b7fcad81ca290cc7883449d935b234cb",
+    "semantic_hash": ""
+  },
+  "public/images/jars/neeram-malabar-tamarind-jar.webp": {
+    "mtime": 1793604058.6636815,
+    "seen": 1793680685.7337139,
+    "ast_hash": "0cf5755076c61a113d06d94a56eb9519",
+    "semantic_hash": ""
+  },
+  "public/images/jars/neeram-shankupushpam-jar.webp": {
+    "mtime": 1793604058.6656816,
+    "seen": 1793680685.7337155,
+    "ast_hash": "20e9f94d337f74e548b14490b7336e68",
+    "semantic_hash": ""
+  },
+  "public/images/jars/neeram-tamarind-jar.webp": {
+    "mtime": 1793604058.6665232,
+    "seen": 1793680685.7337172,
+    "ast_hash": "473ecd301c3683397b663ad5f910e4b6",
+    "semantic_hash": ""
+  },
+  "public/images/jars/neeram-turmeric-jar.webp": {
+    "mtime": 1793604058.6695046,
+    "seen": 1793680685.733719,
+    "ast_hash": "08eb59f63b82afb6df5f292bf7381792",
+    "semantic_hash": ""
+  },
+  "public/images/logo/neeram-coconut-oil-logo.webp": {
+    "mtime": 1793344064.267,
+    "seen": 1793680685.7337205,
+    "ast_hash": "d6190284e73db38dec15157ef3a217f1",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-1l-bottle-thumb.webp": {
+    "mtime": 1793604058.6705108,
+    "seen": 1793680685.7337224,
+    "ast_hash": "3135610676868494e622dc0556e0c7a6",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-1l-bottle.webp": {
+    "mtime": 1793250884.717,
+    "seen": 1793680685.7337244,
+    "ast_hash": "0e576a999b5151701f85cc02a65c1af3",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-1l-packet-thumb.webp": {
+    "mtime": 1793604058.6710951,
+    "seen": 1793680685.7337263,
+    "ast_hash": "092553482c75614f8d94c5a92a9eb193",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-1l-packet.webp": {
+    "mtime": 1793597843.8011372,
+    "seen": 1793680685.7337282,
+    "ast_hash": "c0a5ad53c450df98d048aa526f90f659",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-200ml-bottle-thumb.webp": {
+    "mtime": 1793604058.6710951,
+    "seen": 1793680685.73373,
+    "ast_hash": "439a3e55f56e4480af29815265d42ec3",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-200ml-bottle.webp": {
+    "mtime": 1793250884.415,
+    "seen": 1793680685.733732,
+    "ast_hash": "11bd679a39dc75f4ed748a608d44699e",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-500ml-bottle-thumb.webp": {
+    "mtime": 1793604058.6725254,
+    "seen": 1793680685.733734,
+    "ast_hash": "68d0598a8fa4efc6372ca90611862f53",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-500ml-packet-thumb.webp": {
+    "mtime": 1793604058.673535,
+    "seen": 1793680685.7337353,
+    "ast_hash": "af63c528a61669a36ea51e2478d6453a",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-500ml-packet.webp": {
+    "mtime": 1793250885.199,
+    "seen": 1793680685.7337372,
+    "ast_hash": "999b72823291ff3b191004662ae9fd97",
+    "semantic_hash": ""
+  },
+  "public/images/photos/kerala-sambar-with-rice-on-banana-leaf.webp": {
+    "mtime": 1793078621.055,
+    "seen": 1793680685.7337387,
+    "ast_hash": "b99871266bab34778c78404ab77adc42",
+    "semantic_hash": ""
+  },
+  "public/images/photos/mustard-seeds-curry-leaves-tempering-in-coconut-oil-thumb.webp": {
+    "mtime": 1793604058.6748555,
+    "seen": 1793680685.7337403,
+    "ast_hash": "c1ecf6e0a539b21e1de16f6fb4ffdccc",
+    "semantic_hash": ""
+  },
+  "public/images/photos/mustard-seeds-curry-leaves-tempering-in-coconut-oil.webp": {
+    "mtime": 1793078619.419,
+    "seen": 1793680685.733742,
+    "ast_hash": "2f048dc69e86dbb999ced9017f39b502",
+    "semantic_hash": ""
+  },
   "package-lock.json": {
-    "mtime": 1793340456.9076116,
-    "seen": 1793340570.7067347,
-    "ast_hash": "ee634d4a8b8b9213bf927318d8d2e781",
+    "mtime": 1793343949.4823596,
+    "seen": 1793680685.7337654,
+    "ast_hash": "e85a18988eac7b10a1d2310e849bb660",
     "semantic_hash": ""
   }
 }

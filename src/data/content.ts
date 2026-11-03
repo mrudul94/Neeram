@@ -23,7 +23,7 @@ export const heroSlides: HeroSlide[] = [
     eyebrow: "Coconut oil · Kasaragod, Kerala",
     eyebrowMalayalam: "വെളിച്ചെണ്ണ",
     headline: ["The oil every", "Kerala kitchen", "starts with."],
-    body: "Mustard seeds, curry leaves, a dried chilli — and before all of them, a spoon of coconut oil in the pan.",
+    body: "Mustard seeds, curry leaves, a dried chilli  and before all of them, a spoon of coconut oil in the pan.",
     cta: { label: "Shop coconut oil", href: "/products/coconut-oil" },
     secondary: { label: "The recipe", href: "/products/coconut-oil#tempering" },
     image: {
@@ -32,30 +32,6 @@ export const heroSlides: HeroSlide[] = [
     },
   },
 ];
-
-export type Dish = {
-  name: string;
-  nameMalayalam: string;
-  ingredients: string[]; // product slugs
-};
-
-export const dishes: Dish[] = [
-  { name: "Meen curry", nameMalayalam: "മീൻ കറി", ingredients: ["malabar-tamarind", "turmeric", "coconut-oil"] },
-  { name: "Sambar", nameMalayalam: "സാമ്പാർ", ingredients: ["tamarind", "turmeric"] },
-  { name: "Pepper chicken", nameMalayalam: "കുരുമുളക് ചിക്കൻ", ingredients: ["black-pepper", "turmeric", "coconut-oil"] },
-  { name: "Thoran", nameMalayalam: "തോരൻ", ingredients: ["coconut-oil", "turmeric"] },
-  { name: "Blue tea", nameMalayalam: "നീല ചായ", ingredients: ["shankupushpam"] },
-];
-
-/** Dot colour per ingredient in the dish list. */
-export const ingredientColor: Record<string, string> = {
-  "coconut-oil": "#f1ebdd",
-  "malabar-tamarind": "#5a3a2c",
-  turmeric: "#e3a21a",
-  "black-pepper": "#8b857a",
-  tamarind: "#b8602a",
-  shankupushpam: "#5b55d6",
-};
 
 export type Certificate = {
   name: string;
@@ -95,25 +71,28 @@ export const site = {
   gstin: null as string | null,
   /** Named on the Privacy Policy, Terms and Help pages, as the E-Commerce Rules 2020 require. */
   grievanceOfficer: {
-    name: null as string | null,
-    designation: null as string | null,
-    phone: null as string | null,
-    email: null as string | null,
+    name: "Sharath K Sasikumar" as string | null,
+    designation: "Owner" as string | null,
+    phone: "+91 97478 44455" as string | null,
+    email: "govindanoilmill@gmail.com" as string | null,
   },
   support: {
-    phone: null as string | null,
-    email: null as string | null,
-    hours: null as string | null,
+    phone: "+91 97478 44455" as string | null,
+    email: "govindanoilmill@gmail.com" as string | null,
+    hours: "8 am to 8 pm" as string | null,
+  },
+  /** Shown on the Help page, product pages and the coconut oil FAQ. */
+  policies: {
+    delivery: "We deliver all over India, in six to ten working days.",
+    returns: "You can return an order within 7 days of delivery, as long as the cap and its seal, or the packet, are unopened. Before sending it back, send us a photo on WhatsApp showing it is unopened and undamaged. We refund you by UPI once it is back at our mill. If your order arrives damaged or leaking, take a photo of the product and its packaging and send it to us on WhatsApp with your order details, and we will send a replacement or refund you.",
   },
   /** How long order records are kept, for the Privacy Policy. */
   dataRetention: null as string | null,
-  /** Courts named in the Terms, e.g. "Kasaragod, Kerala". */
-  jurisdiction: null as string | null,
   /** Details every product listing shows (src/lib/legal.ts). */
   packaged: {
     manufacturer: null as string | null,
     mrp: null as string | null,
-    bestBefore: null as string | null,
+    bestBefore: "6 months. See the date on the pack." as string | null,
   },
   aboutText:
     "Neeram started up on 21 August 2020 and is owned by Sharath K Sasikumar, with 29 coconut producer companies in Kerala behind it. The oil is pressed at our own mill in Anakkallu, Kerala, from coconuts bought straight from member farms. It is sealed at the mill, in clear bottles and pouches, with nothing added.",

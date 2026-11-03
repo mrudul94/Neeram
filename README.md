@@ -19,10 +19,10 @@ Copy `.env.example` to `.env.local` to set the site URL (optional for local work
 | Path | What |
 | --- | --- |
 | `src/data/products.ts` | The six products: names, Malayalam names, prices, `status`, images, specs. |
-| `src/data/content.ts` | Hero slides, the dish list, site details (address, socials, about text). |
+| `src/data/content.ts` | Hero slides, site details (address, socials, about text). |
 | `src/app/(site)/` | Pages with the main header + footer: home, shop, product pages, help. |
 | `src/app/(checkout)/` | Checkout and order-confirmed pages (minimal header). |
-| `src/app/api/` | `subscribe` (newsletter + notify-me), `checkout` (save an order and build its WhatsApp message). |
+| `src/app/api/` | `checkout` (build the order's WhatsApp message). |
 | `src/components/home/BottleStage.tsx` | The scroll-spinning bottle. |
 | `src/store/cart.ts` | Cart (Zustand, persisted to `localStorage` as `neeram-cart`). |
 | `public/bottle/` | `neeram-coconut-oil-500ml-bottle*.webp` (product photo at rest) and `{desktop,mobile}/` — the 120 bottle frames (WebP). |
@@ -95,9 +95,8 @@ during a long render.
 3. Optional: add a hero slide for it to `heroSlides` in `src/data/content.ts` (the slider shows tabs and arrows
    automatically once there is more than one slide).
 
-Everything else — shelf buttons, shop rows, the product page layout, cart, checkout, the dish-list links,
-"Notify me" — reads `status`, so nothing else needs to change. Note that people who asked to be notified are stored
-under the product's slug (see *Forms* below).
+Everything else — shelf buttons, shop rows, the product page layout, cart, checkout,
+"Notify me" — reads `status`, so nothing else needs to change. Requests to be notified arrive as WhatsApp messages.
 
 ## Orders (WhatsApp, no online payment)
 
@@ -114,11 +113,13 @@ the customer choose a chat, so set it before launch.
 
 ## Forms and orders
 
-On the live site, orders and newsletter / notify-me sign-ups are appended to a Google Sheet after the response is
-sent (`src/lib/records.ts`, `src/lib/sheet.ts`); setup is in `docs/ORDER_SHEET_SETUP.md`. If the sheet can't be
-reached, the full record is logged to Workers Logs tagged `ORDER NOT SAVED TO SHEET` /
-`NEWSLETTER SIGN-UP NOT SAVED TO SHEET`. In local development and tests they go to `data/*.jsonl` (git-ignored)
-instead. Both forms have a honeypot field and a Cloudflare Turnstile check (`src/lib/turnstile.ts`).
+Orders and new-stock requests are handled by hand on WhatsApp: checkout builds the message, the customer sends it, and
+the site keeps no copy. "Notify me" and the footer open WhatsApp with a message ready to send.
+
+An optional Google Sheet for orders is still supported (`src/lib/records.ts`, `src/lib/sheet.ts`,
+`docs/ORDER_SHEET_SETUP.md`). If it is set up, orders that can't be saved are logged to Workers Logs in full, tagged
+`ORDER NOT SAVED TO SHEET`. In local development and tests orders go to `data/*.jsonl` (git-ignored) instead. Checkout
+has a honeypot field and a Cloudflare Turnstile check (`src/lib/turnstile.ts`).
 
 ## Images
 

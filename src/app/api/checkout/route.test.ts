@@ -122,9 +122,9 @@ describe("POST /api/checkout", () => {
   });
 
   it("saves only the checkout fields, never extra ones sent with the order", async () => {
-    // No sheet set up in production: the order is logged, which shows exactly what is saved.
-    vi.stubEnv("GOOGLE_SHEET_ID", "");
+    // The sheet turns the order away, so it is logged, which shows exactly what is saved.
     vi.stubEnv("NODE_ENV", "production");
+    vi.stubGlobal("fetch", () => Promise.resolve(new Response("", { status: 403 })));
     const logged: unknown[] = [];
     vi.spyOn(console, "error").mockImplementation((...args) => void logged.push(...args));
 

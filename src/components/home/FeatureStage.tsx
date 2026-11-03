@@ -29,7 +29,7 @@ export function FeatureStage() {
         <BottleStill className="feature-fallback" />
       </div>
 
-      <div data-keep-clear role="group" aria-label="Choose a size" className="relative z-20 mt-8 flex gap-1.5 md:absolute md:bottom-20 md:left-10 md:mt-0 lg:gap-3">
+      <div data-keep-clear role="group" aria-label="Choose a size" className="relative z-20 mt-8 flex gap-1.5 md:absolute md:bottom-20 md:left-1/2 md:mt-0 md:w-max md:-translate-x-1/2 lg:gap-3">
         {packs.map((p) => {
           const on = p.id === chosen.id;
           return (
@@ -54,7 +54,7 @@ export function FeatureStage() {
         })}
       </div>
 
-      <p aria-live="polite" className="eyebrow absolute bottom-6 left-5 text-[0.6875rem] text-cream/80 md:left-10">
+      <p aria-live="polite" className="eyebrow absolute bottom-6 left-1/2 w-max -translate-x-1/2 text-center text-[0.6875rem] text-cream/80">
         <SwapText value={caption(chosen)} all={packs.map(caption)} />
       </p>
     </>

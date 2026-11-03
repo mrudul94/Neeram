@@ -36,21 +36,20 @@ Everything below is a placeholder on the live site today. File references show w
 
 ## Legal and help pages — `src/app/(site)/help/page.tsx`
 
-- [ ] Shipping & delivery: areas, times, charges.
-- [ ] Returns & refunds policy.
-- [ ] How to track an order.
-- [ ] Contact details: phone, WhatsApp, email, hours.
+- [x] Shipping & delivery: areas, times, charges.
+- [x] Returns & refunds policy.
+- [x] How to track an order.
+- [x] Contact details: phone, email, hours. The order WhatsApp number is still to come (see Checkout).
 - [ ] Lawyer review of the draft Privacy Policy (`/privacy`) and Terms (`/terms`).
 - [ ] For `site` in `src/data/content.ts` (blanks show as "[to be confirmed]"):
   - legal company name (currently "Neeram Coconut Industries Private Limited", from the About page), registered
     address and GSTIN;
   - **FSSAI licence number** (the bottle label shows FSSAI 11321014000289 and Govindan Oil Mill, Kasaragod — confirm
     what should appear on the site, and which company holds it);
-  - Grievance Officer: name, designation, phone and email;
-  - support phone, email and hours;
-  - how long order records are kept, and which courts the Terms should name;
-  - manufacturer name and address, MRP and best-before for product listings.
-- [ ] Delivery partners, for the Privacy Policy.
+  - confirm Sharath K Sasikumar agrees to be named Grievance Officer, as Owner, with these contact details;
+  - how long order records are kept;
+  - manufacturer name and address and MRP for product listings.
+- [x] Delivery partners, for the Privacy Policy: says "courier companies", so it stays true whichever courier is chosen.
 
 ## Search and local listings — `site` in `src/data/content.ts`
 
@@ -61,7 +60,7 @@ Nothing here is invented: blanks stay out of the search markup until they're fil
 - [ ] Is there a shop or outlet customers can visit? If so, set `hasPublicLocation`. This also decides whether Neeram can
       have a Google Business Profile (`docs/SEO_PLAN.md`).
 - [ ] Real stockists and towns where Neeram is sold. Don't list any town or shop that isn't confirmed.
-- [ ] Shelf life and delivery areas, for the FAQ on the coconut oil page.
+- [x] Shelf life and delivery areas, for the FAQ on the coconut oil page.
 - [ ] **Certificates** (FSSAI licence, Agmark, ISO 22000, organic, …) — scans of Neeram's own certificates for the
       About page. Add each to `certificates` in `src/data/content.ts` and the image to `public/images/certificates/`;
       the "Certified & licensed" strip appears once there is one. Do **not** use the certificates on
@@ -69,8 +68,7 @@ Nothing here is invented: blanks stay out of the search markup until they're fil
 
 ## Checkout — `src/components/checkout/CheckoutForm.tsx`
 
-- [ ] Standard delivery time ("[Delivery time]"); the charge is confirmed on WhatsApp.
-- [ ] Second delivery option, if any ("[Second delivery option, if offered]" is shown disabled).
+- [x] Standard delivery time; the charge is confirmed on WhatsApp.
 - [ ] Discount codes — the field is there but replies "not available yet".
 - [ ] **Order WhatsApp number** (currently Skaylon's, +91 80759 15386 — replace with Neeram's), phone and email — `src/data/content.ts` → `site.orders`. Checkout sends orders
       there; until the WhatsApp number is set, customers have to pick the chat themselves.
@@ -83,7 +81,6 @@ Nothing here is invented: blanks stay out of the search markup until they're fil
 All non-bottle imagery was cropped from the Figma export and is low resolution for large use:
 
 - [ ] Hero / tempering photo (`public/images/photos/mustard-seeds-curry-leaves-tempering-in-coconut-oil.webp`, only 720 × 680 — upscaled in the hero).
-- [ ] Sambar photo for "What goes into what." (`public/images/photos/kerala-sambar-with-rice-on-banana-leaf.webp`, 380 × 469).
 - [ ] Studio cut-outs of the five spice jars (current ones are ~280 × 590, extracted from the design).
 - [ ] Optional: a lifestyle photo for the dark left panel of the coconut-oil feature (currently a plain stage, which
       keeps the landing bottle readable).
@@ -91,11 +88,9 @@ All non-bottle imagery was cropped from the Figma export and is low resolution f
 
 ## Services to connect
 
-- [ ] Email service for newsletter + "Notify me" sign-ups (currently saved to the order sheet's Newsletter tab)
-      — `src/app/api/subscribe/route.ts`.
 
 ## Phase 2
 
-- [ ] Our story page, The kitchen page and recipe pages. Until then "The kitchen" and "Our story" links point at the
-      home-page sections, and "The recipe" points at the tempering band on the coconut oil page.
+- [ ] Our story page, The kitchen page and recipe pages. Until then "Our story" links point at the
+      home-page section, and "The recipe" points at the tempering band on the coconut oil page.
 - [ ] Accounts — the design's account icon is left out of the header for Phase 1, because there are no accounts yet.

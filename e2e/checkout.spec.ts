@@ -56,10 +56,10 @@ test("orders coconut oil in a chosen size through WhatsApp", async ({ page, cont
   await expect(page).toHaveURL(/\/shop$/);
 });
 
-test("signs up for the newsletter from the footer, past the Turnstile check", async ({ page }) => {
+test("new-stock requests open WhatsApp with the message ready to send", async ({ page }) => {
   await page.goto("/shop");
-  const form = page.locator("footer form").filter({ has: page.getByPlaceholder("Email address") });
-  await form.getByPlaceholder("Email address").fill("anu@example.com");
-  await form.getByRole("button", { name: /Subscribe/ }).click();
-  await expect(form.getByRole("status")).toHaveText("Thanks — we'll write when new stock lands.", { timeout: 20_000 });
+  await expect(page.locator("footer").getByRole("link", { name: /Message us on WhatsApp/ })).toHaveAttribute("href", /wa\.me.*new%20stock/);
+
+  await page.goto("/products/turmeric");
+  await expect(page.getByRole("link", { name: /Notify me on WhatsApp/ })).toHaveAttribute("href", /wa\.me.*Turmeric/);
 });

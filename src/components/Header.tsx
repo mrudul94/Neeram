@@ -7,11 +7,8 @@ import { useCart, useCartHydrated } from "@/store/cart";
 import { Logo } from "./Logo";
 import { BagIcon, CloseIcon, MenuIcon, cx } from "./ui";
 
-// "The kitchen" becomes a full page in Phase 2; until then it points at the matching
-// home-page section.
 const nav = [
   { label: "Shop", href: "/shop" },
-  { label: "The kitchen", href: "/#kitchen" },
   { label: "About us", href: "/about" },
 ];
 

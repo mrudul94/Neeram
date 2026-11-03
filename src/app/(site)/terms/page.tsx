@@ -93,7 +93,7 @@ const sections: LegalSection[] = [
   {
     id: "law",
     title: "Governing law",
-    body: <p>These terms are governed by the laws of India. Courts: {toBeConfirmed(site.jurisdiction)}.</p>,
+    body: <p>These terms are governed by the laws of India.</p>,
   },
 ];
 

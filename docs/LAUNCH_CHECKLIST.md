@@ -5,7 +5,7 @@ Work through this before the site goes live on Cloudflare. Items marked **(devel
 ## 1. Orders reach Neeram
 
 - [ ] **Switch the WhatsApp number to Neeram's own.** It's currently Skaylon's (+91 80759 15386). **(developer)** Change `whatsapp` in `src/data/content.ts` → `site.orders`, in international form without `+` or spaces (for example `919876543210`). Add `phone` and `email` there too if customers without WhatsApp should be able to send orders by SMS or email.
-- [ ] **Set up the order sheet and add the Google values in Cloudflare.** Follow [ORDER_SHEET_SETUP.md](ORDER_SHEET_SETUP.md): it ends with adding `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY` and `GOOGLE_SHEET_ID` as **secrets** on the `neeram` Worker.
+- [ ] **Agree who copies orders into the records.** There is no order sheet: orders arrive on WhatsApp and the site keeps no copy, so someone must record each one by hand.
 
 ## 2. Bot protection
 
@@ -14,7 +14,7 @@ Work through this before the site goes live on Cloudflare. Items marked **(devel
   - **Secret key**: add it to the `neeram` Worker as a **secret** named `TURNSTILE_SECRET_KEY` (Workers & Pages → neeram → Settings → Variables and Secrets).
   - Never use Cloudflare's test keys (`1x000…`) on the live site: the test secret accepts everything.
 - [ ] **Add a rate-limiting rule.** This needs the site's own domain on Cloudflare; it doesn't apply to the `workers.dev` address. In the dashboard, open the domain → **Security** → **WAF** → **Rate limiting rules** → **Create rule**:
-  - **Rule name:** `Limit order and sign-up posts`
+  - **Rule name:** `Limit order posts`
   - **If incoming requests match:** *URI Path* **starts with** `/api/` **and** *Request Method* **equals** `POST`
   - **With the same characteristics:** IP (the default)
   - **When rate exceeds:** `10` requests per `10 seconds` (the Free plan offers one rule, with a 10-second period)
@@ -39,14 +39,14 @@ Work through this before the site goes live on Cloudflare. Items marked **(devel
 
 ## 5. Check it end to end
 
-- [ ] **Place a real test order** on the live site, with `TEST` in the note. Check that the WhatsApp message is right, that a row appears in the order sheet within about 10 seconds, and then delete that row.
-- [ ] **Sign up for the newsletter** in the footer with your own email. Check that a row appears on the sheet's **Newsletter** tab, then delete it.
-- [ ] **Search Workers Logs** for `NOT SAVED TO SHEET` and `TURNSTILE`. After the two tests above there should be no matches. If there are, [ORDER_SHEET_SETUP.md](ORDER_SHEET_SETUP.md) explains each message.
+- [ ] **Place a real test order** on the live site, with `TEST` in the note. Check that the WhatsApp message is right and reaches Neeram's number.
+- [ ] **Try "Message us on WhatsApp"** in the footer and "Notify me on WhatsApp" on a spice page. Check that each opens a chat with Neeram's number.
+- [ ] **Search Workers Logs** for `TURNSTILE`. After the test order there should be no matches.
 
 ## 6. Access
 
-- [ ] **Keep Cloudflare account access tight.** Workers Logs can contain customers' names, phone numbers and addresses (any order that couldn't be saved to the sheet is logged in full). Under **Manage Account** → **Members**, keep only the people who need it, and remove anyone who leaves.
-- [ ] **Keep the order sheet's sharing tight** for the same reason: only the robot account and the people who handle orders.
+- [ ] **Keep Cloudflare account access tight.** It controls the live site and its logs. Under **Manage Account** → **Members**, keep only the people who need it, and remove anyone who leaves.
+- [ ] **Keep order records private.** Limit who can read the WhatsApp chats and any notebook or Excel file of orders, because they hold customers' names, numbers and addresses.
 
 ## 7. Nice to have before launch
 

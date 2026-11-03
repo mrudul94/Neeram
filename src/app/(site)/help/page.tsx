@@ -13,15 +13,14 @@ export const metadata: Metadata = {
 const link = "underline decoration-orange underline-offset-4 hover:text-orange";
 const officer = site.grievanceOfficer;
 
-// Bracketed text is for the client to supply (see TODO_CONTENT.md).
 const sections = [
   {
     id: "shipping",
     title: "Shipping & delivery",
-    body: "We confirm the delivery charge on WhatsApp after you order, and your order ships once it is paid. [Delivery areas and times: to be confirmed.]",
+    body: `${site.policies.delivery} We confirm the delivery charge on WhatsApp after you order, and your order ships once it is paid.`,
   },
-  { id: "returns", title: "Returns & refunds", body: "[What can be returned, within how many days, and how refunds are paid.]" },
-  { id: "track", title: "Track an order", body: "[How customers track an order — courier link, WhatsApp number, or email.]" },
+  { id: "returns", title: "Returns & refunds", body: site.policies.returns },
+  { id: "track", title: "Track an order", body: "Once your order ships, we send you the courier tracking link on WhatsApp. For anything else about your order, message us on WhatsApp." },
   {
     id: "contact",
     title: "Contact us",

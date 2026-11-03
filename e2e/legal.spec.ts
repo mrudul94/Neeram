@@ -139,7 +139,7 @@ test("the coconut oil page has product, breadcrumb and FAQ markup with no placeh
   expect(JSON.stringify(schemas)).not.toMatch(/to be confirmed|client to confirm/);
 
   await page.getByText("Do you deliver to my area?").click();
-  await expect(page.getByText(/Delivery areas: \[client to confirm\]/)).toBeVisible();
+  await expect(page.getByText(/^Yes\. We deliver all over India/)).toBeVisible();
 });
 
 test("the test site stays out of search but can be crawled", async ({ page, request }) => {
@@ -176,7 +176,7 @@ test("at 360 px the mobile buy bar keeps the price on one line", async ({ page }
   expect(text).toEqual({ lines: 1, clipped: false });
 });
 
-test("Turnstile only loads on checkout, or once someone starts on a sign-up form", async ({ page }) => {
+test("Turnstile doesn't load while browsing the site", async ({ page }) => {
   const turnstile: string[] = [];
   page.on("request", (r) => {
     if (r.url().includes("challenges.cloudflare.com")) turnstile.push(r.url());
@@ -186,9 +186,6 @@ test("Turnstile only loads on checkout, or once someone starts on a sign-up form
     await page.waitForTimeout(800);
   }
   expect(turnstile).toEqual([]);
-
-  await page.locator("footer").getByPlaceholder("Email address").focus();
-  await expect.poll(() => turnstile.length).toBeGreaterThan(0);
 });
 
 test("checkout's heading is in the first HTML, before any JavaScript runs", async ({ request }) => {

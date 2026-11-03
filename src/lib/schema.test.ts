@@ -43,7 +43,7 @@ describe("organizationSchema", () => {
   });
 
   it("leaves out address parts, phone, email, coordinates and social links until they are filled", () => {
-    const org = organizationSchema() as Record<string, unknown>;
+    const org = organizationSchema({ support: { phone: null, email: null, hours: null } }) as Record<string, unknown>;
     expect(org.address).toEqual({ "@type": "PostalAddress", addressLocality: "Kasaragod", addressRegion: "Kerala", addressCountry: "IN" });
     for (const key of ["telephone", "email", "geo", "sameAs"]) expect(org).not.toHaveProperty(key);
   });
@@ -110,8 +110,8 @@ describe("FAQ", () => {
     expect(faqs.every((f) => f.question.endsWith("?"))).toBe(true);
   });
 
-  it("marks unknown answers for the client on the page", () => {
-    expect(faqs.some((f) => f.answer.includes("[client to confirm]"))).toBe(true);
+  it("has no unconfirmed answers left on the page", () => {
+    expect(faqs.some((f) => f.answer.includes("["))).toBe(false);
   });
 
   it("only puts confirmed answers in the schema", () => {
