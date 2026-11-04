@@ -14,6 +14,7 @@
   --color-muted: #5e564b;
   --color-stone: #c9bfa9;
   --color-leaf: #4c9a2a;
+  --color-leaf-text: #2f6b17;
 
   --font-display: var(--font-anton-rupee), var(--font-anton), "Arial Narrow", sans-serif;
   /* Paragraph text uses Inter too (the `font-serif` name is kept so components don't change). */

@@ -165,9 +165,9 @@ export function MobileBuyBar({ slug }: { slug: string }) {
   if (!product || !isAvailable(product)) return null;
   const price = pack?.price ?? product.price;
   return (
-    <div className="mobile-buy-bar fixed inset-x-0 bottom-0 z-20 flex gap-3 border-t border-ink bg-cream px-5 py-3 md:hidden">
+    <div className="mobile-buy-bar fixed inset-x-0 bottom-0 z-20 flex gap-3 border-t border-ink bg-cream px-5 py-3 max-[22.5rem]:gap-2 max-[22.5rem]:px-3 md:hidden">
       <QtyStepper label={product.name} value={qty} onChange={setQty} />
-      <AddToCartButton slug={slug} pack={pack?.id} qty={qty} className="min-w-0 flex-1 whitespace-nowrap px-2! text-xs! min-[25rem]:px-6! min-[25rem]:text-[0.8125rem]!">
+      <AddToCartButton slug={slug} pack={pack?.id} qty={qty} className="min-w-0 flex-1 gap-2 whitespace-nowrap px-1! text-[0.6875rem]! tracking-[0.06em]! min-[22.5rem]:gap-3 min-[22.5rem]:px-2! min-[22.5rem]:text-xs! min-[22.5rem]:tracking-[inherit]! min-[25rem]:px-6! min-[25rem]:text-[0.8125rem]!">
         Add {pack ? pack.size : "to cart"} · {formatPrice(price === null ? null : price * qty)}
       </AddToCartButton>
     </div>

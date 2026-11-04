@@ -4,7 +4,7 @@ import { cx } from "./ui";
 
 // Neeram coconut-leaf logo (public/images/Main logo/, trimmed copy in public/images/logo/)
 // with the product line under it. Sized in em, so callers set the size with font-size.
-export function Logo({ className, href = "/" }: { className?: string; href?: string | null }) {
+export function Logo({ className, href = "/", onDark = false }: { className?: string; href?: string | null; onDark?: boolean }) {
   const mark = (
     <span className={cx("inline-flex flex-col items-center leading-none", className)}>
       <Image
@@ -16,10 +16,10 @@ export function Logo({ className, href = "/" }: { className?: string; href?: str
         sizes="8rem"
         className="h-[3.2em] w-auto"
       />
-      <span aria-hidden className="mt-[0.3em] flex items-center gap-[0.35em] text-[0.55em] font-medium text-leaf">
-        <span className="h-px w-[1.4em] bg-leaf" />
+      <span aria-hidden className={cx("mt-[0.3em] flex items-center gap-[0.35em] text-[0.55em] font-medium", onDark ? "text-leaf" : "text-leaf-text")}>
+        <span className="h-px w-[1.4em] bg-current" />
         Coconut Oil
-        <span className="h-px w-[1.4em] bg-leaf" />
+        <span className="h-px w-[1.4em] bg-current" />
       </span>
     </span>
   );

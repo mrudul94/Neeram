@@ -73,8 +73,8 @@ function ShopRow({ product: p }: { product: Product }) {
   const available = isAvailable(p);
   const img = p.images[0];
   return (
-    <li className="group grid grid-cols-[6.5rem_1fr] gap-x-5 gap-y-4 border-b border-ink py-5 hover:bg-sand lg:grid-cols-[6.5rem_8rem_minmax(0,1fr)_6rem_auto] lg:items-center lg:gap-x-8 lg:px-4">
-      <p aria-hidden className="display hidden self-start text-[3.5rem] leading-none text-stone group-hover:text-orange lg:block">
+    <li className="group grid grid-cols-[6.5rem_minmax(0,1fr)] gap-x-5 max-[22.5rem]:grid-cols-[5rem_minmax(0,1fr)] max-[22.5rem]:gap-x-3 gap-y-4 border-b border-ink py-5 hover:bg-sand lg:grid-cols-[6.5rem_8rem_minmax(0,1fr)_6rem_auto] lg:items-center lg:gap-x-8 lg:px-4">
+      <p aria-hidden className="display hidden self-start text-[3.5rem] leading-none text-muted/75 group-hover:text-orange lg:block">
         {p.number}
       </p>
       <Link href={`/products/${p.slug}`} className="row-span-2 grid h-[8.5rem] place-items-center bg-sand group-hover:bg-cream lg:row-span-1 lg:h-[9.25rem]" tabIndex={-1}>

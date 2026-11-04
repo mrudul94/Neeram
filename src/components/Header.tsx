@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCart, useCartHydrated } from "@/store/cart";
 import { Logo } from "./Logo";
 import { BagIcon, CloseIcon, MenuIcon, cx } from "./ui";
@@ -20,12 +20,25 @@ export function Header() {
   const menuOpen = menuPath === pathname;
   const setMenuOpen = (open: boolean | ((o: boolean) => boolean)) =>
     setMenuPath((typeof open === "function" ? open(menuOpen) : open) ? pathname : null);
+  const menuButton = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setMenuPath(null);
+      menuButton.current?.focus();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
 
   return (
     <header className={cx("z-30 w-full", overHero ? "absolute inset-x-0 top-0 text-cream" : "relative bg-cream text-ink")}>
       <div className="wrap grid h-[4.5rem] grid-cols-[1fr_auto_1fr] items-center border-b border-current md:h-[5.5rem]">
         <nav aria-label="Main" className="flex items-center gap-1 md:gap-8">
           <button
+            ref={menuButton}
             type="button"
             className="tap -ml-2 p-2 md:hidden"
             aria-expanded={menuOpen}
@@ -46,7 +59,7 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <Logo className="text-[0.95rem] md:text-[1.05rem]" />
+        <Logo className="text-[0.95rem] md:text-[1.05rem]" onDark={overHero} />
         <div className="flex items-center justify-end gap-2 md:gap-5">
           <CartButton />
         </div>

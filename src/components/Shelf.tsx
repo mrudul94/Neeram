@@ -53,7 +53,7 @@ function ShelfItem({ product: p, first }: { product: Product; first: boolean }) 
         <Link
           href={`/products/${p.slug}`}
           aria-label={`${p.name}${available ? "" : " — coming soon"}`}
-          className="mt-1 text-[1.0625rem] leading-tight font-medium group-hover:text-orange after:absolute after:inset-0 after:content-['']"
+          className="mt-1 text-[1.0625rem] leading-tight font-medium lg:max-xl:text-[0.9375rem] group-hover:text-orange after:absolute after:inset-0 after:content-['']"
         >
           {p.name}
         </Link>

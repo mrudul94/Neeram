@@ -36,13 +36,13 @@ export function Gallery({ images, watermark }: { images: ProductImage[]; waterma
       {images.length > 1 && (
         <ul className="mt-4 flex gap-3 px-5 md:px-10" aria-label="Product images">
           {images.map((im, i) => (
-            <li key={im.src}>
+            <li key={im.src} className="min-w-0 flex-[0_1_4.5rem] md:flex-[0_1_5.5rem]">
               <button
                 type="button"
                 onClick={() => setActive(i)}
                 aria-label={`Show image ${i + 1}: ${im.alt}`}
                 aria-pressed={i === active}
-                className={cx("relative grid size-[4.5rem] place-items-center overflow-hidden bg-sand md:size-[5.5rem]", i === active ? "outline outline-1 outline-ink outline-offset-2" : "opacity-80 hover:opacity-100")}
+                className={cx("relative grid aspect-square w-full place-items-center overflow-hidden bg-sand", i === active ? "outline outline-1 outline-ink outline-offset-2" : "opacity-80 hover:opacity-100")}
               >
                 {im.cutout ? (
                   <Image src={im.thumbSrc ?? im.src} alt="" width={im.width} height={im.height} sizes="3rem" className="h-[85%] w-auto" />

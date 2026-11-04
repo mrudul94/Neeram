@@ -39,7 +39,7 @@ function Step({ n, title, children }: { n: string; title: string; children: Reac
     <fieldset className="border-t border-ink pt-6 pb-8">
       <legend className="contents">
         <span className="display flex items-baseline gap-3 text-[2rem]">
-          <span className="text-orange">{n}</span> {title}
+          <span className="text-orange-text">{n}</span> {title}
         </span>
       </legend>
       <div className="mt-5">{children}</div>
@@ -78,7 +78,7 @@ export function CheckoutForm() {
   if (!hydrated) {
     return (
       <div className="mx-auto grid min-h-[60vh] max-w-[90rem] md:grid-cols-[minmax(0,1fr)_minmax(0,0.75fr)]">
-        <div className="px-5 pt-8 pb-16 md:pt-10 md:pr-16 md:pl-[max(2.5rem,calc((100vw-75rem)/2))]">
+        <div className="px-5 pt-8 pb-16 md:pt-10 md:pr-16 md:pl-[max(2.5rem,calc((min(100vw,90rem)-75rem)/2))]">
           <h1 className="display text-[clamp(3.5rem,8vw,6rem)]">Checkout</h1>
         </div>
       </div>
@@ -158,7 +158,7 @@ export function CheckoutForm() {
 
   return (
     <div className="mx-auto grid max-w-[90rem] md:grid-cols-[minmax(0,1fr)_minmax(0,0.75fr)]">
-      <div className="px-5 pt-8 pb-16 md:pt-10 md:pr-16 md:pl-[max(2.5rem,calc((100vw-75rem)/2))]">
+      <div className="px-5 pt-8 pb-16 md:pt-10 md:pr-16 md:pl-[max(2.5rem,calc((min(100vw,90rem)-75rem)/2))]">
         <h1 className="display text-[clamp(3.5rem,8vw,6rem)]">Checkout</h1>
         <form onSubmit={onSubmit} noValidate className="relative mt-8">
           <Honeypot />
@@ -260,7 +260,7 @@ export function CheckoutForm() {
         </form>
       </div>
 
-      <aside aria-labelledby="summary-title" className="bg-sand px-5 py-10 md:px-10 md:pr-[max(2.5rem,calc((100vw-75rem)/2))]">
+      <aside aria-labelledby="summary-title" className="bg-sand px-5 py-10 md:px-10 md:pr-[max(2.5rem,calc((min(100vw,90rem)-75rem)/2))]">
         <div className="md:sticky md:top-8">
           <h2 id="summary-title" className="eyebrow text-[0.6875rem] text-orange-text">
             Your order

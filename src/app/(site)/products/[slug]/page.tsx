@@ -132,7 +132,7 @@ function AvailableProduct({ product }: { product: Product }) {
       <div className="mx-auto grid max-w-[90rem] grid-cols-[minmax(0,1fr)] gap-8 pb-24 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-12 md:pb-20 lg:gap-16">
         <Gallery images={product.images} watermark={product.nameMalayalam} />
 
-        <div className="px-5 md:py-8 md:pr-10 lg:pr-[max(2.5rem,calc((100vw-75rem)/2))]">
+        <div className="px-5 md:py-8 md:pr-10 lg:pr-[max(2.5rem,calc((min(100vw,90rem)-75rem)/2))]">
           <Breadcrumb product={product} />
           <TitleBlock product={product} />
           <PackPrice slug={product.slug} />
@@ -250,7 +250,7 @@ function ComingSoonProduct({ product }: { product: Product }) {
           <span className="eyebrow absolute top-5 right-5 bg-ink px-3 py-1.5 text-[0.6875rem] text-cream">Coming soon</span>
         </div>
 
-        <div className="px-5 md:py-10 md:pr-10 lg:pr-[max(2.5rem,calc((100vw-75rem)/2))]">
+        <div className="px-5 md:py-10 md:pr-10 lg:pr-[max(2.5rem,calc((min(100vw,90rem)-75rem)/2))]">
           <Breadcrumb product={product} />
           <TitleBlock product={product} />
           <div id="notify" className="mt-8 scroll-mt-8 border-t border-ink pt-6">

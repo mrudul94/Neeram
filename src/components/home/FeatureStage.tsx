@@ -117,7 +117,7 @@ export function FeatureAddButton() {
     return `Add · ${p.size}${p.form === "Packet" ? " packet" : ""}${price === null ? "" : ` · ${formatPrice(price)}`}`;
   };
   return (
-    <AddToCartButton slug={PACK_SLUG} pack={pack.id} variant="orange" arrow>
+    <AddToCartButton slug={PACK_SLUG} pack={pack.id} variant="orange" arrow className="max-[22.5rem]:gap-2 max-[22.5rem]:px-3 max-[22.5rem]:text-[0.6875rem]">
       <SwapText value={label(pack)} all={product.packs!.map(label)} />
     </AddToCartButton>
   );
