@@ -37,15 +37,6 @@ function loadTurnstile() {
   return script;
 }
 
-/**
- * The token once Turnstile has one, waiting up to `ms`; "" if it doesn't arrive in time.
- * Usually about a second, but more than 10 s has been seen, so the wait is generous.
- */
-export async function waitForToken(read: () => string, ms = 15_000) {
-  for (let waited = 0; !read() && waited < ms; waited += 100) await new Promise((r) => setTimeout(r, 100));
-  return read();
-}
-
 export type TurnstileHandle = {
   /** Asks for a fresh token: each one can be checked only once. */
   reset(): void;

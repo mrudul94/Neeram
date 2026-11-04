@@ -14,7 +14,7 @@ export function recordPath(file: string, env: Record<string, string | undefined>
 
 /**
  * Appends one JSON line to data/<file>.jsonl (see recordPath). Local development and test
- * runs only: in production, records go to the Google Sheet (see records.ts).
+ * runs only: production never writes this file (see records.ts).
  */
 export async function appendRecord(file: string, record: Record<string, unknown>) {
   const line = JSON.stringify({ ...record, at: new Date().toISOString() });

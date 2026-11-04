@@ -117,7 +117,7 @@ export function CheckoutForm() {
     // Which button sent the form: WhatsApp (the main one), or SMS / email for customers without it.
     const via = ((e.nativeEvent as SubmitEvent).submitter?.getAttribute("value") ?? "whatsapp") as Channel;
     setBusy(true);
-    // Opened inside the click so pop-up blockers allow it; pointed at WhatsApp once the order is saved.
+    // Opened inside the click so pop-up blockers allow it; pointed at WhatsApp once the message is ready.
     const tab = via === "whatsapp" ? window.open("", "_blank") : null;
     try {
       const res = await fetch("/api/checkout", {

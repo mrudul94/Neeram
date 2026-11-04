@@ -176,6 +176,17 @@ test("at 360 px the mobile buy bar keeps the price on one line", async ({ page }
   expect(text).toEqual({ lines: 1, clipped: false });
 });
 
+test("the Help page states the delivery, returns and contact details", async ({ page }) => {
+  await page.goto("/help");
+  for (const text of ["all over India", "six to ten working days"]) await expect(page.locator("#shipping")).toContainText(text);
+  for (const text of ["within 7 days of delivery", "send us a photo on WhatsApp", "refund you by UPI", "send a replacement or refund you"]) {
+    await expect(page.locator("#returns")).toContainText(text);
+  }
+  await expect(page.locator("#track")).toContainText("courier tracking link on WhatsApp");
+  for (const text of ["+91 97478 44455", "govindanoilmill@gmail.com", "8 am to 8 pm", "Sharath K Sasikumar"]) await expect(page.locator("#contact")).toContainText(text);
+  await expect(page.locator("footer")).toContainText("Kerala 671541");
+});
+
 test("Turnstile doesn't load while browsing the site", async ({ page }) => {
   const turnstile: string[] = [];
   page.on("request", (r) => {

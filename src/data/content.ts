@@ -23,7 +23,7 @@ export const heroSlides: HeroSlide[] = [
     eyebrow: "Coconut oil · Kasaragod, Kerala",
     eyebrowMalayalam: "വെളിച്ചെണ്ണ",
     headline: ["The oil every", "Kerala kitchen", "starts with."],
-    body: "Mustard seeds, curry leaves, a dried chilli  and before all of them, a spoon of coconut oil in the pan.",
+    body: "Mustard seeds, curry leaves, a dried chilli, and before all of them, a spoon of coconut oil in the pan.",
     cta: { label: "Shop coconut oil", href: "/products/coconut-oil" },
     secondary: { label: "The recipe", href: "/products/coconut-oil#tempering" },
     image: {
@@ -57,7 +57,7 @@ export const site = {
   address: "Govindan Oil Mill (Neeram), Anakkallu, Anakkallu Road, Kasaragod district, Kerala 671541" as string | null,
   /** For search engines (src/lib/schema.ts). Blank parts are left out of the markup. */
   location: {
-    streetAddress: "Govindan Oil Mill (Neeram), Anakkallu, Anakkallu Road" as string | null,
+    streetAddress: "Anakkallu, Anakkallu Road" as string | null,
     locality: "Kasaragod" as string | null,
     region: "Kerala" as string | null,
     postalCode: "671541" as string | null,

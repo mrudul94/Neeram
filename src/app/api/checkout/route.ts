@@ -5,8 +5,8 @@ import { saveOrder } from "@/lib/records";
 import { verifyTurnstile } from "@/lib/turnstile";
 
 /**
- * Returns the message the customer sends us on WhatsApp (or by SMS, email or phone), then
- * records the order once the response is sent, so the customer never waits for Google.
+ * Returns the message the customer sends us on WhatsApp (or by SMS, email or phone). Orders are
+ * handled by hand; if the optional sheet is set up, it is written after the response is sent.
  * No payment is taken on the site: customers pay before delivery, after we confirm.
  */
 export async function POST(request: Request) {
