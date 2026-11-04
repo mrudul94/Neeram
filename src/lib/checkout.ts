@@ -1,5 +1,5 @@
 import { site } from "@/data/content";
-import { getPack, getProduct, isAvailable } from "@/data/products";
+import { getPack, getProduct, isAvailable, packPrice } from "@/data/products";
 import { formatPrice } from "./format";
 
 export type CheckoutLine = { slug: string; qty: number; pack?: string };
@@ -82,7 +82,7 @@ export function priceLines(lines: CheckoutLine[]) {
     if (!p || !isAvailable(p) || !(qty >= 1 && qty <= 20)) return [];
     const pack = getPack(p, l.pack);
     if (l.pack && pack?.id !== l.pack) return [];
-    return [{ slug: p.slug, pack: pack?.id, name: pack ? `${p.name} (${pack.label})` : p.name, qty, unitPrice: pack?.price ?? p.price }];
+    return [{ slug: p.slug, pack: pack?.id, name: pack ? `${p.name} (${pack.label})` : p.name, qty, unitPrice: packPrice(p, pack) }];
   });
   const total = items.some((i) => i.unitPrice === null) ? null : items.reduce((s, i) => s + i.unitPrice! * i.qty, 0);
   return { items, total };

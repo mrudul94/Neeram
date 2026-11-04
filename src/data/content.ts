@@ -44,6 +44,13 @@ export type Certificate = {
   height: number;
 };
 
+export const helpLinks = [
+  { label: "Shipping & delivery", href: "/help#shipping" },
+  { label: "Returns & refunds", href: "/help#returns" },
+  { label: "Track an order", href: "/help#track" },
+  { label: "Contact us", href: "/help#contact" },
+];
+
 export const legalLinks = [
   { label: "Privacy policy", href: "/privacy" },
   { label: "Terms of service", href: "/terms" },

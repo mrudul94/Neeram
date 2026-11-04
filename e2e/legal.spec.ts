@@ -19,24 +19,23 @@ test("the cookie notice stays gone after OK, across a reload", async ({ page }) 
 const overlap = (a: { x: number; y: number; width: number; height: number }, b: typeof a) =>
   a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
 
-test("on phones the notice stays off the bottle's first screen, then appears further down", async ({ page, isMobile }) => {
-  test.skip(!isMobile, "Phones only");
+const noticeWaitsForTheShelf = async (page: import("@playwright/test").Page) => {
   await page.goto("/");
   await page.waitForTimeout(1800);
   await expect(notice(page)).toBeHidden();
 
   await page.getByRole("heading", { name: /A short shelf/ }).scrollIntoViewIfNeeded();
   await expect(notice(page)).toBeVisible();
+};
+
+test("on phones the notice stays off the bottle's first screen, then appears further down", async ({ page, isMobile }) => {
+  test.skip(!isMobile, "Phones only");
+  await noticeWaitsForTheShelf(page);
 });
 
 test("on desktop the notice sits bottom right and waits while it would cover the bottle or buy buttons", async ({ page, isMobile, viewport }) => {
   test.skip(isMobile, "Desktop only");
-  await page.goto("/");
-  await page.waitForTimeout(1800);
-  await expect(notice(page)).toBeHidden();
-
-  await page.getByRole("heading", { name: /A short shelf/ }).scrollIntoViewIfNeeded();
-  await expect(notice(page)).toBeVisible();
+  await noticeWaitsForTheShelf(page);
   const box = (await notice(page).boundingBox())!;
   expect(Math.round(viewport!.width - (box.x + box.width))).toBe(24);
 

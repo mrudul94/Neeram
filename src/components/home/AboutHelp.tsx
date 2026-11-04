@@ -1,14 +1,7 @@
 import Link from "next/link";
-import { site } from "@/data/content";
+import { helpLinks, site } from "@/data/content";
 import { Logo } from "../Logo";
 import { ArrowRight, ButtonLink } from "../ui";
-
-const help = [
-  { label: "Shipping & delivery", href: "/help#shipping" },
-  { label: "Returns & refunds", href: "/help#returns" },
-  { label: "Track an order", href: "/help#track" },
-  { label: "Contact us", href: "/help#contact" },
-];
 
 export function AboutHelp() {
   return (
@@ -27,7 +20,7 @@ export function AboutHelp() {
         <div>
           <h2 className="eyebrow text-[0.6875rem] text-orange-text">Help with an order</h2>
           <ul className="mt-4">
-            {help.map((h) => (
+            {helpLinks.map((h) => (
               <li key={h.href} className="border-b border-ink">
                 <Link href={h.href} className="flex items-center justify-between py-4 text-[1.0625rem] hover:text-orange">
                   {h.label}

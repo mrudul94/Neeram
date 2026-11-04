@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getPack, getProduct, hasSizes, isAvailable, lowestPrice, products } from "./products";
+import { getPack, getProduct, hasSizes, isAvailable, lowestPrice, packPrice, packSize, products } from "./products";
 
 const oil = getProduct("coconut-oil")!;
 const turmeric = getProduct("turmeric")!;
@@ -73,5 +73,29 @@ describe("coconut oil 1 L packet", () => {
     const pack = getPack(getProduct("coconut-oil")!, "pouch-1l");
     expect(pack?.label).toBe("1 L packet");
     expect(pack?.price).toBe(250);
+  });
+});
+
+describe("packPrice", () => {
+  const oil = getProduct("coconut-oil")!;
+
+  it("uses the pack's own price", () => {
+    expect(packPrice(oil, getPack(oil, "bottle-1l"))).toBe(260);
+  });
+
+  it("falls back to the product's price without a pack", () => {
+    expect(packPrice(oil)).toBe(oil.price);
+  });
+});
+
+describe("packSize", () => {
+  const packs = getProduct("coconut-oil")!.packs!;
+
+  it("names a packet as a packet", () => {
+    expect(packs.filter((p) => p.form === "Packet").map(packSize)).toEqual(["500 ml packet", "1 L packet"]);
+  });
+
+  it("leaves a bottle as just its size", () => {
+    expect(packs.filter((p) => p.form !== "Packet").map(packSize)).toEqual(["500 ml", "1 L", "200 ml"]);
   });
 });

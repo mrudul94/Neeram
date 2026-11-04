@@ -1,21 +1,13 @@
 import Link from "next/link";
 import { products } from "@/data/products";
-import { legalLinks, site } from "@/data/content";
+import { helpLinks, legalLinks, site } from "@/data/content";
 import { toBeConfirmed } from "@/lib/format";
 import { WhatsAppNotify } from "./WhatsAppNotify";
 import { Wordmark } from "./Wordmark";
 
 const columns: { title: string; links: { label: string; href: string | null }[] }[] = [
   { title: "Shop", links: products.map((p) => ({ label: p.name, href: `/products/${p.slug}` })) },
-  {
-    title: "Help",
-    links: [
-      { label: "Shipping & delivery", href: "/help#shipping" },
-      { label: "Returns & refunds", href: "/help#returns" },
-      { label: "Track an order", href: "/help#track" },
-      { label: "Contact us", href: "/help#contact" },
-    ],
-  },
+  { title: "Help", links: helpLinks },
   {
     title: "Neeram",
     links: [

@@ -1,5 +1,5 @@
 import { site } from "@/data/content";
-import { isAvailable, type Product } from "@/data/products";
+import { isAvailable, packPrice, type Product } from "@/data/products";
 import type { Faq } from "./faq";
 
 /**
@@ -50,7 +50,7 @@ export function websiteSchema() {
 }
 
 export function productSchema(product: Product) {
-  const sizes = product.packs?.map((p) => ({ name: p.label, id: `-${p.id}`, price: p.price ?? product.price })) ?? [{ name: product.sizeLabel, id: "", price: product.price }];
+  const sizes = product.packs?.map((p) => ({ name: p.label, id: `-${p.id}`, price: packPrice(product, p) })) ?? [{ name: product.sizeLabel, id: "", price: product.price }];
   const offers = !isAvailable(product)
     ? []
     : sizes

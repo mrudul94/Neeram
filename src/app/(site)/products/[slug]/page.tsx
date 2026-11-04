@@ -116,6 +116,17 @@ const accordions = (product: Product): { title: string; body?: string; specs?: S
   { title: "Product information", specs: packagedDetails(product) },
 ];
 
+function SameShelf({ items }: { items: Product[] }) {
+  return (
+    <section aria-labelledby="same-shelf" className="wrap py-20 md:py-28">
+      <h2 id="same-shelf" className="display text-[clamp(2.5rem,5vw,4rem)]">
+        On the same shelf
+      </h2>
+      <Shelf items={items} className="mt-10" />
+    </section>
+  );
+}
+
 function AvailableProduct({ product }: { product: Product }) {
   const others = products.filter((p) => p.slug !== product.slug);
   const tempering = ["coconut-oil", "turmeric", "black-pepper"].map((s) => getProduct(s)!);
@@ -132,7 +143,7 @@ function AvailableProduct({ product }: { product: Product }) {
       <div className="mx-auto grid max-w-[90rem] grid-cols-[minmax(0,1fr)] gap-8 pb-24 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-12 md:pb-20 lg:gap-16">
         <Gallery images={product.images} watermark={product.nameMalayalam} />
 
-        <div className="px-5 md:py-8 md:pr-10 lg:pr-[max(2.5rem,calc((min(100vw,90rem)-75rem)/2))]">
+        <div className="px-5 md:py-8 md:pr-10 lg:pr-(--page-edge)">
           <Breadcrumb product={product} />
           <TitleBlock product={product} />
           <PackPrice slug={product.slug} />
@@ -213,12 +224,7 @@ function AvailableProduct({ product }: { product: Product }) {
         </section>
       )}
 
-      <section aria-labelledby="same-shelf" className="wrap py-20 md:py-28">
-        <h2 id="same-shelf" className="display text-[clamp(2.5rem,5vw,4rem)]">
-          On the same shelf
-        </h2>
-        <Shelf items={others} className="mt-10" />
-      </section>
+      <SameShelf items={others} />
 
       <MobileBuyBar slug={product.slug} />
     </>
@@ -250,7 +256,7 @@ function ComingSoonProduct({ product }: { product: Product }) {
           <span className="eyebrow absolute top-5 right-5 bg-ink px-3 py-1.5 text-[0.6875rem] text-cream">Coming soon</span>
         </div>
 
-        <div className="px-5 md:py-10 md:pr-10 lg:pr-[max(2.5rem,calc((min(100vw,90rem)-75rem)/2))]">
+        <div className="px-5 md:py-10 md:pr-10 lg:pr-(--page-edge)">
           <Breadcrumb product={product} />
           <TitleBlock product={product} />
           <div id="notify" className="mt-8 scroll-mt-8 border-t border-ink pt-6">
@@ -267,12 +273,7 @@ function ComingSoonProduct({ product }: { product: Product }) {
         </div>
       </div>
 
-      <section aria-labelledby="same-shelf" className="wrap py-20 md:py-28">
-        <h2 id="same-shelf" className="display text-[clamp(2.5rem,5vw,4rem)]">
-          On the same shelf
-        </h2>
-        <Shelf items={others} className="mt-10" />
-      </section>
+      <SameShelf items={others} />
     </>
   );
 }

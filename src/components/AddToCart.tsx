@@ -1,19 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
-import { getPack, getProduct, hasSizes, isAvailable, type Pack } from "@/data/products";
+import { getPack, getProduct, hasSizes, isAvailable, packPrice, packSize, type Pack } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { useCart } from "@/store/cart";
 import { usePackChoice } from "@/store/pack";
+import { PackSwatch } from "./PackSwatch";
 import { QtyStepper } from "./QtyStepper";
 import { ArrowRight, buttonClass, cx } from "./ui";
 
 type Variant = "orange" | "ink" | "text" | "cream";
 
 /** The size picked for this product (shared with the home page's size buttons); undefined if it has no packs. */
-export function useChosenPack(slug: string): Pack | undefined {
+function useChosenPack(slug: string): Pack | undefined {
   const chosen = usePackChoice((s) => s.chosen[slug]);
   const product = getProduct(slug);
   return product && getPack(product, chosen);
@@ -78,19 +78,15 @@ export function PackPicker({ slug, className }: { slug: string; className?: stri
               key={p.id}
               type="button"
               aria-pressed={on}
-              aria-label={`${p.label}, ${formatPrice(p.price ?? product.price)}`}
+              aria-label={`${p.label}, ${formatPrice(packPrice(product, p))}`}
               onClick={() => choose(slug, p.id)}
               className={cx(
                 "flex min-w-0 flex-col items-center gap-1.5 border px-0.5 pt-2 pb-2.5 transition-colors duration-200",
                 on ? "border-orange bg-sand ring-1 ring-orange" : "border-ink/25 hover:border-ink",
               )}
             >
-              <span className="grid h-14 w-full place-items-center">
-                <Image src={p.thumb.src} alt="" width={p.thumb.width} height={p.thumb.height} sizes="4rem" className="max-h-14 w-auto max-w-full object-contain" />
-              </span>
-              <span className="text-sm leading-none font-medium whitespace-nowrap md:max-lg:text-xs">{p.size}</span>
-              <span className="eyebrow text-[0.5625rem] leading-none text-muted">{p.form === "Packet" ? "Packet" : "Bottle"}</span>
-              <span className="text-[0.8125rem] leading-none tabular-nums">{formatPrice(p.price ?? product.price)}</span>
+              <PackSwatch pack={p} sizeClassName="whitespace-nowrap md:max-lg:text-xs" formClassName="text-muted" />
+              <span className="text-[0.8125rem] leading-none tabular-nums">{formatPrice(packPrice(product, p))}</span>
             </button>
           );
         })}
@@ -106,7 +102,7 @@ export function PackPrice({ slug }: { slug: string }) {
   if (!product) return null;
   return (
     <p className="mt-6 flex items-baseline gap-3">
-      <span className="text-2xl font-medium tabular-nums">{formatPrice(pack?.price ?? product.price)}</span>
+      <span className="text-2xl font-medium tabular-nums">{formatPrice(packPrice(product, pack))}</span>
       <span className="text-xs text-muted">Inclusive of taxes · {pack?.label ?? product.sizeLabel}</span>
     </p>
   );
@@ -121,8 +117,8 @@ export function ChosenPackLabel({ slug }: { slug: string }) {
     // One span, so a flex button wraps it as one line of text; the price never splits from "₹".
     <span>
       Add {product.name.toLowerCase()}
-      {pack && ` · ${pack.size}${pack.form === "Packet" ? " packet" : ""}`}{" "}
-      <span className="whitespace-nowrap">· {formatPrice(pack?.price ?? product.price)}</span>
+      {pack && ` · ${packSize(pack)}`}{" "}
+      <span className="whitespace-nowrap">· {formatPrice(packPrice(product, pack))}</span>
     </span>
   );
 }
@@ -163,7 +159,7 @@ export function MobileBuyBar({ slug }: { slug: string }) {
   const pack = useChosenPack(slug);
   const product = getProduct(slug);
   if (!product || !isAvailable(product)) return null;
-  const price = pack?.price ?? product.price;
+  const price = packPrice(product, pack);
   return (
     <div className="mobile-buy-bar fixed inset-x-0 bottom-0 z-20 flex gap-3 border-t border-ink bg-cream px-5 py-3 max-[22.5rem]:gap-2 max-[22.5rem]:px-3 md:hidden">
       <QtyStepper label={product.name} value={qty} onChange={setQty} />

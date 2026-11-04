@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { getPack, getProduct, type Pack } from "@/data/products";
+import { getPack, getProduct, packPrice, packSize, type Pack } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { usePackChoice } from "@/store/pack";
 import { AddToCartButton } from "../AddToCart";
+import { PackSwatch } from "../PackSwatch";
 import { cx } from "../ui";
 import { BottleStill } from "./BottleStage";
 import { ENTER, EXIT, FADE, PACK_SLUG, play, reducedMotion } from "./swap";
@@ -44,11 +44,7 @@ export function FeatureStage() {
                 on ? "border-orange bg-cream/10 text-cream" : "border-cream/25 text-cream/70 hover:border-cream/60 hover:text-cream",
               )}
             >
-              <span className="grid h-14 w-full place-items-center">
-                <Image src={p.thumb.src} alt="" width={p.thumb.width} height={p.thumb.height} sizes="4rem" className="max-h-14 w-auto max-w-full object-contain" />
-              </span>
-              <span className="text-sm leading-none font-medium">{p.size}</span>
-              <span className="eyebrow text-[0.5625rem] leading-none">{p.form === "Packet" ? "Packet" : "Bottle"}</span>
+              <PackSwatch pack={p} />
             </button>
           );
         })}
@@ -113,8 +109,8 @@ export function FeatureAddButton() {
   const pack = getPack(product, usePackChoice((s) => s.chosen[PACK_SLUG]))!;
   // Short enough to stay on one line at phone width: "Add · 500 ml packet · ₹ 240".
   const label = (p: Pack) => {
-    const price = p.price ?? product.price;
-    return `Add · ${p.size}${p.form === "Packet" ? " packet" : ""}${price === null ? "" : ` · ${formatPrice(price)}`}`;
+    const price = packPrice(product, p);
+    return `Add · ${packSize(p)}${price === null ? "" : ` · ${formatPrice(price)}`}`;
   };
   return (
     <AddToCartButton slug={PACK_SLUG} pack={pack.id} variant="orange" arrow className="max-[22.5rem]:gap-2 max-[22.5rem]:px-3 max-[22.5rem]:text-[0.6875rem]">

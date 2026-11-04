@@ -79,6 +79,11 @@
 }
 
 @layer base {
+  /* Lines full-bleed grids, which stop at 90rem, up with the 75rem header. */
+  :root {
+    --page-edge: max(2.5rem, calc((min(100vw, 90rem) - 75rem) / 2));
+  }
+
   html {
     background: var(--color-cream);
     color: var(--color-ink);

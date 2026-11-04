@@ -2,7 +2,7 @@
 // and (optionally) add a hero slide in src/data/heroSlides.ts. Nothing else hard-codes
 // "coming soon" — every component reads `status`.
 
-export type ProductStatus = "available" | "coming_soon";
+type ProductStatus = "available" | "coming_soon";
 export type Category = "Oil" | "Souring" | "Spice" | "Flower";
 
 export type Spec = { label: string; value: string };
@@ -293,6 +293,16 @@ export function getPack(product: Product, id?: string): Pack | undefined {
 }
 
 /** True when the customer has to pick a size before adding to cart. */
+/** The price of a pack, or of the product when it has no pack of its own. */
+export function packPrice(product: Product, pack?: Pack): number | null {
+  return pack?.price ?? product.price;
+}
+
+/** A pack's size as customers read it: "1 L", or "1 L packet". */
+export function packSize(pack: Pack): string {
+  return pack.form === "Packet" ? `${pack.size} packet` : pack.size;
+}
+
 export function hasSizes(product: Product): boolean {
   return (product.packs?.length ?? 0) > 1;
 }

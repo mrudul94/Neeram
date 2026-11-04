@@ -1,4 +1,5 @@
 import { site } from "@/data/content";
+import { packPrice } from "@/data/products";
 import type { Product } from "@/data/products";
 import { formatPrice } from "./format";
 
@@ -12,7 +13,7 @@ export const OIL_STORAGE = "Keep the cap closed, away from sunlight and the stov
  */
 export function productFaqs(product: Product): Faq[] {
   if (product.slug !== "coconut-oil" || !product.packs) return [];
-  const sizes = product.packs.map((p) => `${p.label} (${formatPrice(p.price ?? product.price)})`).join(", ");
+  const sizes = product.packs.map((p) => `${p.label} (${formatPrice(packPrice(product, p))})`).join(", ");
   return [
     {
       question: "Where is Neeram coconut oil made?",

@@ -3,7 +3,7 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { getPack, getProduct, isAvailable, type Pack, type Product } from "@/data/products";
+import { getPack, getProduct, isAvailable, packPrice, type Pack, type Product } from "@/data/products";
 
 /** `pack` is set for products sold in several sizes (lines saved before packs existed have none). */
 export type CartLine = { slug: string; qty: number; pack?: string };
@@ -101,7 +101,7 @@ export function resolveLines(lines: CartLine[]): ResolvedLine[] {
     const product = getProduct(line.slug);
     if (!product || !isAvailable(product)) return [];
     const pack = getPack(product, line.pack);
-    const price = pack?.price ?? product.price;
+    const price = packPrice(product, pack);
     return [
       {
         ...line,
