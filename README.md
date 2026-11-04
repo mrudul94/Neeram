@@ -134,7 +134,9 @@ The site runs on Cloudflare Workers through the OpenNext adapter (`wrangler.json
 - `npm run preview` builds the Worker and runs it locally in the Cloudflare runtime, reading secrets from
   `.dev.vars` (copy `.dev.vars.example`).
 - `npm run deploy` builds and deploys it (needs `npx wrangler login` first).
-- `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_TURNSTILE_SITE_KEY` are read at build time, so set them wherever the
+- `NEXT_PUBLIC_SITE_URL` is committed in `.env.production`. A production build fails if it is missing or points to
+  localhost. A variable with the same name set where the site is built overrides the file.
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is read at build time, so set it wherever the
   build runs. Secrets (`TURNSTILE_SECRET_KEY`, `GOOGLE_*`) are set on the Worker, never committed.
 - Images are served as-is (`images.unoptimized`): every image is already a pre-sized WebP, so no paid image
   resizing is needed.

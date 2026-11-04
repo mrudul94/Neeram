@@ -1,4 +1,5 @@
 // Editorial content that is not product data. Placeholders are listed in TODO_CONTENT.md.
+import { resolveSiteUrl } from "@/lib/site-url";
 
 export type HeroSlide = {
   id: string;
@@ -59,7 +60,7 @@ export const legalLinks = [
 export const site = {
   name: "Neeram",
   legalName: "Neeram Coconut Industries Private Limited",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL, process.env.NODE_ENV),
   // Blank details below show as "[to be confirmed]" (see TODO_CONTENT.md).
   address: "Govindan Oil Mill (Neeram), Anakkallu, Anakkallu Road, Kasaragod district, Kerala 671541" as string | null,
   /** For search engines (src/lib/schema.ts). Blank parts are left out of the markup. */

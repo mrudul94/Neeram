@@ -15,7 +15,7 @@ Google says local results depend on three things: **relevance** (does it match t
 ## To do at launch
 
 1. Give the client's details to the developer (`TODO_CONTENT.md`).
-2. Set `NEXT_PUBLIC_SITE_URL` to the real domain and `SITE_LIVE=1`, then rebuild.
+2. Set `NEXT_PUBLIC_SITE_URL` to the real domain in `.env.production` and `SITE_LIVE=1`, then rebuild.
 3. Add the site to [Google Search Console](https://search.google.com/search-console) and submit `/sitemap.xml`. Do the same in Bing Webmaster Tools.
 4. Test the home and product pages with Google's [Rich Results Test](https://search.google.com/test/rich-results).
 5. Check [PageSpeed Insights](https://pagespeed.web.dev/). **This is the biggest open technical item:** the last mobile tests showed the main content loading in 5–6 seconds (`docs/LATER.md`).

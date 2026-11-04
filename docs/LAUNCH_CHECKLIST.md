@@ -33,7 +33,7 @@ Work through this before the site goes live on Cloudflare. Items marked **(devel
 
 - [ ] **Choose the Workers plan. (developer)** The built Worker is about **1.2 MB compressed** (measured with `npx wrangler deploy --dry-run`). Check the current Free-plan limits on worker size and CPU time per request at [developers.cloudflare.com/workers/platform/limits](https://developers.cloudflare.com/workers/platform/limits/). If either is too tight, use **Workers Paid** (from $5 a month), which is what OpenNext sites are usually run on.
 - [ ] **Deploy and attach the domain. (developer)** `npx wrangler login`, then `npm run deploy`. In Workers & Pages → neeram → **Settings** → **Domains & Routes**, add the custom domain.
-- [ ] **Set `NEXT_PUBLIC_SITE_URL`** to the real address (for example `https://neeram.in`) wherever the site is built, so links shared on WhatsApp and search results point to the right place. **(developer)** Read at build time.
+- [ ] **Set `NEXT_PUBLIC_SITE_URL`** to the real address (for example `https://neeram.in`) in `.env.production`, and remove any variable of that name in Cloudflare's build settings, so links shared on WhatsApp and search results point to the right place. **(developer)** Read at build time.
 - [ ] **Set `SITE_LIVE=1`** as a build variable and rebuild, only when the site is ready for the public. **(developer)** Until then every page is marked noindex and the sitemap is empty, so nothing can rank. Then submit `/sitemap.xml` in Google Search Console (`docs/SEO_PLAN.md`).
 - [ ] **Workers Logs are on** (`observability` in `wrangler.jsonc`). Check you can open Workers & Pages → neeram → **Observability** and see requests after deploying.
 
