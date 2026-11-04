@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cx } from "./ui";
 
-// Neeram coconut-leaf logo (public/images/Main logo/, trimmed copy in public/images/logo/)
+// Neeram coconut-leaf logo (design-originals/logo/, trimmed copy in public/images/logo/)
 // with the product line under it. Sized in em, so callers set the size with font-size.
 export function Logo({ className, href = "/", onDark = false }: { className?: string; href?: string | null; onDark?: boolean }) {
   const mark = (

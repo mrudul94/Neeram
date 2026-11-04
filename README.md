@@ -25,7 +25,7 @@ Copy `.env.example` to `.env.local` to set the site URL (optional for local work
 | `src/app/api/` | `checkout` (build the order's WhatsApp message). |
 | `src/components/home/BottleStage.tsx` | The scroll-spinning bottle. |
 | `src/store/cart.ts` | Cart (Zustand, persisted to `localStorage` as `neeram-cart`). |
-| `public/bottle/` | `neeram-coconut-oil-500ml-bottle*.webp` (product photo at rest) and `{desktop,mobile}/` — the 120 bottle frames (WebP). |
+| `public/bottle/` | `neeram-coconut-oil-500ml-bottle*.webp`, the product photo at rest. The bottle frames (off, see `USE_FRAMES`) are in `design-originals/bottle/`. |
 | `public/images/` | Jar cut-outs, photos and gallery images. |
 | `scripts/` | Bottle rendering and image-preparation scripts. |
 | `design/`, `blender/` | Source design export and 3D scene. |

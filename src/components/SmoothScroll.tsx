@@ -6,14 +6,6 @@ import { useEffect, useRef } from "react";
 import { afterPageLoad, loadMotion } from "@/lib/motion";
 import { useCart } from "@/store/cart";
 
-let instance: Lenis | null = null;
-
-/** Scrolls the page to `y`: smoothly through Lenis when it runs, else natively. */
-export function scrollToY(y: number) {
-  if (instance) instance.scrollTo(y, { duration: 0.7 });
-  else window.scrollTo({ top: y, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-}
-
 /** Lenis smooth scrolling, driven by the GSAP ticker so ScrollTrigger stays in sync. */
 export function SmoothScroll() {
   const lenisRef = useRef<Lenis | null>(null);
@@ -29,7 +21,7 @@ export function SmoothScroll() {
       void Promise.all([import("lenis"), loadMotion()]).then(([{ default: LenisClass }, { gsap, ScrollTrigger }]) => {
         if (!live) return;
         const lenis = new LenisClass({ anchors: true, lerp: 0.12 });
-        lenisRef.current = instance = lenis;
+        lenisRef.current = lenis;
         lenis.on("scroll", ScrollTrigger.update);
         const tick = (time: number) => lenis.raf(time * 1000);
         gsap.ticker.add(tick);
@@ -38,7 +30,7 @@ export function SmoothScroll() {
         stop = () => {
           gsap.ticker.remove(tick);
           lenis.destroy();
-          lenisRef.current = instance = null;
+          lenisRef.current = null;
         };
       });
     });

@@ -2,7 +2,9 @@
 /**
  * true: the bottle turns 360° on scroll using the frame sequence below (swap in real
  * turntable photos as the frames). false: the product photo travels with a light 3D
- * tilt and sweep instead, and no frames are loaded.
+ * tilt and sweep instead, and no frames are loaded. Before switching this on, copy
+ * design-originals/bottle/ into public/bottle/ and supply the rest: only 27 of the 120
+ * frames per set are kept.
  */
 export const USE_FRAMES = false;
 export const FRAME_COUNT = 120;
