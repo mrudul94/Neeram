@@ -1,17 +1,17 @@
-# Graph Report - Neeram  (2026-11-04)
+# Graph Report - Neeram  (2026-11-05)
 
 ## Corpus Check
-- 108 files · ~47,585 words
+- 109 files · ~47,896 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 14 file(s) not represented in the graph (top: .woff2 4, .example 2, (none) 2)
 
 ## Summary
-- 620 nodes · 1578 edges · 29 communities (25 shown, 4 thin omitted)
+- 622 nodes · 1589 edges · 27 communities (24 shown, 3 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 27 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `fee81189`
+- Built from commit: `7e67be8d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -21,30 +21,28 @@
 - [slug]/page.tsx
 - Frame Conversion Scripts
 - package.json
-- Home Bottle & Feature Stage
+- products.ts
 - Colour Matching Script
 - Website Design Board
 - TypeScript Config
-- legal.spec.ts
-- CheckoutForm.tsx
+- BottleStage.tsx
+- checkout.ts
 - sheet.ts
 - Setting up the Neeram order sheet
 - Neeram Website Build Brief
 - content.ts
-- cart.ts
-- README.md
-- checkout.ts
-- scripts
 - vitest
+- README.md
+- turnstile.ts
+- scripts
+- Pending work
 - CLAUDE.md
 - dependencies
 - Neeram SEO plan
 - eslint.config.mjs
 - Launch checklist
-- turnstile.ts
-- @playwright/test
-- Pending work
 - sheet-guide.test.ts
+- @playwright/test
 
 ## God Nodes (most connected - your core abstractions)
 1. `cx()` - 37 edges
@@ -52,9 +50,9 @@
 3. `getProduct()` - 32 edges
 4. `react` - 25 edges
 5. `AvailableProduct()` - 25 edges
-6. `Eyebrow()` - 23 edges
-7. `isAvailable()` - 23 edges
-8. `formatPrice()` - 23 edges
+6. `formatPrice()` - 25 edges
+7. `Eyebrow()` - 23 edges
+8. `isAvailable()` - 23 edges
 9. `useCart` - 22 edges
 10. `vitest` - 19 edges
 
@@ -78,35 +76,35 @@
 - **Status-driven coming-soon to available launch flow** — neeram_build_prompt_product_status_field, src_data_products, src_data_content, readme_launching_a_spice, neeram_build_prompt_coming_soon_spices [EXTRACTED 1.00]
 - **Checkout and Razorpay payment flow** — src_store_cart, readme_api_checkout, readme_api_checkout_verify, neeram_build_prompt_razorpay, src_components_checkout_checkoutform [INFERRED 0.85]
 
-## Communities (29 total, 4 thin omitted)
+## Communities (27 total, 3 thin omitted)
 
 ### Community 0 - "next"
-Cohesion: 0.09
-Nodes (26): anton, antonRupee, balooChettan, fontVariables, inter, interItalic, interRupee, notoMalayalam (+18 more)
+Cohesion: 0.07
+Nodes (37): lenis, anton, antonRupee, balooChettan, fontVariables, inter, interItalic, interRupee (+29 more)
 
 ### Community 1 - "ui.tsx"
-Cohesion: 0.11
-Nodes (34): nextConfig, next, CheckoutLayout(), AboutPage(), chapters, figures, metadata, promises (+26 more)
+Cohesion: 0.10
+Nodes (39): nextConfig, next, react, CheckoutLayout(), AboutPage(), chapters, figures, metadata (+31 more)
 
 ### Community 2 - "[slug]/page.tsx"
-Cohesion: 0.14
-Nodes (30): react, accordions(), AvailableProduct(), Breadcrumb(), ComingSoonProduct(), ProductContent(), ProductPage(), SameShelf() (+22 more)
+Cohesion: 0.15
+Nodes (29): accordions(), AvailableProduct(), Breadcrumb(), ComingSoonProduct(), ProductContent(), ProductPage(), SameShelf(), TitleBlock() (+21 more)
 
 ### Community 3 - "Frame Conversion Scripts"
-Cohesion: 0.06
-Nodes (28): sharp@^0.35.5, sharp, desktopDir, match, matchedDir, mobileDir, pngs, projectRoot (+20 more)
+Cohesion: 0.05
+Nodes (29): notice(), noticeWaitsForTheShelf(), sharp@^0.35.5, sharp, desktopDir, match, matchedDir, mobileDir (+21 more)
 
 ### Community 4 - "package.json"
 Cohesion: 0.14
 Nodes (19): devDependencies, tailwindcss@^4, @tailwindcss/turbopack@^4, @types/node@^22.20.5, @types/react@^19, @types/react-dom@^19, typescript@^5, vitest@^5.0.5 (+11 more)
 
-### Community 5 - "Home Bottle & Feature Stage"
-Cohesion: 0.10
-Nodes (57): generateMetadata(), AddToCartButton(), ChosenPackLabel(), MobileBuyBar(), PackPicker(), PackPrice(), PurchasePanel(), useChosenPack() (+49 more)
+### Community 5 - "products.ts"
+Cohesion: 0.09
+Nodes (59): Launching a Spice (coming soon to available), CheckoutPage(), metadata, generateMetadata(), AddToCartButton(), ChosenPackLabel(), MobileBuyBar(), PackPicker() (+51 more)
 
 ### Community 6 - "Colour Matching Script"
 Cohesion: 0.10
-Nodes (17): Blender Frame Rendering (Phase 0), blender/Neeram_Bottle.blend, apply(), corners(), fit(), identity_lut(), load_rgba(), logo_red() (+9 more)
+Nodes (18): Blender Frame Rendering (Phase 0), blender/Neeram_Bottle.blend, npm run frames (PNG to WebP), apply(), corners(), fit(), identity_lut(), load_rgba() (+10 more)
 
 ### Community 7 - "Website Design Board"
 Cohesion: 0.40
@@ -116,9 +114,13 @@ Nodes (6): Coconut Pour Video Poster (Desktop 16:9), Coconut Pour Video Poster (
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+10 more)
 
-### Community 10 - "CheckoutForm.tsx"
-Cohesion: 0.16
-Nodes (18): CheckoutPage(), metadata, Channel, CheckoutForm(), onSubmit(), Choice(), Field(), Step() (+10 more)
+### Community 9 - "BottleStage.tsx"
+Cohesion: 0.18
+Nodes (23): addPhotoMotion(), BottleMover(), BottleStill(), frameTurn(), startTravel(), FeatureAddButton(), FeatureStage(), SwapText() (+15 more)
+
+### Community 10 - "checkout.ts"
+Cohesion: 0.18
+Nodes (20): POST(), onSubmit(), BOT_CHECK_FAILED(), filledHoneypot(), HONEYPOT_FIELD, CheckoutLine, compactPhone(), DETAIL_FIELDS (+12 more)
 
 ### Community 11 - "sheet.ts"
 Cohesion: 0.15
@@ -129,28 +131,28 @@ Cohesion: 0.17
 Nodes (11): Finding the private key inside the file, If no row appears, Later: replacing the key, Part 1: Create a Google Cloud project, Part 2: Turn on the Google Sheets API, Part 3: Create the robot account (service account), Part 4: Create the robot's key, Part 5: Create the order sheet and share it with the robot (+3 more)
 
 ### Community 13 - "Neeram Website Build Brief"
-Cohesion: 0.05
-Nodes (42): generate-agent-files.js (next dev), node_modules/next/dist/docs, Next.js Breaking Changes Notice (AGENTS.md), aim() stream position, build() GSAP loader timeline, frame() rAF oil render, Hero Mock (under loader), level() oil height (+34 more)
+Cohesion: 0.06
+Nodes (43): generate-agent-files.js (next dev), node_modules/next/dist/docs, Next.js Breaking Changes Notice (AGENTS.md), aim() stream position, build() GSAP loader timeline, frame() rAF oil render, Hero Mock (under loader), level() oil height (+35 more)
 
 ### Community 14 - "content.ts"
-Cohesion: 0.09
-Nodes (27): SiteLayout(), metadata, PrivacyPage(), sections, metadata, sections, TermsPage(), columns (+19 more)
+Cohesion: 0.07
+Nodes (33): HelpPage(), metadata, sections, SiteLayout(), metadata, PrivacyPage(), sections, metadata (+25 more)
 
-### Community 15 - "cart.ts"
-Cohesion: 0.10
-Nodes (32): lenis, CartDrawer(), CartDrawer, CartDrawerLazy(), load(), CartButton(), Header(), nav (+24 more)
+### Community 15 - "vitest"
+Cohesion: 0.14
+Nodes (8): vitest, body, { privateKey }, scheduled, CheckoutDetails, order, { privateKey }, sheetEnv
 
-### Community 17 - "checkout.ts"
-Cohesion: 0.21
-Nodes (17): POST(), BOT_CHECK_FAILED(), filledHoneypot(), HONEYPOT_FIELD, CheckoutDetails, CheckoutLine, compactPhone(), DETAIL_FIELDS (+9 more)
+### Community 17 - "turnstile.ts"
+Cohesion: 0.33
+Nodes (3): Deps, live, TurnstileResult
 
 ### Community 18 - "scripts"
 Cohesion: 0.17
 Nodes (12): scripts, build, cf-typegen, deploy, dev, frames, lint, preview (+4 more)
 
-### Community 19 - "vitest"
-Cohesion: 0.15
-Nodes (7): vitest, body, { privateKey }, scheduled, order, { privateKey }, sheetEnv
+### Community 19 - "Pending work"
+Cohesion: 0.40
+Nodes (4): 1. Review fixes: done in local commits, not yet pushed, 2. Hosting on Cloudflare instead of Vercel, 3. Before launch, Pending work
 
 ### Community 21 - "dependencies"
 Cohesion: 0.15
@@ -168,17 +170,9 @@ Nodes (5): eslintConfig, eslint@^9, eslint-config-next@16.4.3, eslint, eslint-co
 Cohesion: 0.22
 Nodes (8): 1. Orders reach Neeram, 2. Bot protection, 3. Legal, 4. Hosting, 5. Check it end to end, 6. Access, 7. Nice to have before launch, Launch checklist
 
-### Community 25 - "turnstile.ts"
-Cohesion: 0.33
-Nodes (3): Deps, live, TurnstileResult
-
 ### Community 26 - "@playwright/test"
 Cohesion: 0.29
 Nodes (3): pages, @playwright/test@^1.64.1, @playwright/test
-
-### Community 27 - "Pending work"
-Cohesion: 0.40
-Nodes (4): 1. Review fixes: done in local commits, not yet pushed, 2. Hosting on Cloudflare instead of Vercel, 3. Before launch, Pending work
 
 ## Ambiguous Edges - Review These
 - `render_bottle.py` → `Python script deps (numpy>=2, pillow>=11)`  [AMBIGUOUS]
@@ -187,23 +181,23 @@ Nodes (4): 1. Review fixes: done in local commits, not yet pushed, 2. Hosting on
 ## Knowledge Gaps
 - **18 isolated node(s):** `generate-agent-files.js (next dev)`, `aim() stream position`, `level() oil height`, `schedule() simulated load steps`, `seg() toggle controls` (+13 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 215 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `next` connect `ui.tsx` to `next`, `[slug]/page.tsx`, `package.json`, `Home Bottle & Feature Stage`, `CheckoutForm.tsx`, `content.ts`, `cart.ts`, `checkout.ts`, `dependencies`?**
-  _High betweenness centrality (0.145) - this node is a cross-community bridge._
+- **Why does `next` connect `ui.tsx` to `next`, `[slug]/page.tsx`, `package.json`, `products.ts`, `checkout.ts`, `content.ts`, `dependencies`?**
+  _High betweenness centrality (0.144) - this node is a cross-community bridge._
 - **What connects `generate-agent-files.js (next dev)`, `aim() stream position`, `level() oil height` to the rest of the system?**
   _18 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `next` be split into smaller, more focused modules?**
-  _Cohesion score 0.08534850640113797 - nodes in this community are weakly interconnected._
-- **Why does `vitest` connect `vitest` to `next`, `[slug]/page.tsx`, `Frame Conversion Scripts`, `package.json`, `Home Bottle & Feature Stage`, `sheet.ts`, `content.ts`, `cart.ts`, `checkout.ts`, `turnstile.ts`, `sheet-guide.test.ts`?**
-  _High betweenness centrality (0.076) - this node is a cross-community bridge._
+  _Cohesion score 0.06531986531986532 - nodes in this community are weakly interconnected._
+- **Why does `vitest` connect `vitest` to `next`, `[slug]/page.tsx`, `Frame Conversion Scripts`, `package.json`, `products.ts`, `checkout.ts`, `sheet.ts`, `content.ts`, `turnstile.ts`, `sheet-guide.test.ts`?**
+  _High betweenness centrality (0.075) - this node is a cross-community bridge._
 - **Should `ui.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.10545790934320073 - nodes in this community are weakly interconnected._
-- **Why does `react` connect `[slug]/page.tsx` to `next`, `ui.tsx`, `package.json`, `Home Bottle & Feature Stage`, `CheckoutForm.tsx`, `content.ts`, `cart.ts`, `dependencies`?**
-  _High betweenness centrality (0.072) - this node is a cross-community bridge._
+  _Cohesion score 0.09545454545454546 - nodes in this community are weakly interconnected._
+- **Why does `react` connect `ui.tsx` to `next`, `[slug]/page.tsx`, `package.json`, `products.ts`, `BottleStage.tsx`, `content.ts`, `dependencies`?**
+  _High betweenness centrality (0.073) - this node is a cross-community bridge._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._
