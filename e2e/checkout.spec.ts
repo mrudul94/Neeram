@@ -10,12 +10,12 @@ test("orders coconut oil in a chosen size through WhatsApp", async ({ page, cont
   await page.goto("/products/coconut-oil");
 
   // Pick the 1 L bottle and two of them.
-  await page.getByRole("button", { name: "1 L bottle, ₹ 260" }).click();
+  await page.getByRole("button", { name: "1 L bottle, ₹ 340" }).click();
   const qty = page.getByRole("group", { name: "Quantity for Coconut Oil" }).locator("visible=true");
   await qty.getByRole("button", { name: "Increase quantity" }).click();
   await expect(qty.locator("output")).toHaveText("2");
-  // Desktop shows "Add to cart"; the mobile buy bar shows "Add 1 L · ₹ 520".
-  await page.getByRole("button", { name: /^Add (to cart|1 L · ₹ 520)$/ }).locator("visible=true").click();
+  // Desktop shows "Add to cart"; the mobile buy bar shows "Add 1 L · ₹ 680".
+  await page.getByRole("button", { name: /^Add (to cart|1 L · ₹ 680)$/ }).locator("visible=true").click();
 
   // Adding opens the cart drawer.
   const cart = page.getByRole("dialog", { name: /Your cart/ });
@@ -39,15 +39,15 @@ test("orders coconut oil in a chosen size through WhatsApp", async ({ page, cont
 
   const [whatsapp] = await Promise.all([
     context.waitForEvent("page"),
-    page.getByRole("button", { name: "Send order on WhatsApp · ₹ 520" }).click(),
+    page.getByRole("button", { name: "Send order on WhatsApp · ₹ 680" }).click(),
   ]);
   await whatsapp.waitForURL("https://wa.me/**");
 
   const link = new URL(whatsapp.url());
-  expect(link.pathname).toBe("/918075915386");
+  expect(link.pathname).toBe("/919747844455");
   const message = link.searchParams.get("text")!;
-  expect(message).toContain("• 2 × Coconut Oil (1 L bottle): ₹ 520");
-  expect(message).toContain("Subtotal: ₹ 520");
+  expect(message).toContain("• 2 × Coconut Oil (1 L bottle): ₹ 680");
+  expect(message).toContain("Subtotal: ₹ 680");
   expect(message).toContain("Name: Anu Thomas");
   expect(message).toContain("Phone: +91 98765 43210");
   expect(message).toContain("Address: Kallarakkal House, MG Road, Near St. Mary's Church, Kochi, Kerala 682011");

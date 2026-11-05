@@ -100,14 +100,14 @@ describe("priceLines", () => {
   it("prices a pack from the catalogue, ignoring anything the client sends", () => {
     const { items, total } = priceLines([{ slug: "coconut-oil", qty: 2, pack: "bottle-1l" }]);
     expect(items).toEqual([
-      { slug: "coconut-oil", pack: "bottle-1l", name: "Coconut Oil (1 L bottle)", qty: 2, unitPrice: 260 },
+      { slug: "coconut-oil", pack: "bottle-1l", name: "Coconut Oil (1 L bottle)", qty: 2, unitPrice: 340 },
     ]);
-    expect(total).toBe(520);
+    expect(total).toBe(680);
   });
 
   it("uses the default pack for a line saved without one", () => {
     const { items } = priceLines([{ slug: "coconut-oil", qty: 1 }]);
-    expect(items[0]).toMatchObject({ pack: "bottle-500", unitPrice: 130 });
+    expect(items[0]).toMatchObject({ pack: "bottle-500", unitPrice: 200 });
   });
 
   it("totals several lines", () => {
@@ -115,7 +115,7 @@ describe("priceLines", () => {
       { slug: "coconut-oil", qty: 1, pack: "bottle-200" },
       { slug: "coconut-oil", qty: 3, pack: "pouch-500" },
     ]);
-    expect(total).toBe(70 + 3 * 125);
+    expect(total).toBe(100 + 3 * 190);
   });
 
   it("drops a line with an unknown pack instead of charging for a different one", () => {
@@ -216,6 +216,6 @@ describe("orderMessage", () => {
 describe("orderLinks", () => {
   it("opens a WhatsApp chat with the encoded message", () => {
     const { whatsapp } = orderLinks("Order: NRM-1 & 2 × oil", "NRM-1");
-    expect(whatsapp).toBe("https://wa.me/918075915386?text=Order%3A%20NRM-1%20%26%202%20%C3%97%20oil");
+    expect(whatsapp).toBe("https://wa.me/919747844455?text=Order%3A%20NRM-1%20%26%202%20%C3%97%20oil");
   });
 });

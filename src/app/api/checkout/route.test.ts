@@ -53,7 +53,7 @@ describe("POST /api/checkout", () => {
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.orderNumber).toMatch(/^NRM-/);
-    expect(data.message).toContain("• 2 × Coconut Oil (1 L bottle): ₹ 520");
+    expect(data.message).toContain("• 2 × Coconut Oil (1 L bottle): ₹ 680");
     expect(googleCalls).toEqual([]);
   });
 

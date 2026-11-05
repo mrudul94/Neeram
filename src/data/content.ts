@@ -59,13 +59,15 @@ export const legalLinks = [
 
 export const site = {
   name: "Neeram",
-  legalName: "Neeram Coconut Industries Private Limited",
+  /** As on the GST certificate. */
+  legalName: "Kolathingal Sasikumar Sharath, trading as Govindan Oil Mill",
+  tradeName: "Govindan Oil Mill",
   url: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL, process.env.NODE_ENV),
   // Blank details below show as "[to be confirmed]" (see TODO_CONTENT.md).
-  address: "Govindan Oil Mill (Neeram), Anakkallu, Anakkallu Road, Kasaragod district, Kerala 671541" as string | null,
+  address: "4/213A, Anakkallu, Sankarampady PO, Chengala Via, Kasaragod, Kerala 671541" as string | null,
   /** For search engines (src/lib/schema.ts). Blank parts are left out of the markup. */
   location: {
-    streetAddress: "Anakkallu, Anakkallu Road" as string | null,
+    streetAddress: "4/213A, Anakkallu, Sankarampady PO" as string | null,
     locality: "Kasaragod" as string | null,
     region: "Kerala" as string | null,
     postalCode: "671541" as string | null,
@@ -76,7 +78,7 @@ export const site = {
   /** True only if customers can visit a shop or outlet: it makes the markup say LocalBusiness. */
   hasPublicLocation: false as boolean,
   foundingDate: "2020-08-21",
-  gstin: null as string | null,
+  gstin: "32GUPPS3042K1Z7" as string | null,
   /** Named on the Privacy Policy, Terms and Help pages, as the E-Commerce Rules 2020 require. */
   grievanceOfficer: {
     name: "Sharath K Sasikumar" as string | null,
@@ -91,25 +93,20 @@ export const site = {
   },
   /** Shown on the Help page, product pages and the coconut oil FAQ. */
   policies: {
-    delivery: "We deliver all over India, in six to ten working days.",
+    delivery: "We deliver all over India by DTDC and India Post, in six to ten working days.",
     returns: "You can return an order within 7 days of delivery, as long as the cap and its seal, or the packet, are unopened. Before sending it back, send us a photo on WhatsApp showing it is unopened and undamaged. We refund you by UPI once it is back at our mill. If your order arrives damaged or leaking, take a photo of the product and its packaging and send it to us on WhatsApp with your order details, and we will send a replacement or refund you.",
   },
   /** How long order records are kept, for the Privacy Policy. */
-  dataRetention: null as string | null,
+  dataRetention: "10 years" as string | null,
   /** Details every product listing shows (src/lib/legal.ts). */
   packaged: {
-    manufacturer: null as string | null,
-    mrp: null as string | null,
+    manufacturer: "Govindan Oil Mill, Anakallu, Shankarampady Post, Kasaragod 671541" as string | null,
     bestBefore: "6 months. See the date on the pack." as string | null,
   },
   aboutText:
     "Neeram started up on 21 August 2020 and is owned by Sharath K Sasikumar, with 29 coconut producer companies in Kerala behind it. The oil is pressed at our own mill in Anakkallu, Kerala, from coconuts bought straight from member farms. It is sealed at the mill, in clear bottles and pouches, with nothing added.",
-  /**
-   * FSSAI licence number shown in the footer and on product pages; null hides it.
-   * The bottle label carries 11321014000289 (Govindan Oil Mill, Kasaragod): confirm
-   * which licence the site should show before setting it (TODO_CONTENT.md).
-   */
-  fssaiLicence: null as string | null,
+  /** FSSAI licence number shown in the footer and on product pages; null hides it. */
+  fssaiLicence: "11321014000289" as string | null,
   /**
    * Neeram's own certificates and licences, shown on the About page; the section stays
    * hidden while this is empty. Images go in public/images/certificates/.
@@ -123,16 +120,15 @@ export const site = {
    * buttons show only when `phone` (or `whatsapp`, for SMS) and `email` are set.
    */
   orders: {
-    // Skaylon's number (+91 80759 15386) for now; swap for Neeram's own before launch.
-    whatsapp: "918075915386" as string | null,
+    whatsapp: "919747844455" as string | null,
     phone: null as string | null,
     email: null as string | null,
   },
   // Set a URL to show the link; null renders the name without a link.
   socials: {
-    Instagram: null as string | null,
+    Instagram: "https://www.instagram.com/neeram_coconut_oil" as string | null,
     Facebook: null as string | null,
     YouTube: null as string | null,
-    WhatsApp: null as string | null,
+    WhatsApp: "https://wa.me/919747844455" as string | null,
   },
 };

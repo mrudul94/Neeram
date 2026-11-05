@@ -27,7 +27,20 @@ describe("packagedDetails", () => {
     expect(value("Best before")).toBe("6 months. See the date on the pack.");
   });
 
-  it.each(["Manufacturer", "MRP", "FSSAI licence"])("shows %s as a visible gap until it is supplied", (label) => {
-    expect(value(label)).toBe("[to be confirmed]");
+  it("lists the MRP of every size on sale", () => {
+    expect(value("MRP")).toBe("500 ml bottle ₹ 200, 1 L bottle ₹ 340, 200 ml bottle ₹ 100, 500 ml packet ₹ 190, 1 L packet ₹ 330");
+  });
+
+  it("shows the MRP of a product with no confirmed price as a visible gap", () => {
+    const single = packagedDetails(getProduct("turmeric")!).find((s) => s.label === "MRP");
+    expect(single?.value).toBe("[to be confirmed]");
+  });
+
+  it("shows the FSSAI licence", () => {
+    expect(value("FSSAI licence")).toBe("11321014000289");
+  });
+
+  it("names the mill as the manufacturer, with its address", () => {
+    expect(value("Manufacturer")).toBe("Govindan Oil Mill, Anakallu, Shankarampady Post, Kasaragod 671541");
   });
 });

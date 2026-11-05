@@ -32,7 +32,7 @@ describe("getProduct", () => {
 
 describe("getPack", () => {
   it("returns the pack with the given id", () => {
-    expect(getPack(oil, "bottle-1l")?.price).toBe(260);
+    expect(getPack(oil, "bottle-1l")?.price).toBe(340);
   });
 
   it("falls back to the first pack when no id is given", () => {
@@ -60,7 +60,7 @@ describe("hasSizes", () => {
 
 describe("lowestPrice", () => {
   it("returns the cheapest pack price", () => {
-    expect(lowestPrice(oil)).toBe(70);
+    expect(lowestPrice(oil)).toBe(100);
   });
 
   it("returns the product price for a product without packs", () => {
@@ -69,10 +69,10 @@ describe("lowestPrice", () => {
 });
 
 describe("coconut oil 1 L packet", () => {
-  it("is on sale at ₹ 250", () => {
+  it("is on sale at ₹ 330", () => {
     const pack = getPack(getProduct("coconut-oil")!, "pouch-1l");
     expect(pack?.label).toBe("1 L packet");
-    expect(pack?.price).toBe(250);
+    expect(pack?.price).toBe(330);
   });
 });
 
@@ -80,7 +80,7 @@ describe("packPrice", () => {
   const oil = getProduct("coconut-oil")!;
 
   it("uses the pack's own price", () => {
-    expect(packPrice(oil, getPack(oil, "bottle-1l"))).toBe(260);
+    expect(packPrice(oil, getPack(oil, "bottle-1l"))).toBe(340);
   });
 
   it("falls back to the product's price without a pack", () => {

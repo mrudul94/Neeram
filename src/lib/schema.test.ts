@@ -32,7 +32,7 @@ describe("organizationSchema", () => {
   it("names the company and links its logo", () => {
     const org = organizationSchema();
     expect(org["@type"]).toBe("Organization");
-    expect(org.name).toBe("Neeram Coconut Industries Private Limited");
+    expect(org.name).toBe("Govindan Oil Mill");
     expect(org.logo).toMatch(/^https?:\/\/.+\.webp$/);
   });
 
@@ -46,6 +46,7 @@ describe("organizationSchema", () => {
     const org = organizationSchema({
       location: { streetAddress: null, locality: "Kasaragod", region: "Kerala", postalCode: null, country: "IN" },
       support: { phone: null, email: null, hours: null },
+      socials: { Instagram: null, Facebook: null, YouTube: null, WhatsApp: null },
     }) as Record<string, unknown>;
     expect(org.address).toEqual({ "@type": "PostalAddress", addressLocality: "Kasaragod", addressRegion: "Kerala", addressCountry: "IN" });
     for (const key of ["telephone", "email", "geo", "sameAs"]) expect(org).not.toHaveProperty(key);
@@ -54,7 +55,7 @@ describe("organizationSchema", () => {
   it("adds them once they are filled", () => {
     const org = organizationSchema({
       geo: { latitude: 12.5, longitude: 75 },
-      socials: { Instagram: "https://instagram.com/neeram", Facebook: null, YouTube: null, WhatsApp: null },
+      socials: { Instagram: "https://instagram.com/neeram", Facebook: null, YouTube: null, WhatsApp: "https://wa.me/910000000000" },
       support: { phone: "+91 90000 00000", email: "hello@example.com", hours: null },
     }) as Record<string, unknown>;
     expect(org.geo).toEqual({ "@type": "GeoCoordinates", latitude: 12.5, longitude: 75 });
@@ -87,7 +88,7 @@ describe("productSchema", () => {
   });
 
   it("shows the 1 L packet at its real price", () => {
-    expect(schema.offers.find((o) => o.name === "1 L packet")?.price).toBe(250);
+    expect(schema.offers.find((o) => o.name === "1 L packet")?.price).toBe(330);
   });
 
   it("makes no offer for a product with no confirmed price", () => {
@@ -127,7 +128,7 @@ describe("FAQ", () => {
   it("lists every size and price in the answer about sizes", () => {
     const sizes = faqs.find((f) => /sizes/i.test(f.question))!;
     for (const pack of oil.packs!) expect(sizes.answer).toContain(pack.label);
-    expect(sizes.answer).toContain("₹ 250");
+    expect(sizes.answer).toContain("₹ 330");
   });
 
   it("has no schema at all when nothing is confirmed", () => {

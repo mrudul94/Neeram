@@ -25,7 +25,7 @@ export function organizationSchema(overrides: Partial<typeof site> = {}) {
     // LocalBusiness only for a place customers can actually visit.
     "@type": s.hasPublicLocation ? "LocalBusiness" : "Organization",
     "@id": ORG_ID(),
-    name: s.legalName,
+    name: s.tradeName,
     alternateName: s.name,
     url: absolute("/"),
     logo: absolute("/images/logo/neeram-coconut-oil-logo.webp"),
@@ -41,7 +41,8 @@ export function organizationSchema(overrides: Partial<typeof site> = {}) {
       addressCountry: country,
     }),
     geo: latitude !== null && longitude !== null ? { "@type": "GeoCoordinates", latitude, longitude } : null,
-    sameAs: Object.values(s.socials).filter(Boolean),
+    // Profile pages only: a WhatsApp chat link is not one.
+    sameAs: Object.entries(s.socials).flatMap(([name, url]) => (url && name !== "WhatsApp" ? [url] : [])),
   });
 }
 

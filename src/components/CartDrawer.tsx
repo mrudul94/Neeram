@@ -124,7 +124,7 @@ export function CartDrawer() {
               <p className="font-medium">Subtotal</p>
               <p className="font-medium tabular-nums">{formatPrice(total)}</p>
             </div>
-            <p className="mt-1 font-serif text-sm text-muted">Shipping and taxes are calculated at checkout.</p>
+            <p className="mt-1 font-serif text-sm text-muted">Prices include taxes. We confirm the delivery charge on WhatsApp.</p>
             <Link href="/checkout" className={buttonClass("orange", "mt-5 w-full")}>
               Checkout
             </Link>

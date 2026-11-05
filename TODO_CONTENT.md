@@ -4,10 +4,9 @@ Everything below is a placeholder on the live site today. File references show w
 
 ## Prices and product facts — `src/data/products.ts`
 
-- [x] **Coconut Oil prices** — 1 L ₹260, 500 ml ₹130, 200 ml ₹70, 500 ml packet ₹125.
+- [x] **Coconut Oil prices (MRP)** — 1 L bottle ₹340, 1 L packet ₹330, 500 ml bottle ₹200, 500 ml packet ₹190, 200 ml bottle ₹100.
 - [ ] Prices for the five spices (needed when each launches).
-- [ ] Coconut oil **ingredients** wording for the listing (currently "100% coconut oil. [Confirm …]") — product page,
-      *Ingredients* accordion.
+- [x] Coconut oil **ingredients** — "100% coconut oil." Product page, *Ingredients* accordion.
 - [ ] Confirm all spec-table values (Also called / Goes into / How to use / Container) for every product. Spice specs
       for Black Pepper, Tamarind and Shankupushpam were written to fill the layout.
 - [ ] Spice product descriptions for Black Pepper, Tamarind and Shankupushpam (the design only had the one-line shop
@@ -30,7 +29,7 @@ Everything below is a placeholder on the live site today. File references show w
 - [ ] **Business address** for the footer: "[Business address, Kerala]" — `src/data/content.ts` → `address`.
 - [ ] **Logo as SVG** (optional). The supplied PNG logo is in use (`public/images/logo/neeram-logo.png`, a trimmed
       480 px copy of `design-originals/logo/`); an SVG would stay sharper at every size — `src/components/Logo.tsx`.
-- [ ] **Social links** (Instagram, Facebook, YouTube, WhatsApp). They show as plain text until a URL is set —
+- [ ] **Social links** (Facebook, YouTube; Instagram and WhatsApp are set). They show as plain text until a URL is set —
       `src/data/content.ts` → `socials`.
 - [ ] Favicon / app icon (`src/app/favicon.ico` is the Next.js default).
 
@@ -42,21 +41,17 @@ Everything below is a placeholder on the live site today. File references show w
 - [x] Contact details: phone, email, hours. The order WhatsApp number is still to come (see Checkout).
 - [ ] Lawyer review of the draft Privacy Policy (`/privacy`) and Terms (`/terms`).
 - [ ] For `site` in `src/data/content.ts` (blanks show as "[to be confirmed]"):
-  - legal company name (currently "Neeram Coconut Industries Private Limited", from the About page), whether the
-    Govindan Oil Mill address is its registered address, and GSTIN;
-  - **FSSAI licence number** (the bottle label shows FSSAI 11321014000289 and Govindan Oil Mill, Kasaragod — confirm
-    what should appear on the site, and which company holds it);
+  - the FSSAI licence lists the business as "Repacker - General Manufacturing" and 1 MT a day, while the site and label
+    say the oil is made at the mill and the About page says 750 kg an hour: confirm the wording. Licence valid to 21 May 2027;
   - confirm Sharath K Sasikumar agrees to be named Grievance Officer, as Owner, with these contact details;
-  - how long order records are kept;
-  - manufacturer name and address and MRP for product listings.
-- [x] Delivery partners, for the Privacy Policy: says "courier companies", so it stays true whichever courier is chosen.
+- [x] Delivery partners, for the Privacy Policy: DTDC and India Post.
 
 ## Search and local listings — `site` in `src/data/content.ts`
 
 Nothing here is invented: blanks stay out of the search markup until they're filled.
 
 - [ ] Map coordinates of the mill or office (`geo`), and its street address and PIN (`location`).
-- [ ] Social media links (`socials`).
+- [ ] Facebook and YouTube links (`socials`).
 - [ ] Is there a shop or outlet customers can visit? If so, set `hasPublicLocation`. This also decides whether Neeram can
       have a Google Business Profile (`docs/SEO_PLAN.md`).
 - [ ] Real stockists and towns where Neeram is sold. Don't list any town or shop that isn't confirmed.
@@ -70,9 +65,9 @@ Nothing here is invented: blanks stay out of the search markup until they're fil
 
 - [x] Standard delivery time; the charge is confirmed on WhatsApp.
 - [ ] Discount codes — the field is there but replies "not available yet".
-- [ ] **Order WhatsApp number** (currently Skaylon's, +91 80759 15386 — replace with Neeram's), phone and email — `src/data/content.ts` → `site.orders`. Checkout sends orders
-      there; until the WhatsApp number is set, customers have to pick the chat themselves.
-- [ ] Payment details (UPI ID / bank account) to send customers after confirming — orders are paid before delivery.
+- [x] **Order WhatsApp number** — +91 97478 44455, the customer care number. `src/data/content.ts` → `site.orders`.
+- [ ] Order phone and email, for customers without WhatsApp — `site.orders`.
+- [ ] Payment details (UPI ID / bank account) ready to send customers on WhatsApp after confirming. These don't go on the site.
 - [ ] Set up the order sheet (`docs/ORDER_SHEET_SETUP.md`) so orders whose customer never sends the WhatsApp
       message aren't lost — until then they're only in Workers Logs.
 

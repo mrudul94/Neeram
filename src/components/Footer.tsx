@@ -39,7 +39,11 @@ export function Footer() {
                 {col.links.map((l) => (
                   <li key={l.label}>
                     {l.href ? (
-                      <Link href={l.href} className="hover:text-orange pointer-coarse:flex pointer-coarse:min-h-11 pointer-coarse:items-center">
+                      <Link
+                        href={l.href}
+                        {...(l.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="hover:text-orange pointer-coarse:flex pointer-coarse:min-h-11 pointer-coarse:items-center"
+                      >
                         {l.label}
                       </Link>
                     ) : (
@@ -52,8 +56,9 @@ export function Footer() {
           ))}
         </div>
         <p className="mt-10 border-t border-cream/20 pt-4 text-xs text-cream/90">
-          © 2026 {site.legalName} · {toBeConfirmed(site.address)}
+          © 2026 {site.tradeName} · {toBeConfirmed(site.address)}
           {site.fssaiLicence && <> · FSSAI Lic. No. {site.fssaiLicence}</>}
+          {site.gstin && <> · GSTIN {site.gstin}</>}
         </p>
         <Wordmark className="mt-8 block w-full text-orange md:mt-10" />
       </div>

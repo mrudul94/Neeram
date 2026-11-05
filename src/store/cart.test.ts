@@ -100,7 +100,7 @@ describe("resolveLines", () => {
     expect(line).toMatchObject({
       key: "coconut-oil:pouch-500",
       sizeLabel: "500 ml packet",
-      lineTotal: 250,
+      lineTotal: 380,
       image: { src: "/images/packs/neeram-coconut-oil-500ml-packet-thumb.webp" },
     });
   });
@@ -116,7 +116,7 @@ describe("subtotal", () => {
       { slug: "coconut-oil", pack: "bottle-200", qty: 2 },
       { slug: "coconut-oil", pack: "bottle-1l", qty: 1 },
     ]);
-    expect(subtotal(lines)).toBe(2 * 70 + 260);
+    expect(subtotal(lines)).toBe(2 * 100 + 340);
   });
 
   it("is unknown when any line's price is unknown", () => {

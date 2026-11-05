@@ -114,7 +114,7 @@ export function CookieNotice() {
     >
       <h2 className="eyebrow text-[0.8125rem]">Cookies on this website</h2>
       <p className="mt-2 font-sans text-sm leading-snug text-muted">
-        We only store what the site needs: your cart, this choice and a security check. No analytics or marketing cookies.{" "}
+        We only store what the site needs: your cart and this choice. No analytics or marketing cookies.{" "}
         <Link href="/privacy#browser-storage" className="tap text-orange-text underline underline-offset-2 hover:text-orange">
           Privacy policy
         </Link>
@@ -123,7 +123,7 @@ export function CookieNotice() {
         <dl id="cookie-details" className="mt-3 space-y-2 border-t border-ink/20 pt-3 text-[0.8125rem] leading-snug">
           <div>
             <dt className="font-semibold">Strictly necessary: always on</dt>
-            <dd className="text-muted">Your cart, this choice, and the security check on our forms. The site can&rsquo;t work without them.</dd>
+            <dd className="text-muted">Your cart and this choice. The site can&rsquo;t work without them.</dd>
           </div>
           <div>
             <dt className="font-semibold">Analytics and marketing: not used</dt>

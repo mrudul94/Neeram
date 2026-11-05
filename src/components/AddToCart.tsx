@@ -103,12 +103,12 @@ export function PackPrice({ slug }: { slug: string }) {
   return (
     <p className="mt-6 flex items-baseline gap-3">
       <span className="text-2xl font-medium tabular-nums">{formatPrice(packPrice(product, pack))}</span>
-      <span className="text-xs text-muted">Inclusive of taxes · {pack?.label ?? product.sizeLabel}</span>
+      <span className="text-xs text-muted">MRP, inclusive of all taxes · {pack?.label ?? product.sizeLabel}</span>
     </p>
   );
 }
 
-/** "Add coconut oil · 1 L · ₹ 260", following the picked size. */
+/** "Add coconut oil · 1 L · ₹ 340", following the picked size. */
 export function ChosenPackLabel({ slug }: { slug: string }) {
   const pack = useChosenPack(slug);
   const product = getProduct(slug);

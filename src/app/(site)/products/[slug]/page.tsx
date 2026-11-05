@@ -100,7 +100,7 @@ function TitleBlock({ product }: { product: Product }) {
 const accordions = (product: Product): { title: string; body?: string; specs?: Spec[] }[] => [
   {
     title: "Ingredients",
-    body: product.category === "Oil" ? "100% coconut oil. [Confirm the exact wording for the label and listing.]" : `100% ${product.name.toLowerCase()}.`,
+    body: `100% ${product.name.toLowerCase()}.`,
   },
   {
     title: "Storage",

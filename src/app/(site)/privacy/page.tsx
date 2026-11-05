@@ -49,8 +49,9 @@ const sections: LegalSection[] = [
     body: (
       <ul className="list-disc space-y-2 pl-5">
         <li>WhatsApp: order and new-stock messages go through WhatsApp when you choose to send them, under WhatsApp&rsquo;s own terms.</li>
-        <li>Cloudflare: hosts this website, keeps short-lived technical logs, and runs a security check on our forms that uses your IP address and browser details to block bots.</li>
-        <li>Courier companies: your name, number and address, to deliver your order.</li>
+        <li>Cloudflare: hosts this website and keeps short-lived technical logs.</li>
+        <li>Courier companies (DTDC and India Post): your name, number and address, to deliver your order.</li>
+        <li>Our accountant: your order records, to keep our accounts.</li>
       </ul>
     ),
   },
@@ -60,7 +61,7 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>We only use what the site needs to work. Your browser remembers your cart, and your choice on our cookie notice. Both stay on your device, and clearing your browser data removes them.</p>
-        <p>Cloudflare&rsquo;s security check may set a cookie to tell people from bots. There are no advertising or analytics cookies.</p>
+        <p>There are no advertising or analytics cookies.</p>
       </>
     ),
   },

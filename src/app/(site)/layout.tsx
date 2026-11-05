@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
@@ -11,6 +12,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
       <Suspense>
         <Footer />
       </Suspense>
+      <WhatsAppButton />
     </>
   );
 }

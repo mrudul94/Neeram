@@ -159,9 +159,10 @@
     transition: none;
   }
 }
-/* It stands on top of the mobile buy bar, which is 73 px tall. */
+/* They stand on top of the mobile buy bar, which is 73 px tall. */
 @media (width < 48rem) {
-  body:has(.mobile-buy-bar) .cookie-notice {
+  body:has(.mobile-buy-bar) .cookie-notice,
+  body:has(.mobile-buy-bar) .whatsapp-button {
     bottom: calc(73px + 1rem);
   }
 }

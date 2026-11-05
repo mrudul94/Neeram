@@ -37,7 +37,7 @@ Docs (commit "Replace Vercel references with Cloudflare and add a launch checkli
 
 ## 3. Before launch
 
-- [ ] **Neeram's own WhatsApp number** in `src/data/content.ts` → `site.orders` (currently Skaylon's, +91 80759 15386).
+- [x] **Neeram's own WhatsApp number** in `src/data/content.ts` → `site.orders` (+91 97478 44455).
 - [ ] **Turnstile widget:** create it in the Cloudflare dashboard. The site key goes in `NEXT_PUBLIC_TURNSTILE_SITE_KEY` at build time; the secret goes in `TURNSTILE_SECRET_KEY` as a Worker secret.
 - [ ] **WAF rate-limit rule** on `POST /api/*`, for example 10 requests per 10 s per IP, then block. It needs the custom domain on Cloudflare.
 - [ ] **A real test order** on the live site. Check the WhatsApp message reaches Neeram.

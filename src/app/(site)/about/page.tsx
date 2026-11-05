@@ -37,7 +37,7 @@ const chapters = [
     title: "Honest methods, traditional taste",
     body: [
       "We chose the name Neeram because it reflects our liquid gold — pure, transparent, and completely natural. By moving away from mass-industrial chemical processing, we focused on traditional methods that preserve the natural aroma, nutrients, and rich taste of the coconut.",
-      "With our nutrient-rich cold-pressed variants, we ensure that what reaches your home is exactly how nature intended it to be.",
+      "With our double-filtered coconut oil, we ensure that what reaches your home is exactly how nature intended it to be.",
     ],
   },
   {
@@ -151,15 +151,15 @@ export default function AboutPage() {
           <div>
             <Eyebrow>Who we are</Eyebrow>
             <h2 id="who-title" className="display mt-4 text-[clamp(2.75rem,5vw,4.25rem)]">
-              Neeram Coconut
+              Govindan
               <br />
-              Industries.
+              Oil Mill.
             </h2>
           </div>
           <p className="max-w-[38rem] font-serif text-lg leading-relaxed text-muted">
-            Neeram Coconut Industries Private Limited makes pure coconut oil — cold-pressed and virgin — at its
-            own mill in Anakkallu, Kerala, packed in pouches, bottles and cans for cooking and for hair. The company was
-            formed to spread the benefits of coconut to people. It has come a long way, with a long way still to go.
+            Neeram coconut oil is a product of Govindan Oil Mill. We make pure, double-filtered coconut oil at our
+            own mill in Anakkallu, Kerala, packed in bottles and pouches for everyday cooking. The mill was set up to
+            spread the benefits of coconut to people. It has come a long way, with a long way still to go.
             Started up on 21 August 2020. Owner: Sharath K Sasikumar.
           </p>
         </div>
