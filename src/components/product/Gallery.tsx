@@ -3,15 +3,27 @@
 import Image from "next/image";
 import { useState } from "react";
 import type { ProductImage } from "@/data/products";
+import { usePackChoice } from "@/store/pack";
 import { cx } from "../ui";
 
-/** Product gallery: sand panel with the Malayalam name as a watermark, thumbnails below. */
-export function Gallery({ images, watermark }: { images: ProductImage[]; watermark: string }) {
-  const [active, setActive] = useState(0);
+/**
+ * Product gallery: sand panel with the Malayalam name as a watermark, thumbnails below. Picking a
+ * size (PackPicker) brings up the photo of that pack; it opens on the size already chosen.
+ */
+export function Gallery({ slug, images, watermark }: { slug: string; images: ProductImage[]; watermark: string }) {
+  const chosen = usePackChoice((s) => s.chosen[slug]);
+  const photoOf = (pack: string | undefined) => Math.max(0, images.findIndex((im) => pack && im.pack === pack));
+  const [active, setActive] = useState(() => photoOf(chosen));
+  // A new size picked: show its photo (state adjusted during render, not in an effect).
+  const [shownFor, setShownFor] = useState(chosen);
+  if (chosen !== shownFor) {
+    setShownFor(chosen);
+    if (images.some((im) => im.pack === chosen)) setActive(photoOf(chosen));
+  }
   const img = images[active];
   return (
     <div>
-      <div className="relative grid aspect-[4/5] place-items-center overflow-hidden bg-sand md:aspect-auto md:h-[min(52rem,calc(100svh-5.5rem))]">
+      <div data-gallery-photo className="relative grid aspect-[4/5] place-items-center overflow-hidden bg-sand md:aspect-auto md:h-[min(52rem,calc(100svh-5.5rem))]">
         {/* No lang="ml" here — see MalayalamDisplay in ui.tsx. */}
         <p aria-hidden className="absolute inset-x-0 top-[6%] text-center font-ml-display text-[clamp(3.5rem,8vw,7.5rem)] leading-none font-extrabold whitespace-nowrap text-ink/[0.07]">
           {watermark}

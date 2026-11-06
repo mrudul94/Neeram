@@ -141,7 +141,7 @@ function AvailableProduct({ product }: { product: Product }) {
 
       {/* minmax(0,1fr) on phones: an auto column grows to fit the size buttons and the page scrolls sideways. */}
       <div className="mx-auto grid max-w-[90rem] grid-cols-[minmax(0,1fr)] gap-8 pb-24 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-12 md:pb-20 lg:gap-16">
-        <Gallery images={product.images} watermark={product.nameMalayalam} />
+        <Gallery slug={product.slug} images={product.images} watermark={product.nameMalayalam} />
 
         <div className="px-5 md:py-8 md:pr-10 lg:pr-(--page-edge)">
           <Breadcrumb product={product} />

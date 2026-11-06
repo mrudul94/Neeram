@@ -17,6 +17,17 @@ describe("product catalogue", () => {
     }
   });
 
+  it("has one gallery photo, with a phone copy, for every pack on sale", () => {
+    for (const p of products) {
+      for (const pack of p.packs ?? []) {
+        const photos = p.images.filter((im) => im.pack === pack.id);
+        expect(photos, `${p.slug} ${pack.id}`).toHaveLength(1);
+        expect(photos[0].mobileSrc, `${p.slug} ${pack.id}`).toBeTruthy();
+      }
+      for (const im of p.images) if (im.pack) expect(p.packs?.map((k) => k.id), im.src).toContain(im.pack);
+    }
+  });
+
   it("gives every available product a price", () => {
     for (const p of products.filter(isAvailable)) {
       expect(lowestPrice(p), p.slug).not.toBeNull();

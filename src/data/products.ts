@@ -18,6 +18,8 @@ export type ProductImage = {
   thumbSrc?: string;
   /** Smaller copy for phones, in the gallery. Same shape as `src`. */
   mobileSrc?: string;
+  /** The pack (`Pack.id`) this photo shows: picking that size brings it up in the gallery. */
+  pack?: string;
 };
 
 /** A size / pack a product is sold in. The first pack is the default. */
@@ -86,6 +88,7 @@ export const products: Product[] = [
       {
         src: "/images/jars/neeram-coconut-oil-500ml-bottle.webp",
         mobileSrc: "/images/jars/neeram-coconut-oil-500ml-bottle-mobile.webp",
+        pack: "bottle-500",
         thumbSrc: "/images/packs/neeram-coconut-oil-500ml-bottle-thumb.webp",
         alt: "Neeram Coconut Oil, 500 ml clear bottle with the Neeram label",
         width: 460,
@@ -96,6 +99,7 @@ export const products: Product[] = [
       {
         src: "/images/packs/neeram-coconut-oil-1l-bottle.webp",
         mobileSrc: "/images/packs/neeram-coconut-oil-1l-bottle-mobile.webp",
+        pack: "bottle-1l",
         thumbSrc: "/images/packs/neeram-coconut-oil-1l-bottle-thumb.webp",
         alt: "Neeram Coconut Oil, 1 litre clear bottle",
         width: 386,
@@ -105,6 +109,7 @@ export const products: Product[] = [
       {
         src: "/images/packs/neeram-coconut-oil-200ml-bottle.webp",
         mobileSrc: "/images/packs/neeram-coconut-oil-200ml-bottle-mobile.webp",
+        pack: "bottle-200",
         thumbSrc: "/images/packs/neeram-coconut-oil-200ml-bottle-thumb.webp",
         alt: "Neeram Coconut Oil, 200 ml clear bottle",
         width: 289,
@@ -114,6 +119,7 @@ export const products: Product[] = [
       {
         src: "/images/packs/neeram-coconut-oil-500ml-packet.webp",
         mobileSrc: "/images/packs/neeram-coconut-oil-500ml-packet-mobile.webp",
+        pack: "pouch-500",
         thumbSrc: "/images/packs/neeram-coconut-oil-500ml-packet-thumb.webp",
         alt: "Neeram Coconut Oil, 500 ml packet",
         width: 960,
@@ -123,6 +129,7 @@ export const products: Product[] = [
       {
         src: "/images/packs/neeram-coconut-oil-1l-packet.webp",
         mobileSrc: "/images/packs/neeram-coconut-oil-1l-packet-mobile.webp",
+        pack: "pouch-1l",
         thumbSrc: "/images/packs/neeram-coconut-oil-1l-packet-thumb.webp",
         alt: "Neeram Coconut Oil, 1 litre packet",
         width: 836,
