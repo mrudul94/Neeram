@@ -15,6 +15,88 @@ for (const path of pages) {
   });
 }
 
+// The web fonts arrive one at a time on a slow phone, so the page shows every mix of real and stand-in
+// fonts on the way. Holding them back and letting them in one group at a time replays that, in both
+// orders, and adds up the layout shift the way the CLS metric does.
+for (const width of [360, 390, 412, 440]) {
+  for (const interFirst of [true, false]) {
+    test(`the home page shifts less than 0.1 at ${width} px as fonts load (${interFirst ? "Inter" : "the other fonts"} first)`, async ({ page, isMobile }) => {
+      test.skip(!isMobile, "Phones only");
+      await page.setViewportSize({ width, height: 823 });
+      const held: { inter: boolean; done: boolean; release: () => Promise<void> }[] = [];
+      const release = (pick: (h: (typeof held)[number]) => boolean) =>
+        Promise.all(
+          held.filter((h) => !h.done && pick(h)).map((h) => {
+            h.done = true;
+            return h.release();
+          }),
+        );
+      await page.route(/\.woff2(\?|$)/, (route) => {
+        held.push({ inter: route.request().url().includes("inter_subset"), done: false, release: () => route.continue() });
+      });
+      await page.addInitScript(() => {
+        localStorage.setItem("neeram-notice-ok", "all");
+        (window as unknown as { cls: number }).cls = 0;
+        new PerformanceObserver((list) => {
+          for (const e of list.getEntries() as (PerformanceEntry & { value: number; hadRecentInput: boolean })[]) {
+            if (!e.hadRecentInput) (window as unknown as { cls: number }).cls += e.value;
+          }
+        }).observe({ type: "layout-shift", buffered: true });
+      });
+      // A shift only counts once the layout before it has been painted, so wait for two frames.
+      const painted = () => page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+      const slot = page.locator("#bottle-slot-hero");
+      const boxes: string[] = [];
+      const note = async () => {
+        await painted();
+        const b = (await slot.boundingBox())!;
+        boxes.push(`top ${Math.round(b.y)}, height ${Math.round(b.height)}`);
+      };
+
+      await page.goto("/", { waitUntil: "domcontentloaded" });
+      await expect(slot).toBeVisible();
+      await page.waitForTimeout(300);
+      await note();
+      for (const group of [interFirst, !interFirst]) {
+        await release((h) => h.inter === group);
+        await page.waitForTimeout(500);
+        await note();
+      }
+      // Fonts asked for after their group went (e.g. Malayalam, once its text renders).
+      await page.unroute(/\.woff2(\?|$)/);
+      await release(() => true);
+      await page.evaluate(() => document.fonts.ready);
+      await page.waitForLoadState("load");
+      await page.waitForTimeout(300);
+      await note();
+
+      const cls = await page.evaluate(() => (window as unknown as { cls: number }).cls);
+      test.info().annotations.push({ type: "CLS", description: cls.toFixed(3) });
+      expect(cls).toBeLessThan(0.1);
+      // The bottle's space doesn't depend on the fonts: same place and size at every stage.
+      expect(new Set(boxes), boxes.join(" → ")).toHaveProperty("size", 1);
+    });
+  }
+}
+
+// The headline is clipped while its font loads. If the font never comes, or is very slow, it must wrap
+// instead, so no line is cut off.
+for (const [how, width] of [["blocked", 360], ["blocked", 412], ["very slow", 360]] as const) {
+  test(`the home headline stays readable at ${width} px when its font is ${how}`, async ({ page, isMobile }) => {
+    test.skip(!isMobile, "Phones only");
+    await page.setViewportSize({ width, height: 823 });
+    await page.addInitScript(() => localStorage.setItem("neeram-notice-ok", "all"));
+    // Every web font, so the headline's font is caught whatever its file is called.
+    if (how === "blocked") await page.route(/\.woff2(\?|$)/, (route) => route.abort());
+    else await page.route(/\.woff2(\?|$)/, async (route) => { await new Promise((r) => setTimeout(r, 6000)); await route.continue().catch(() => {}); });
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await page.waitForTimeout(3500);
+    const cut = await page.locator("p.display").evaluate((p) => [...p.children].filter((line) => line.scrollWidth > p.clientWidth + 0.5).map((line) => line.textContent));
+    expect(cut).toEqual([]);
+    expect(await sidewaysScroll(page)).toBeLessThanOrEqual(0);
+  });
+}
+
 test("the Coconut Oil page keeps its thumbnails and buy bar on a 320 px screen", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 640 });
   await page.goto("/products/coconut-oil");

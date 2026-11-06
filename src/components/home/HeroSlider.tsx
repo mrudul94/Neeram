@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { HeroSlide } from "@/data/content";
 import { ButtonLink, ChevronLeft, ChevronRight, Eyebrow, cx } from "../ui";
 import { BottleMover } from "./BottleStage";
@@ -16,6 +16,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
   const slide = slides[index];
   const many = slides.length > 1;
   const go = (d: number) => setIndex((i) => (i + d + slides.length) % slides.length);
+  const headlineWraps = useHeadlineFontMissing(slide.headline.join(" "));
 
   return (
     <section
@@ -36,24 +37,33 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           aria-roledescription={many ? "slide" : undefined}
           aria-label={many ? `${index + 1} of ${slides.length}` : undefined}
           // Phones: the bottle fills whatever the first screen has left below the text, so the
-          // whole bottle is visible on load (svh: measured with the address bar showing).
-          className="grid flex-1 items-center gap-6 max-md:min-h-[calc(100svh-7.5rem)] max-md:grid-rows-[auto_minmax(12rem,1fr)] md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-10"
+          // whole bottle is visible on load (svh: measured with the address bar showing). The column
+          // is held to the screen width (minmax(0,1fr)): a wider stand-in font for the headline would
+          // otherwise widen it until the real font arrives, re-wrapping the text and resizing the bottle.
+          className="grid flex-1 items-center gap-6 max-md:min-h-[calc(100svh-7.5rem)] max-md:grid-cols-[minmax(0,1fr)] max-md:grid-rows-[auto_minmax(12rem,1fr)] md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-10"
         >
           <div className="md:py-12">
-            {/* The page's H1 says what and where; the big headline below keeps its look. */}
-            <Eyebrow as="h1" ml={slide.eyebrowMalayalam} className="flex-wrap gap-y-1">
+            {/* The page's H1 says what and where; the big headline below keeps its look. Below 29rem it
+                wraps onto two or three rows depending on the font (the stand-in is wider), so it keeps
+                room for its tallest layout: dash, text and Malayalam on three rows, 47 px. Wider, it
+                fits on one row in either font. */}
+            <Eyebrow as="h1" ml={slide.eyebrowMalayalam} className="flex-wrap gap-y-1 max-[29rem]:min-h-[calc(1px+1.125rem+1.25rem+0.5rem)] max-[29rem]:content-start">
               {slide.eyebrow}
             </Eyebrow>
-            <p className="display mt-5 text-[clamp(3.25rem,6.6vw,5.9rem)]">
+            {/* Clipped, not widened, while the wider stand-in font overflows. If Anton never arrives,
+                the lines wrap instead, so the headline stays readable. */}
+            <p className={cx("display mt-5 text-[clamp(3.25rem,6.6vw,5.9rem)]", !headlineWraps && "overflow-x-clip")}>
               {slide.headline.map((line) => (
                 // One line each, so the wider fallback font can't wrap them and push the bottle down.
-                <span key={line} className="block min-[340px]:whitespace-nowrap">
+                <span key={line} className={cx("block", !headlineWraps && "min-[340px]:whitespace-nowrap")}>
                   {line}
                 </span>
               ))}
             </p>
             <p className="mt-6 max-w-[27rem] font-serif text-lg leading-snug text-cream/90 md:text-xl">{slide.body}</p>
-            <div data-keep-clear className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+            {/* Stacked below 27rem and in one row above it, so the screen width decides, not the
+                font: the stand-in font is wider and would otherwise wrap them until the real one loads. */}
+            <div data-keep-clear className="mt-8 flex flex-col items-start gap-x-8 gap-y-4 min-[27rem]:flex-row min-[27rem]:items-center">
               <ButtonLink href={slide.cta.href} arrow>
                 {slide.cta.label}
               </ButtonLink>
@@ -109,4 +119,34 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
       </div>
     </section>
   );
+}
+
+/** How long after the page starts loading the headline waits for Anton before it may wrap. */
+const HEADLINE_FONT_WAIT_MS = 3000;
+
+/**
+ * True once Anton has failed to load, or still hasn't 3 s after the page started loading. The
+ * headline then wraps instead of staying clipped. That moves the bottle once, but only on a page
+ * where the font is blocked or very slow; it normally arrives in about 2 s even on slow 4G.
+ */
+function useHeadlineFontMissing(text: string) {
+  const [missing, setMissing] = useState(false);
+  useEffect(() => {
+    let live = true;
+    const give = () => live && setMissing(true);
+    const timer = window.setTimeout(give, Math.max(0, HEADLINE_FONT_WAIT_MS - performance.now()));
+    // "Anton" is the family next/font/google declares (src/app/fonts.ts).
+    document.fonts.load("1em Anton", text).then(
+      (faces) => {
+        if (!faces.some((f) => f.status === "loaded")) return give();
+        window.clearTimeout(timer);
+      },
+      give,
+    );
+    return () => {
+      live = false;
+      window.clearTimeout(timer);
+    };
+  }, [text]);
+  return missing;
 }
