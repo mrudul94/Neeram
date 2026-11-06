@@ -18,16 +18,20 @@ export function Gallery({ images, watermark }: { images: ProductImage[]; waterma
         </p>
         {img.cutout ? (
           <div className="absolute inset-x-0 top-[17%] bottom-[7%] flex justify-center">
-            <Image
-              key={img.src}
-              src={img.src}
-              alt={img.alt}
-              width={img.width}
-              height={img.height}
-              preload={active === 0}
-              sizes="(max-width: 767px) 50vw, 22rem"
-              className="h-full w-auto object-contain drop-shadow-[0_18px_14px_rgb(22_19_15/0.22)]"
-            />
+            <picture key={img.src} className="contents">
+              {img.mobileSrc && <source media="(max-width: 767px)" srcSet={img.mobileSrc} />}
+              {/* No preload: it would fetch the desktop photo on phones as well. */}
+              <Image
+                src={img.src}
+                alt={img.alt}
+                width={img.width}
+                height={img.height}
+                loading={active === 0 ? "eager" : "lazy"}
+                fetchPriority={active === 0 ? "high" : "auto"}
+                sizes="(max-width: 767px) 50vw, 22rem"
+                className="h-full w-auto object-contain drop-shadow-[0_18px_14px_rgb(22_19_15/0.22)]"
+              />
+            </picture>
           </div>
         ) : (
           <Image key={img.src} src={img.src} alt={img.alt} fill sizes="(max-width: 767px) 100vw, 50vw" className="object-cover" />

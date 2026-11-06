@@ -16,6 +16,8 @@ export type ProductImage = {
   cutout?: boolean;
   /** Small copy, for gallery thumbnails. */
   thumbSrc?: string;
+  /** Smaller copy for phones, in the gallery. Same shape as `src`. */
+  mobileSrc?: string;
 };
 
 /** A size / pack a product is sold in. The first pack is the default. */
@@ -83,6 +85,7 @@ export const products: Product[] = [
     images: [
       {
         src: "/images/jars/neeram-coconut-oil-500ml-bottle.webp",
+        mobileSrc: "/images/jars/neeram-coconut-oil-500ml-bottle-mobile.webp",
         thumbSrc: "/images/packs/neeram-coconut-oil-500ml-bottle-thumb.webp",
         alt: "Neeram Coconut Oil, 500 ml clear bottle with the Neeram label",
         width: 460,
