@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { preload } from "react-dom";
 import { AboutHelp } from "@/components/home/AboutHelp";
 import { BottleStage } from "@/components/home/BottleStage";
-import { STILL_SRC } from "@/lib/bottle";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { LookBeforeYouOpen } from "@/components/home/LookBeforeYouOpen";
 import { OilFeature } from "@/components/home/OilFeature";
@@ -17,10 +15,6 @@ import { organizationSchema, websiteSchema } from "@/lib/schema";
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function HomePage() {
-  // The bottle photo is the LCP image; fetch it before anything discovered later.
-  preload(STILL_SRC.desktop, { as: "image", fetchPriority: "high", media: "(min-width: 768px)" });
-  preload(STILL_SRC.mobile, { as: "image", fetchPriority: "high", media: "(max-width: 767px)" });
-
   return (
     <>
       <JsonLd data={organizationSchema()} />
