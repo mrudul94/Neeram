@@ -102,9 +102,13 @@ test("the Coconut Oil page keeps its thumbnails and buy bar on a 320 px screen",
   await page.goto("/products/coconut-oil");
   await page.waitForLoadState("networkidle");
   const thumbs = page.getByRole("list", { name: "Product images" }).getByRole("button");
-  await expect(thumbs).toHaveCount(4);
-  const lastThumb = (await thumbs.last().boundingBox())!;
-  expect(lastThumb.x + lastThumb.width).toBeLessThanOrEqual(320);
+  // Every pack on sale, then the label and cap close-ups.
+  await expect(thumbs).toHaveCount(7);
+  for (const thumb of await thumbs.all()) {
+    const box = (await thumb.boundingBox())!;
+    expect(box.x + box.width).toBeLessThanOrEqual(320);
+    expect(box.width).toBeGreaterThanOrEqual(44);
+  }
   const add = (await page.locator(".mobile-buy-bar").getByRole("button", { name: /^Add/ }).boundingBox())!;
   expect(add.x + add.width).toBeLessThanOrEqual(320);
   expect(await sidewaysScroll(page)).toBeLessThanOrEqual(0);

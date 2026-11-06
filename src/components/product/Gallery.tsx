@@ -29,7 +29,8 @@ export function Gallery({ images, watermark }: { images: ProductImage[]; waterma
                 loading={active === 0 ? "eager" : "lazy"}
                 fetchPriority={active === 0 ? "high" : "auto"}
                 sizes="(max-width: 767px) 50vw, 22rem"
-                className="h-full w-auto object-contain drop-shadow-[0_18px_14px_rgb(22_19_15/0.22)]"
+                // max-w: the packets are wider than tall, and would be cropped at the sides.
+                className="h-full w-auto max-w-[88%] object-contain drop-shadow-[0_18px_14px_rgb(22_19_15/0.22)]"
               />
             </picture>
           </div>
@@ -37,10 +38,11 @@ export function Gallery({ images, watermark }: { images: ProductImage[]; waterma
           <Image key={img.src} src={img.src} alt={img.alt} fill sizes="(max-width: 767px) 100vw, 50vw" className="object-cover" />
         )}
       </div>
+      {/* Thumbnails: as many as fit at 3.5rem or more each (4.5rem from md), sharing the row; phones get a second row. */}
       {images.length > 1 && (
-        <ul className="mt-4 flex gap-3 px-5 md:px-10" aria-label="Product images">
+        <ul className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(3.5rem,1fr))] gap-3 px-5 md:grid-cols-[repeat(auto-fill,minmax(4.5rem,1fr))] md:px-10" aria-label="Product images">
           {images.map((im, i) => (
-            <li key={im.src} className="min-w-0 flex-[0_1_4.5rem] md:flex-[0_1_5.5rem]">
+            <li key={im.src} className="min-w-0">
               <button
                 type="button"
                 onClick={() => setActive(i)}
@@ -49,7 +51,8 @@ export function Gallery({ images, watermark }: { images: ProductImage[]; waterma
                 className={cx("relative grid aspect-square w-full place-items-center overflow-hidden bg-sand", i === active ? "outline outline-1 outline-ink outline-offset-2" : "opacity-80 hover:opacity-100")}
               >
                 {im.cutout ? (
-                  <Image src={im.thumbSrc ?? im.src} alt="" width={im.width} height={im.height} sizes="3rem" className="h-[85%] w-auto" />
+                  // Positioned against the square button, so 85% is of a known size and the whole pack shows.
+                  <Image src={im.thumbSrc ?? im.src} alt="" width={im.width} height={im.height} sizes="3rem" className="absolute inset-0 m-auto h-[85%] w-[85%] object-contain" />
                 ) : (
                   <Image src={im.thumbSrc ?? im.src} alt="" fill sizes="6rem" className="object-cover" />
                 )}
