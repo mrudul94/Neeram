@@ -20,8 +20,7 @@ for (const path of pages) {
 // orders, and adds up the layout shift the way the CLS metric does.
 for (const width of [360, 390, 412, 440]) {
   for (const interFirst of [true, false]) {
-    test(`the home page shifts less than 0.1 at ${width} px as fonts load (${interFirst ? "Inter" : "the other fonts"} first)`, async ({ page, isMobile }) => {
-      test.skip(!isMobile, "Phones only");
+    test(`the home page shifts less than 0.1 at ${width} px as fonts load (${interFirst ? "Inter" : "the other fonts"} first)`, { tag: "@phone" }, async ({ page }) => {
       await page.setViewportSize({ width, height: 823 });
       const held: { inter: boolean; done: boolean; release: () => Promise<void> }[] = [];
       const release = (pick: (h: (typeof held)[number]) => boolean) =>
@@ -82,8 +81,7 @@ for (const width of [360, 390, 412, 440]) {
 // The headline is clipped while its font loads. If the font never comes, or is very slow, it must wrap
 // instead, so no line is cut off.
 for (const [how, width] of [["blocked", 360], ["blocked", 412], ["very slow", 360]] as const) {
-  test(`the home headline stays readable at ${width} px when its font is ${how}`, async ({ page, isMobile }) => {
-    test.skip(!isMobile, "Phones only");
+  test(`the home headline stays readable at ${width} px when its font is ${how}`, { tag: "@phone" }, async ({ page }) => {
     await page.setViewportSize({ width, height: 823 });
     await page.addInitScript(() => localStorage.setItem("neeram-notice-ok", "all"));
     // Every web font, so the headline's font is caught whatever its file is called.

@@ -28,13 +28,11 @@ const noticeWaitsForTheShelf = async (page: import("@playwright/test").Page) => 
   await expect(notice(page)).toBeVisible();
 };
 
-test("on phones the notice stays off the bottle's first screen, then appears further down", async ({ page, isMobile }) => {
-  test.skip(!isMobile, "Phones only");
+test("on phones the notice stays off the bottle's first screen, then appears further down", { tag: "@phone" }, async ({ page }) => {
   await noticeWaitsForTheShelf(page);
 });
 
-test("on desktop the notice sits bottom right and waits while it would cover the bottle or buy buttons", async ({ page, isMobile, viewport }) => {
-  test.skip(isMobile, "Desktop only");
+test("on desktop the notice sits bottom right and waits while it would cover the bottle or buy buttons", { tag: "@desktop" }, async ({ page, viewport }) => {
   await noticeWaitsForTheShelf(page);
   const box = (await notice(page).boundingBox())!;
   expect(Math.round(viewport!.width - (box.x + box.width))).toBe(24);
@@ -75,8 +73,7 @@ test("Manage explains what is stored", async ({ page }) => {
   await expect(notice(page).getByText("Analytics and marketing: not used")).toBeVisible();
 });
 
-test("the notice sits above the mobile buy bar, which stays usable", async ({ page, isMobile }) => {
-  test.skip(!isMobile, "Phones only");
+test("the notice sits above the mobile buy bar, which stays usable", { tag: "@phone" }, async ({ page }) => {
   await page.goto("/products/coconut-oil");
   await expect(notice(page)).toBeVisible();
 
