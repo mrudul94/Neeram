@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { products } from "@/data/products";
-import { isSiteLive, robotsRules, sitemapEntries } from "./seo";
+import { isSiteLive, pageLinks, robotsRules, sharedOpenGraph, sitemapEntries } from "./seo";
 
 const url = "https://neeram.example";
 
@@ -11,6 +11,19 @@ describe("isSiteLive", () => {
 
   it.each(["1", "true"])("treats SITE_LIVE=%j as live", (SITE_LIVE) => {
     expect(isSiteLive({ SITE_LIVE })).toBe(true);
+  });
+});
+
+describe("pageLinks", () => {
+  it("gives the page's own address as both its canonical link and og:url", () => {
+    const links = pageLinks("/about");
+    expect(links.alternates).toEqual({ canonical: "/about" });
+    expect(links.openGraph).toMatchObject({ url: "/about" });
+  });
+
+  it("keeps the shared preview details alongside a page's own", () => {
+    const links = pageLinks("/products/turmeric", { title: "Turmeric · Neeram", images: [{ url: "/t.webp" }] });
+    expect(links.openGraph).toMatchObject({ ...sharedOpenGraph, title: "Turmeric · Neeram", images: [{ url: "/t.webp" }], url: "/products/turmeric" });
   });
 });
 

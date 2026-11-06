@@ -1,4 +1,24 @@
+import type { Metadata } from "next";
 import { products } from "@/data/products";
+
+type OpenGraph = NonNullable<Metadata["openGraph"]>;
+
+/** Social-preview details every page shares (the root layout's defaults). */
+export const sharedOpenGraph: OpenGraph = {
+  siteName: "Neeram",
+  type: "website",
+  locale: "en_IN",
+  images: [{ url: "/og-coconut-oil.jpg", width: 1200, height: 630, alt: "Neeram Coconut Oil, 500 ml" }],
+};
+
+/**
+ * A page's canonical link and its og:url, which are the same address. A page's own openGraph
+ * replaces the layout's whole openGraph, so the shared details are repeated here. Paths are
+ * made absolute with metadataBase (the site URL).
+ */
+export function pageLinks(path: string, openGraph: OpenGraph = {}): Pick<Metadata, "alternates" | "openGraph"> {
+  return { alternates: { canonical: path }, openGraph: { ...sharedOpenGraph, ...openGraph, url: path } };
+}
 
 /**
  * The site stays out of search until SITE_LIVE=1 is set where it's built. Read at build time,

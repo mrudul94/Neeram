@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageLinks } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -34,15 +35,14 @@ export async function generateMetadata({ params }: PageProps<"/products/[slug]">
   return {
     title,
     description,
-    alternates: { canonical: `/products/${product.slug}` },
-    openGraph: {
+    ...pageLinks(`/products/${product.slug}`, {
       title: `${title} · Neeram`,
       description,
       images:
         product.slug === "coconut-oil"
           ? [{ url: "/og-coconut-oil.jpg", width: 1200, height: 630, alt: product.images[0].alt }]
           : [{ url: product.images[0].src, alt: product.images[0].alt }],
-    },
+    }),
   };
 }
 

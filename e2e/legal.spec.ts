@@ -138,6 +138,20 @@ test("the coconut oil page has product, breadcrumb and FAQ markup with no placeh
   await expect(page.getByText(/^Yes\. We deliver all over India/)).toBeVisible();
 });
 
+for (const path of ["/", "/shop", "/about", "/help", "/privacy", "/terms", "/products/coconut-oil", "/products/turmeric"]) {
+  test(`${path} shares its own address as canonical and og:url`, async ({ page, baseURL }) => {
+    await page.goto(path);
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
+    // Built with the site's public URL (NEXT_PUBLIC_SITE_URL), not the test server's.
+    expect(canonical).toMatch(/^https:\/\//);
+    expect(canonical).not.toContain(new URL(baseURL!).host);
+    expect(new URL(canonical!).pathname.replace(/\/$/, "") || "/").toBe(path === "/" ? "/" : path);
+    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", canonical!);
+    await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute("content", "Neeram");
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /^https:\/\/.+\.(jpg|webp)$/);
+  });
+}
+
 test("the test site stays out of search but can be crawled", async ({ page, request }) => {
   await page.goto("/");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);

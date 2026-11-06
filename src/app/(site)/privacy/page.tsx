@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageLinks } from "@/lib/seo";
 import { LegalPage, type LegalSection } from "@/components/LegalPage";
 import { site } from "@/data/content";
 import { toBeConfirmed } from "@/lib/format";
@@ -6,7 +7,7 @@ import { toBeConfirmed } from "@/lib/format";
 export const metadata: Metadata = {
   title: "Privacy policy",
   description: "What Neeram collects when you order or message us, who receives it, and your rights.",
-  alternates: { canonical: "/privacy" },
+  ...pageLinks("/privacy"),
 };
 
 const officer = site.grievanceOfficer;

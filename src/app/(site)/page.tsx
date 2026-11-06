@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageLinks } from "@/lib/seo";
 import { Suspense } from "react";
 import { AboutHelp } from "@/components/home/AboutHelp";
 import { BottleStage } from "@/components/home/BottleStage";
@@ -12,7 +13,7 @@ import { heroSlides } from "@/data/content";
 import { products } from "@/data/products";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 
-export const metadata: Metadata = { alternates: { canonical: "/" } };
+export const metadata: Metadata = pageLinks("/");
 
 export default function HomePage() {
   return (

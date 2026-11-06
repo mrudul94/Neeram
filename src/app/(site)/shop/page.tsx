@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageLinks } from "@/lib/seo";
 import Link from "next/link";
 import { OilBand } from "@/components/OilBand";
 import { ShopList } from "@/components/shop/ShopList";
@@ -7,7 +8,7 @@ import { ButtonLink } from "@/components/ui";
 export const metadata: Metadata = {
   title: "Shop Kerala Coconut Oil and Spices",
   description: "Six staples of the Kerala kitchen. Neeram Coconut Oil from Kasaragod, Kerala is available now; the spices are coming soon.",
-  alternates: { canonical: "/shop" },
+  ...pageLinks("/shop"),
 };
 
 export default function ShopPage() {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageLinks } from "@/lib/seo";
 import Link from "next/link";
 import { LegalPage, type LegalSection } from "@/components/LegalPage";
 import { site } from "@/data/content";
@@ -7,7 +8,7 @@ import { toBeConfirmed } from "@/lib/format";
 export const metadata: Metadata = {
   title: "Terms of service",
   description: "The terms for ordering from Neeram: orders, payment, delivery, returns and complaints.",
-  alternates: { canonical: "/terms" },
+  ...pageLinks("/terms"),
 };
 
 const link = "underline decoration-orange underline-offset-4 hover:text-orange";

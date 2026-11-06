@@ -3,7 +3,7 @@ import { CartDrawerLazy } from "@/components/CartDrawerLazy";
 import { CookieNoticeLazy } from "@/components/CookieNoticeLazy";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { site } from "@/data/content";
-import { isSiteLive } from "@/lib/seo";
+import { isSiteLive, sharedOpenGraph } from "@/lib/seo";
 import { fontVariables } from "./fonts";
 import "./globals.css";
 
@@ -17,12 +17,7 @@ export const metadata: Metadata = {
     "Double-filtered coconut oil from Neeram, made at our own mill in Anakkallu, Kasaragod, Kerala. In clear bottles and packets, from 200 ml to 1 L.",
   // The test site stays out of search until SITE_LIVE is set (src/lib/seo.ts).
   ...(isSiteLive() ? {} : { robots: { index: false, follow: false } }),
-  openGraph: {
-    siteName: "Neeram",
-    type: "website",
-    locale: "en_IN",
-    images: [{ url: "/og-coconut-oil.jpg", width: 1200, height: 630, alt: "Neeram Coconut Oil, 500 ml" }],
-  },
+  openGraph: sharedOpenGraph,
   twitter: { card: "summary_large_image" },
 };
 

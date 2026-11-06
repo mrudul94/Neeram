@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageLinks } from "@/lib/seo";
 import Image from "next/image";
 import { ButtonLink, Eyebrow, MalayalamDisplay } from "@/components/ui";
 import { site } from "@/data/content";
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   title: "About Us: Coconut Oil from Kasaragod, Kerala",
   description:
     "How Neeram started in August 2020, with 29 coconut producer companies in Kerala behind it: traditional coconut oil made at our own mill in Anakkallu, Kasaragod.",
-  alternates: { canonical: "/about" },
+  ...pageLinks("/about"),
 };
 
 // Story text supplied by Neeram. Mill figures are from the Neeram oil mill page

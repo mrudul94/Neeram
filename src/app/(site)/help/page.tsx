@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageLinks } from "@/lib/seo";
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui";
 import { site } from "@/data/content";
@@ -7,7 +8,7 @@ import { toBeConfirmed } from "@/lib/format";
 export const metadata: Metadata = {
   title: "Help: Delivery, Returns and Contact",
   description: "Delivery, returns, order tracking and contact details for Neeram Coconut Oil.",
-  alternates: { canonical: "/help" },
+  ...pageLinks("/help"),
 };
 
 const link = "underline decoration-orange underline-offset-4 hover:text-orange";
