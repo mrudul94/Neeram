@@ -1,10 +1,13 @@
 import { Anton, Inter } from "next/font/google";
 import localFont from "next/font/local";
 
-// Only the headline face is preloaded; the rest load when text needs them, with display: swap.
+// The headline and body faces are preloaded; the rest load when text needs them, with display: swap.
 const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton", display: "swap" });
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+// Inter (SIL OFL) cut to weights 400–700 and to ASCII, Latin-1 and the punctuation the site uses
+// (fonts/inter-chars.txt): 25 KB instead of 48 KB, and it loads before the bottle photo. A test fails
+// if new text needs a character that isn't in it; then re-run the subset from the full Inter font.
+const inter = localFont({ src: "./fonts/inter-subset.woff2", weight: "400 700", variable: "--font-inter", display: "swap" });
 
 // Separate, so the few italic captions don't cost every page a preloaded font.
 const interItalic = Inter({ subsets: ["latin"], style: "italic", variable: "--font-inter-italic", display: "swap", preload: false });
