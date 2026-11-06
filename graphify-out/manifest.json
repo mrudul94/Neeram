@@ -90,9 +90,9 @@
     "semantic_hash": ""
   },
   "src/app/(site)/products/[slug]/page.tsx": {
-    "mtime": 1793852753.7168934,
-    "seen": 1793852845.513618,
-    "ast_hash": "71fd6ecfd1a3d917945d69152e8eefdb",
+    "mtime": 1793941650.5867448,
+    "seen": 1793941919.648767,
+    "ast_hash": "467223bf892b374564bbfab33fd150cc",
     "semantic_hash": ""
   },
   "src/app/(site)/shop/page.tsx": {
@@ -108,9 +108,9 @@
     "semantic_hash": ""
   },
   "src/app/fonts.ts": {
-    "mtime": 1793769271.2565677,
-    "seen": 1793770057.507832,
-    "ast_hash": "0a95fe89b288b5f5229561c5b4476a1f",
+    "mtime": 1793936347.9227424,
+    "seen": 1793936528.417465,
+    "ast_hash": "445edb2f3c845cc566cc41e9c5af7fdd",
     "semantic_hash": ""
   },
   "src/app/layout.tsx": {
@@ -210,9 +210,9 @@
     "semantic_hash": ""
   },
   "src/components/home/HeroSlider.tsx": {
-    "mtime": 1793604058.7134702,
-    "seen": 1793680685.733353,
-    "ast_hash": "d64816f2d661f7c4bd4ff90a4b5c7db1",
+    "mtime": 1793939003.5012221,
+    "seen": 1793940074.989761,
+    "ast_hash": "6eb32b8fa32f097b33347a943a02ff47",
     "semantic_hash": ""
   },
   "src/components/home/LookBeforeYouOpen.tsx": {
@@ -234,9 +234,9 @@
     "semantic_hash": "f42c7af87342af81e360d31d7ad3d3e6"
   },
   "src/components/product/Gallery.tsx": {
-    "mtime": 1793769177.8243413,
-    "seen": 1793770057.5078835,
-    "ast_hash": "5d739b9782ccb0762c4fe1debb15c20b",
+    "mtime": 1793941790.9985368,
+    "seen": 1793941919.6488361,
+    "ast_hash": "3d3497eb4a548e1ae048a10750876429",
     "semantic_hash": ""
   },
   "src/components/shop/ShopList.tsx": {
@@ -360,9 +360,9 @@
     "semantic_hash": ""
   },
   "src/data/products.ts": {
-    "mtime": 1793850407.0847816,
-    "seen": 1793850508.4285278,
-    "ast_hash": "42d1abd8c73529612439ff7ad3c91a86",
+    "mtime": 1793941650.5867448,
+    "seen": 1793941919.6488452,
+    "ast_hash": "a3950315971b790d4f706c026efab4b3",
     "semantic_hash": ""
   },
   "design/archive/video/neeram-pour-desktop.mp4": {
@@ -402,9 +402,9 @@
     "semantic_hash": ""
   },
   "src/data/products.test.ts": {
-    "mtime": 1793850407.0868733,
-    "seen": 1793850508.428526,
-    "ast_hash": "4c9279fc2ba2c3f21a33adbf053ea50f",
+    "mtime": 1793941684.848622,
+    "seen": 1793941919.6488435,
+    "ast_hash": "b03de7bd356527f339f95f0c982441e9",
     "semantic_hash": ""
   },
   "src/lib/checkout.test.ts": {
@@ -438,9 +438,9 @@
     "semantic_hash": ""
   },
   "e2e/legal.spec.ts": {
-    "mtime": 1793769271.2565677,
-    "seen": 1793770057.5077863,
-    "ast_hash": "90b14de4caec40a69b1b36925db849c0",
+    "mtime": 1793941817.826235,
+    "seen": 1793941919.64873,
+    "ast_hash": "246dee304e98c1ade076dd539240558a",
     "semantic_hash": ""
   },
   "open-next.config.ts": {
@@ -450,9 +450,9 @@
     "semantic_hash": ""
   },
   "playwright.config.ts": {
-    "mtime": 1793344559.493968,
-    "seen": 1793680685.7331614,
-    "ast_hash": "e402f814865fa6877ef817005a875242",
+    "mtime": 1793941817.826235,
+    "seen": 1793941919.648741,
+    "ast_hash": "186b63140f2d3c95998a38f8066efab0",
     "semantic_hash": ""
   },
   "src/app/(site)/privacy/page.tsx": {
@@ -546,9 +546,9 @@
     "semantic_hash": ""
   },
   "src/lib/fonts.test.ts": {
-    "mtime": 1793604058.7203245,
-    "seen": 1793680685.7334042,
-    "ast_hash": "5b166e77535afc736736549242096b2e",
+    "mtime": 1793936347.9227424,
+    "seen": 1793936528.4175482,
+    "ast_hash": "49bfbc0cfdc80b311fa7f9485c5ed929",
     "semantic_hash": ""
   },
   "src/lib/legal.test.ts": {
@@ -744,8 +744,8 @@
     "semantic_hash": ""
   },
   "public/images/jars/neeram-coconut-oil-500ml-bottle.webp": {
-    "mtime": 1793604058.659021,
-    "seen": 1793680685.7337122,
+    "mtime": 1793856267.6057184,
+    "seen": 1793936528.4177217,
     "ast_hash": "b7fcad81ca290cc7883449d935b234cb",
     "semantic_hash": ""
   },
@@ -846,9 +846,9 @@
     "semantic_hash": ""
   },
   "e2e/layout.spec.ts": {
-    "mtime": 1793769177.8141024,
-    "seen": 1793770057.5077825,
-    "ast_hash": "e0ba9b86166b6240501e51cfab5e5985",
+    "mtime": 1793941817.826235,
+    "seen": 1793941919.6487277,
+    "ast_hash": "1cfa9e229f861f5da894d89b754277ce",
     "semantic_hash": ""
   },
   "src/components/PackSwatch.tsx": {
@@ -1233,6 +1233,54 @@
     "mtime": 1793851851.8843281,
     "seen": 1793852005.3352008,
     "ast_hash": "986d1034183f7b5b05193df034ecc62b",
+    "semantic_hash": ""
+  },
+  "docs/PERF.md": {
+    "mtime": 1793936518.924049,
+    "seen": 1793936528.4176059,
+    "ast_hash": "c79e7f07bb2bcd1ed6f3fc289b041cf5",
+    "semantic_hash": ""
+  },
+  "src/app/fonts/inter-chars.txt": {
+    "mtime": 1793936347.9146297,
+    "seen": 1793936528.4176114,
+    "ast_hash": "7eda789979c56cc78f8dfd5545d0157d",
+    "semantic_hash": ""
+  },
+  "public/images/jars/neeram-coconut-oil-500ml-bottle-mobile.webp": {
+    "mtime": 1793856331.239291,
+    "seen": 1793936528.4177206,
+    "ast_hash": "5bb1c02b1eb11ad6649d0171b403447e",
+    "semantic_hash": ""
+  },
+  "e2e/gallery.spec.ts": {
+    "mtime": 1793941739.981374,
+    "seen": 1793941919.648723,
+    "ast_hash": "693b82f9ee60a83afbff06eb7fe3cf9d",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-1l-bottle-mobile.webp": {
+    "mtime": 1793941555.9,
+    "seen": 1793941919.6490588,
+    "ast_hash": "73b0103e0146f62bad9800e2a8df807d",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-1l-packet-mobile.webp": {
+    "mtime": 1793941556.367,
+    "seen": 1793941919.6490638,
+    "ast_hash": "f27885c64b8f5c5ef1c46e8cdb58a5bb",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-200ml-bottle-mobile.webp": {
+    "mtime": 1793941556.0,
+    "seen": 1793941919.6490688,
+    "ast_hash": "c118ac0b96b7742a77218718286766f7",
+    "semantic_hash": ""
+  },
+  "public/images/packs/neeram-coconut-oil-500ml-packet-mobile.webp": {
+    "mtime": 1793941556.172,
+    "seen": 1793941919.6490757,
+    "ast_hash": "374656112818ade964f50b390ea679e2",
     "semantic_hash": ""
   },
   "package-lock.json": {
