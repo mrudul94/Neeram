@@ -179,7 +179,8 @@ function AvailableProduct({ product }: { product: Product }) {
             <li key={p.slug} className="flex w-20 flex-col items-center text-center">
               <NearView className="flex h-24 justify-center">
                 <Image
-                  src={p.images[0].src}
+                  // 96 px tall: the thumbnail (200 px) is enough, where it exists; the full photo is 1,200.
+                  src={p.images[0].thumbSrc ?? p.images[0].src}
                   alt=""
                   width={p.images[0].width}
                   height={p.images[0].height}
