@@ -252,3 +252,20 @@ test("the security policy blocks nothing the site itself uses", async ({ page })
   await expect(page.locator('input[name="cf-turnstile-response"]')).toHaveValue(/.+/, { timeout: 15_000 });
   expect(blocked).toEqual([]);
 });
+
+test("pages link the Neeram icons and share the bottle photo", async ({ page, request }) => {
+  await page.goto("/");
+  const head = page.locator("head");
+  await expect(head.locator('link[rel="apple-touch-icon"]')).toHaveAttribute("href", "/images/favicon/apple-touch-icon.png");
+  await expect(head.locator('link[rel="icon"][sizes="32x32"]')).toHaveAttribute("href", "/images/favicon/favicon-32x32.png");
+  const manifest = await (await request.get((await head.locator('link[rel="manifest"]').getAttribute("href"))!)).json();
+  expect(manifest.name).toBe("Neeram Coconut Oil");
+  for (const icon of manifest.icons) expect((await request.get(icon.src)).ok(), icon.src).toBe(true);
+
+  for (const path of ["/", "/products/coconut-oil", "/shop", "/about", "/checkout"]) {
+    await page.goto(path);
+    await expect(page.locator('meta[property="og:image"]'), path).toHaveAttribute("content", /\/og-coconut-oil\.jpg$/);
+    await expect(page.locator('meta[property="og:image:width"]'), path).toHaveAttribute("content", "1200");
+    await expect(page.locator('meta[name="twitter:image"]'), path).toHaveAttribute("content", /\/og-coconut-oil\.jpg$/);
+  }
+});

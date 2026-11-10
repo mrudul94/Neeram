@@ -19,6 +19,14 @@ export const metadata: Metadata = {
   ...(isSiteLive() ? {} : { robots: { index: false, follow: false } }),
   openGraph: sharedOpenGraph,
   twitter: { card: "summary_large_image" },
+  // favicon.ico in this folder covers browsers that ask for /favicon.ico; the rest are in public/images/favicon.
+  icons: {
+    icon: [
+      { url: "/images/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/images/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: { url: "/images/favicon/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+  },
 };
 
 export const viewport: Viewport = {
