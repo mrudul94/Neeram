@@ -16,8 +16,9 @@ export function productFaqs(product: Product): Faq[] {
   const sizes = product.packs.map((p) => `${p.label} (${formatPrice(packPrice(product, p))})`).join(", ");
   return [
     {
-      question: "Where is Neeram coconut oil made?",
-      answer: "Neeram coconut oil is made at our own mill in Anakkallu, Kasaragod, Kerala.",
+      question: "Is Neeram coconut oil cold pressed or wood pressed?",
+      answer:
+        "Neither. It is expeller pressed at our own mill in Anakkallu, Kasaragod, Kerala: the coconuts are dried into copra in a mechanical dryer, pressed in an expeller, then filtered twice.",
     },
     {
       question: "What sizes does Neeram coconut oil come in?",

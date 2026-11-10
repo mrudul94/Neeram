@@ -38,26 +38,45 @@ function loadTurnstile() {
 }
 
 export type TurnstileHandle = {
+  /**
+   * The current token, or the next one once the check finishes: the form never has to wait
+   * for the check before its button can be pressed. "" if none arrives within `timeoutMs`.
+   */
+  token(timeoutMs: number): Promise<string>;
   /** Asks for a fresh token: each one can be checked only once. */
   reset(): void;
 };
 
 /**
- * Cloudflare Turnstile bot check. Stays invisible unless Cloudflare wants the visitor to
- * click; reports each token (or "" once it expires or fails) through `onToken`.
+ * Cloudflare Turnstile bot check, for checkout only (the script loads when this mounts). In the
+ * dashboard the widget is "Managed"; here it stays invisible unless Cloudflare wants a click.
  */
-export function Turnstile({ onToken, ref, className }: { onToken: (token: string) => void; ref?: Ref<TurnstileHandle>; className?: string }) {
+export function Turnstile({ ref, className }: { ref?: Ref<TurnstileHandle>; className?: string }) {
   const box = useRef<HTMLDivElement>(null);
   const widget = useRef<{ api: TurnstileApi; id: string } | null>(null);
-  const report = useRef(onToken);
+  const current = useRef("");
+  const waiting = useRef(new Set<(token: string) => void>());
 
-  useEffect(() => {
-    report.current = onToken;
-  }, [onToken]);
+  const report = (token: string) => {
+    current.current = token;
+    if (token) waiting.current.forEach((give) => give(token));
+  };
 
   useImperativeHandle(ref, () => ({
+    token(timeoutMs) {
+      if (current.current) return Promise.resolve(current.current);
+      return new Promise((resolve) => {
+        const give = (token: string) => {
+          clearTimeout(timer);
+          waiting.current.delete(give);
+          resolve(token);
+        };
+        const timer = setTimeout(() => give(""), timeoutMs);
+        waiting.current.add(give);
+      });
+    },
     reset() {
-      report.current("");
+      current.current = "";
       if (widget.current) widget.current.api.reset(widget.current.id);
     },
   }));
@@ -72,13 +91,13 @@ export function Turnstile({ onToken, ref, className }: { onToken: (token: string
           sitekey: SITE_KEY,
           appearance: "interaction-only",
           "refresh-expired": "auto",
-          callback: (token: string) => report.current(token),
-          "expired-callback": () => report.current(""),
-          "error-callback": () => report.current(""),
+          callback: (token: string) => report(token),
+          "expired-callback": () => report(""),
+          "error-callback": () => report(""),
         });
         widget.current = { api, id };
       })
-      .catch(() => report.current(""));
+      .catch(() => report(""));
     return () => {
       cancelled = true;
       if (widget.current) widget.current.api.remove(widget.current.id);

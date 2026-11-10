@@ -31,8 +31,10 @@ export type Pack = {
   size: string;
   /** "Clear bottle" / "Packet", for the caption. */
   form: string;
-  /** MRP in rupees; `null` until confirmed (falls back to the product price). */
+  /** What the customer pays, in rupees with taxes; `null` until confirmed (falls back to the product price). */
   price: number | null;
+  /** Printed MRP in rupees, when the pack sells below it (shown struck through). */
+  mrp?: number;
   /** Transparent cutout, for thumbnails, the cart and the feature stage. */
   image: ProductImage;
   /** Height on the feature stage as a share of the bottle slot (the 500 ml photo is ~0.79). */
@@ -45,11 +47,13 @@ export type Product = {
   slug: string;
   number: string;
   name: string;
+  /** Heading on the product page, when it should say more than `name` ("Kerala Coconut Oil"). */
+  headline?: string;
   nameMalayalam: string;
   transliteration: string;
   category: Category;
   sizeLabel: string;
-  /** MRP in rupees. `null` until the client confirms it — shown as "₹ —". */
+  /** Selling price in rupees. `null` until the client confirms it — shown as "₹ —". */
   price: number | null;
   status: ProductStatus;
   /** Main cutout first; further entries are gallery shots. */
@@ -78,11 +82,12 @@ export const products: Product[] = [
     slug: "coconut-oil",
     number: "01",
     name: "Coconut Oil",
+    headline: "Kerala Coconut Oil",
     nameMalayalam: "വെളിച്ചെണ്ണ",
     transliteration: "Velichenna",
     category: "Oil",
     sizeLabel: "500 ml",
-    price: 200,
+    price: 135,
     status: "available",
     images: [
       {
@@ -158,7 +163,7 @@ export const products: Product[] = [
       { label: "Container", value: "Clear bottle" },
     ],
     description:
-      "Coconut oil for everyday Kerala cooking: frying, tempering, and a spoonful over thoran or avial at the end.",
+      "Kerala coconut oil pressed at our own mill in Anakkallu, Kasaragod, from coconuts bought directly from local farmers. Nothing added. For frying, tempering, and a spoonful over thoran or avial at the end.",
     shortDescription: "Frying, tempering and finishing thoran and avial.",
     shelfScale: 1,
     packs: [
@@ -167,7 +172,8 @@ export const products: Product[] = [
         label: "500 ml bottle",
         size: "500 ml",
         form: "Clear bottle",
-        price: 200,
+        price: 135,
+        mrp: 200,
         image: { src: "/images/jars/neeram-coconut-oil-500ml-bottle.webp", alt: "Neeram Coconut Oil, 500 ml clear bottle", width: 460, height: 1200, cutout: true },
         stageHeight: 0.79,
         thumb: { src: "/images/packs/neeram-coconut-oil-500ml-bottle-thumb.webp", alt: "", width: 77, height: 200, cutout: true },
@@ -177,7 +183,8 @@ export const products: Product[] = [
         label: "1 L bottle",
         size: "1 L",
         form: "Clear bottle",
-        price: 340,
+        price: 270,
+        mrp: 340,
         image: { src: "/images/packs/neeram-coconut-oil-1l-bottle.webp", alt: "Neeram Coconut Oil, 1 litre clear bottle", width: 386, height: 1200, cutout: true },
         stageHeight: 0.89,
         thumb: { src: "/images/packs/neeram-coconut-oil-1l-bottle-thumb.webp", alt: "", width: 64, height: 200, cutout: true },
@@ -187,7 +194,8 @@ export const products: Product[] = [
         label: "200 ml bottle",
         size: "200 ml",
         form: "Clear bottle",
-        price: 100,
+        price: 58,
+        mrp: 100,
         image: { src: "/images/packs/neeram-coconut-oil-200ml-bottle.webp", alt: "Neeram Coconut Oil, 200 ml clear bottle", width: 289, height: 960, cutout: true },
         stageHeight: 0.6,
         thumb: { src: "/images/packs/neeram-coconut-oil-200ml-bottle-thumb.webp", alt: "", width: 60, height: 200, cutout: true },
@@ -197,7 +205,8 @@ export const products: Product[] = [
         label: "500 ml packet",
         size: "500 ml",
         form: "Packet",
-        price: 190,
+        price: 130,
+        mrp: 190,
         image: { src: "/images/packs/neeram-coconut-oil-500ml-packet.webp", alt: "Neeram Coconut Oil, 500 ml packet", width: 960, height: 876, cutout: true },
         stageHeight: 0.62,
         thumb: { src: "/images/packs/neeram-coconut-oil-500ml-packet-thumb.webp", alt: "", width: 219, height: 200, cutout: true },
@@ -207,7 +216,8 @@ export const products: Product[] = [
         label: "1 L packet",
         size: "1 L",
         form: "Packet",
-        price: 330,
+        price: 260,
+        mrp: 330,
         image: { src: "/images/packs/neeram-coconut-oil-1l-packet.webp", alt: "Neeram Coconut Oil, 1 litre packet", width: 836, height: 1200, cutout: true },
         stageHeight: 0.8,
         thumb: { src: "/images/packs/neeram-coconut-oil-1l-packet-thumb.webp", alt: "", width: 139, height: 200, cutout: true },
@@ -336,6 +346,16 @@ export function getPack(product: Product, id?: string): Pack | undefined {
 /** The price of a pack, or of the product when it has no pack of its own. */
 export function packPrice(product: Product, pack?: Pack): number | null {
   return pack?.price ?? product.price;
+}
+
+/** The printed MRP of a pack: its `mrp`, or its price when it sells at MRP. */
+export function packMrp(product: Product, pack?: Pack): number | null {
+  return pack?.mrp ?? packPrice(product, pack);
+}
+
+/** Percent off MRP, rounded (33 for ₹ 135 against ₹ 200); 0 when it sells at MRP. */
+export function discountPercent(price: number | null, mrp: number | null): number {
+  return price === null || mrp === null || mrp <= price ? 0 : Math.round(((mrp - price) / mrp) * 100);
 }
 
 /** A pack's size as customers read it: "1 L", or "1 L packet". */

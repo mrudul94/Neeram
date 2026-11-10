@@ -9,11 +9,14 @@ import { INDIAN_STATES, MAX_LENGTHS, orderLinks, PAYMENT, validateDetails, type 
 import { formatPrice } from "@/lib/format";
 import { resolveLines, subtotal, useCart, useCartHydrated } from "@/store/cart";
 import { Honeypot } from "../Honeypot";
+import { QtyStepper } from "../QtyStepper";
 import { Turnstile, turnstileEnabled, type TurnstileHandle } from "../Turnstile";
 import { buttonClass, cx } from "../ui";
 
 type Channel = "whatsapp" | "sms" | "email";
 const smsNumber = site.orders.phone ?? site.orders.whatsapp;
+/** How long a press waits for a bot check still running (or showing a click-to-verify box). */
+const TOKEN_WAIT_MS = 20_000;
 
 const input =
   "h-12 w-full border border-ink bg-transparent px-3.5 text-[0.9375rem] placeholder:text-muted/80 focus:border-orange focus:outline-none aria-[invalid=true]:border-orange";
@@ -63,12 +66,13 @@ export function CheckoutForm() {
   const hydrated = useCartHydrated();
   const rawLines = useCart((s) => s.lines);
   const clear = useCart((s) => s.clear);
+  const setQty = useCart((s) => s.setQty);
+  const remove = useCart((s) => s.remove);
   const router = useRouter();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState("");
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState<false | "verifying" | "sending">(false);
   const [discountNote, setDiscountNote] = useState("");
-  const turnstileToken = useRef("");
   const turnstile = useRef<TurnstileHandle>(null);
 
   const lines = resolveLines(rawLines);
@@ -108,22 +112,23 @@ export function CheckoutForm() {
       document.getElementById(first)?.focus();
       return;
     }
-    // The WhatsApp tab must open inside the click, so there's no waiting for the bot check here;
-    // it starts when the page loads and is normally done long before the form is filled in.
-    if (turnstileEnabled && !turnstileToken.current) {
-      setFormError("The security check is still running. Please try again in a moment.");
-      return;
-    }
     // Which button sent the form: WhatsApp (the main one), or SMS / email for customers without it.
     const via = ((e.nativeEvent as SubmitEvent).submitter?.getAttribute("value") ?? "whatsapp") as Channel;
-    setBusy(true);
     // Opened inside the click so pop-up blockers allow it; pointed at WhatsApp once the message is ready.
+    // The bot check may still be running: the tab opens first, then the order waits for its token.
     const tab = via === "whatsapp" ? window.open("", "_blank") : null;
     try {
+      let token = "";
+      if (turnstileEnabled && turnstile.current) {
+        setBusy("verifying");
+        token = await turnstile.current.token(TOKEN_WAIT_MS);
+        if (!token) throw new Error("The security check didn't finish. Please try again.");
+      }
+      setBusy("sending");
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lines: rawLines, details, turnstileToken: turnstileToken.current }),
+        body: JSON.stringify({ lines: rawLines, details, turnstileToken: token }),
       });
       // Each token works once: get a fresh one in case the customer needs to send again.
       turnstile.current?.reset();
@@ -143,6 +148,7 @@ export function CheckoutForm() {
       }
     } catch (err) {
       tab?.close();
+      turnstile.current?.reset();
       setBusy(false);
       setFormError(err instanceof Error ? err.message : "Something went wrong.");
     }
@@ -221,7 +227,7 @@ export function CheckoutForm() {
             </Field>
           </Step>
 
-          <Turnstile ref={turnstile} onToken={(t) => (turnstileToken.current = t)} className="mb-4" />
+          <Turnstile ref={turnstile} className="mb-4" />
           {formError && (
             <p role="alert" className="mb-4 border border-orange px-4 py-3 text-sm">
               {formError}
@@ -239,19 +245,19 @@ export function CheckoutForm() {
             </Link>
             .
           </p>
-          <button data-keep-clear type="submit" value="whatsapp" disabled={busy} className={buttonClass("orange", "h-14 w-full")}>
-            {busy ? "Sending…" : `Send order on WhatsApp · ${formatPrice(total)}`}
+          <button data-keep-clear type="submit" value="whatsapp" disabled={!!busy} className={buttonClass("orange", "h-14 w-full")}>
+            {busy === "verifying" ? "Verifying…" : busy ? "Sending…" : `Send order on WhatsApp · ${formatPrice(total)}`}
           </button>
           {(smsNumber || site.orders.email) && (
             <p className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[0.8125rem] text-muted">
               No WhatsApp? Send it by
               {smsNumber && (
-                <button type="submit" value="sms" disabled={busy} className={buttonClass("text")}>
+                <button type="submit" value="sms" disabled={!!busy} className={buttonClass("text")}>
                   SMS
                 </button>
               )}
               {site.orders.email && (
-                <button type="submit" value="email" disabled={busy} className={buttonClass("text")}>
+                <button type="submit" value="email" disabled={!!busy} className={buttonClass("text")}>
                   Email
                 </button>
               )}
@@ -267,16 +273,21 @@ export function CheckoutForm() {
           </h2>
           <ul className="mt-4">
             {lines.map(({ key, qty, product, sizeLabel, image, lineTotal }) => (
-              <li key={key} className="flex items-center gap-4 border-b border-ink py-4">
-                <span className="relative grid h-[4.5rem] w-14 shrink-0 place-items-center bg-cream">
+              <li key={key} className="flex items-start gap-4 border-b border-ink py-4">
+                <span className="grid h-[4.5rem] w-14 shrink-0 place-items-center bg-cream">
                   <Image src={image.src} alt="" width={image.width} height={image.height} className="max-h-16 w-auto max-w-[3.25rem] object-contain" />
-                  <span className="absolute -top-1.5 -right-1.5 grid size-5 place-items-center bg-ink text-[0.6875rem] text-cream">{qty}</span>
                 </span>
-                <span className="flex-1">
+                <span className="min-w-0 flex-1">
                   <span className="block font-medium">{product.name}</span>
                   <span className="block text-xs text-muted">{sizeLabel}</span>
                   <span lang="ml" className="font-ml text-xs text-muted">
                     {product.nameMalayalam}
+                  </span>
+                  <span className="mt-2.5 flex items-center gap-4">
+                    <QtyStepper size="sm" label={`${product.name}, ${sizeLabel}`} value={qty} min={1} onChange={(q) => setQty(key, q)} />
+                    <button type="button" onClick={() => remove(key)} className="tap text-xs text-muted underline-offset-2 hover:text-orange hover:underline">
+                      Remove
+                    </button>
                   </span>
                 </span>
                 <span className="tabular-nums">{formatPrice(lineTotal)}</span>

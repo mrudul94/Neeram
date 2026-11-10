@@ -118,7 +118,7 @@ for (const width of [1920, 2560]) {
     await page.goto("/products/coconut-oil");
     const box = await page.locator("h1").boundingBox();
     expect(box!.width).toBeGreaterThan(450);
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Coconut Oil");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Kerala Coconut Oil");
   });
 }
 

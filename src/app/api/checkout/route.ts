@@ -4,6 +4,8 @@ import { newOrderNumber, orderMessage, pickDetails, priceLines, validateDetails,
 import { saveOrder } from "@/lib/records";
 import { verifyTurnstile } from "@/lib/turnstile";
 
+const MAX_BODY = 20_000;
+
 /**
  * Returns the message the customer sends us on WhatsApp (or by SMS, email or phone). Orders are
  * handled by hand; if the optional sheet is set up, it is written after the response is sent.
@@ -12,7 +14,11 @@ import { verifyTurnstile } from "@/lib/turnstile";
 export async function POST(request: Request) {
   let body: { lines?: CheckoutLine[]; details?: unknown; turnstileToken?: unknown };
   try {
-    body = await request.json();
+    const text = await request.text();
+    // A real order is a few KB; anything far bigger is not one, so don't spend time parsing it.
+    if (text.length > MAX_BODY) return Response.json({ error: "Request too large" }, { status: 413 });
+    body = JSON.parse(text);
+    if (!body || typeof body !== "object") throw new Error("not an object");
   } catch {
     return Response.json({ error: "Invalid request" }, { status: 400 });
   }

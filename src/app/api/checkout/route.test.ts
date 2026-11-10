@@ -53,7 +53,7 @@ describe("POST /api/checkout", () => {
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.orderNumber).toMatch(/^NRM-/);
-    expect(data.message).toContain("• 2 × Coconut Oil (1 L bottle): ₹ 680");
+    expect(data.message).toContain("• 2 × Coconut Oil (1 L bottle): ₹ 540");
     expect(googleCalls).toEqual([]);
   });
 
@@ -119,6 +119,17 @@ describe("POST /api/checkout", () => {
     const res = await checkout({ ...body, details: { ...body.details, firstName: 123 } });
     expect(res.status).toBe(400);
     expect((await res.json()).errors).toHaveProperty("firstName");
+  });
+
+  it("turns away a body far bigger than any order, without saving it", async () => {
+    const res = await checkout({ ...body, padding: "x".repeat(25_000) });
+    expect(res.status).toBe(413);
+    expect(scheduled).toHaveLength(0);
+  });
+
+  it.each(["null", "42", '"text"', "{not json"])("answers 400, not a crash, for the body %s", async (raw) => {
+    const res = await POST(new Request("http://localhost/api/checkout", { method: "POST", body: raw }));
+    expect(res.status).toBe(400);
   });
 
   it("saves only the checkout fields, never extra ones sent with the order", async () => {

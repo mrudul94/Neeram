@@ -104,7 +104,17 @@ export const site = {
     bestBefore: "6 months. See the date on the pack." as string | null,
   },
   aboutText:
-    "Neeram started up on 21 August 2020 and is owned by Sharath K Sasikumar, with 29 coconut producer companies in Kerala behind it. The oil is pressed at our own mill in Anakkallu, Kerala, from coconuts bought straight from member farms. It is sealed at the mill, in clear bottles and pouches, with nothing added.",
+    "Neeram started up on 21 August 2020 and is owned by Sharath K Sasikumar. The oil is pressed at our own mill in Anakkallu, Kerala, from coconuts bought directly from local farmers. It is sealed at the mill, in clear bottles and pouches, with nothing added.",
+  /**
+   * How the oil is made, for "How our coconut oil is made" on the product page (as told by the mill).
+   * Blank steps show as "[to be confirmed]".
+   */
+  oilProcess: {
+    drying: "Cut in half and dried in a mechanical dryer for about 20 hours: 12 hours, then the shells come off, then 8 more, until it is dry copra." as string | null,
+    pressing: "The copra is cut into small pieces and pressed in an expeller, a machine press." as string | null,
+    /** What "double filtered" on the label means. */
+    filtering: "Filtered twice, to take out fine coconut particles and the brown sediment that settles at the bottom of unfiltered oil." as string | null,
+  },
   /** FSSAI licence number shown in the footer and on product pages; null hides it. */
   fssaiLicence: "11321014000289" as string | null,
   /**
@@ -127,8 +137,6 @@ export const site = {
   // Set a URL to show the link; null renders the name without a link.
   socials: {
     Instagram: "https://www.instagram.com/neeram_coconut_oil" as string | null,
-    Facebook: null as string | null,
-    YouTube: null as string | null,
     WhatsApp: "https://wa.me/919747844455" as string | null,
   },
 };

@@ -46,7 +46,7 @@ describe("organizationSchema", () => {
     const org = organizationSchema({
       location: { streetAddress: null, locality: "Kasaragod", region: "Kerala", postalCode: null, country: "IN" },
       support: { phone: null, email: null, hours: null },
-      socials: { Instagram: null, Facebook: null, YouTube: null, WhatsApp: null },
+      socials: { Instagram: null, WhatsApp: null },
     }) as Record<string, unknown>;
     expect(org.address).toEqual({ "@type": "PostalAddress", addressLocality: "Kasaragod", addressRegion: "Kerala", addressCountry: "IN" });
     for (const key of ["telephone", "email", "geo", "sameAs"]) expect(org).not.toHaveProperty(key);
@@ -55,7 +55,7 @@ describe("organizationSchema", () => {
   it("adds them once they are filled", () => {
     const org = organizationSchema({
       geo: { latitude: 12.5, longitude: 75 },
-      socials: { Instagram: "https://instagram.com/neeram", Facebook: null, YouTube: null, WhatsApp: "https://wa.me/910000000000" },
+      socials: { Instagram: "https://instagram.com/neeram", WhatsApp: "https://wa.me/910000000000" },
       support: { phone: "+91 90000 00000", email: "hello@example.com", hours: null },
     }) as Record<string, unknown>;
     expect(org.geo).toEqual({ "@type": "GeoCoordinates", latitude: 12.5, longitude: 75 });
@@ -88,7 +88,12 @@ describe("productSchema", () => {
   });
 
   it("shows the 1 L packet at its real price", () => {
-    expect(schema.offers.find((o) => o.name === "1 L packet")?.price).toBe(330);
+    expect(schema.offers.find((o) => o.name === "1 L packet")?.price).toBe(260);
+  });
+
+  it("gives each offer its MRP as the struck-through price", () => {
+    const offer = schema.offers.find((o) => o.name === "1 L packet") as unknown as { priceSpecification: Record<string, unknown> };
+    expect(offer.priceSpecification).toMatchObject({ priceType: "https://schema.org/StrikethroughPrice", price: 330, priceCurrency: "INR" });
   });
 
   it("makes no offer for a product with no confirmed price", () => {
@@ -128,7 +133,7 @@ describe("FAQ", () => {
   it("lists every size and price in the answer about sizes", () => {
     const sizes = faqs.find((f) => /sizes/i.test(f.question))!;
     for (const pack of oil.packs!) expect(sizes.answer).toContain(pack.label);
-    expect(sizes.answer).toContain("₹ 330");
+    expect(sizes.answer).toContain("₹ 260");
   });
 
   it("has no schema at all when nothing is confirmed", () => {

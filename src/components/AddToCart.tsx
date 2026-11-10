@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
-import { getPack, getProduct, hasSizes, isAvailable, packPrice, packSize, type Pack } from "@/data/products";
+import { discountPercent, getPack, getProduct, hasSizes, isAvailable, packMrp, packPrice, packSize, type Pack } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { useCart } from "@/store/cart";
 import { usePackChoice } from "@/store/pack";
@@ -100,11 +100,28 @@ export function PackPrice({ slug }: { slug: string }) {
   const pack = useChosenPack(slug);
   const product = getProduct(slug);
   if (!product) return null;
+  const price = packPrice(product, pack);
+  const mrp = packMrp(product, pack);
+  const off = discountPercent(price, mrp);
   return (
-    <p className="mt-6 flex items-baseline gap-3">
-      <span className="text-2xl font-medium tabular-nums">{formatPrice(packPrice(product, pack))}</span>
-      <span className="text-xs text-muted">MRP, inclusive of all taxes · {pack?.label ?? product.sizeLabel}</span>
-    </p>
+    <div className="mt-6">
+      <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span className="text-2xl font-medium tabular-nums">{formatPrice(price)}</span>
+        {off > 0 && (
+          <>
+            <span className="text-muted tabular-nums">
+              <span className="sr-only">MRP </span>
+              <s>{formatPrice(mrp)}</s>
+            </span>
+            <span className="eyebrow bg-orange px-2 py-1 text-[0.6875rem] text-ink">{off}% off</span>
+          </>
+        )}
+      </p>
+      <p className="mt-1.5 text-xs text-muted">
+        {off > 0 && <span className="font-medium text-ink">You save {formatPrice(mrp! - price!)} · </span>}
+        {off > 0 ? "Inclusive of all taxes" : "MRP, inclusive of all taxes"} · {pack?.label ?? product.sizeLabel}
+      </p>
+    </div>
   );
 }
 

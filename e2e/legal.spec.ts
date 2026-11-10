@@ -197,19 +197,58 @@ test("the Help page states the delivery, returns and contact details", async ({ 
   await expect(page.locator("footer")).toContainText("Kerala 671541");
 });
 
-test("Turnstile doesn't load while browsing the site", async ({ page }) => {
+test("Turnstile loads on checkout only, never while browsing the site", async ({ page }) => {
   const turnstile: string[] = [];
   page.on("request", (r) => {
     if (r.url().includes("challenges.cloudflare.com")) turnstile.push(r.url());
   });
-  for (const path of ["/", "/products/coconut-oil", "/shop"]) {
+  for (const path of ["/", "/products/coconut-oil", "/shop", "/about", "/help"]) {
     await page.goto(path);
     await page.waitForTimeout(800);
   }
+  // Adding to the cart opens the drawer: still no bot check until checkout itself.
+  await page.goto("/products/coconut-oil");
+  await page.getByRole("button", { name: /^Add (to cart|500 ml · ₹ 135)$/ }).locator("visible=true").click();
+  await expect(page.getByRole("dialog", { name: /Your cart/ })).toBeVisible();
+  await page.waitForTimeout(800);
   expect(turnstile).toEqual([]);
+
+  await page.goto("/checkout");
+  await expect.poll(() => turnstile.length).toBeGreaterThan(0);
 });
 
 test("checkout's heading is in the first HTML, before any JavaScript runs", async ({ request }) => {
   const html = await (await request.get("/checkout")).text();
   expect(html).toMatch(/<h1[^>]*>Checkout<\/h1>/);
+});
+
+test("every response carries the security headers", async ({ request }) => {
+  for (const path of ["/", "/products/coconut-oil", "/checkout"]) {
+    const headers = (await request.get(path)).headers();
+    expect(headers["content-security-policy"], path).toContain("frame-ancestors 'none'");
+    expect(headers["content-security-policy"], path).toContain("object-src 'none'");
+    expect(headers["x-content-type-options"], path).toBe("nosniff");
+    expect(headers["x-frame-options"], path).toBe("DENY");
+    expect(headers["referrer-policy"], path).toBe("strict-origin-when-cross-origin");
+  }
+});
+
+test("the security policy blocks nothing the site itself uses", async ({ page }) => {
+  const blocked: string[] = [];
+  page.on("console", (m) => {
+    if (/Content Security Policy|Refused to (load|execute|connect|frame|apply)/i.test(m.text())) blocked.push(`${page.url()}: ${m.text()}`);
+  });
+  await page.addInitScript(() => {
+    localStorage.setItem("neeram-notice-ok", "1");
+    localStorage.setItem("neeram-cart", JSON.stringify({ state: { lines: [{ slug: "coconut-oil", pack: "bottle-500", qty: 1 }] }, version: 0 }));
+  });
+  for (const path of ["/", "/products/coconut-oil", "/shop", "/about", "/help"]) {
+    await page.goto(path);
+    await page.mouse.wheel(0, 2000);
+    await page.waitForLoadState("networkidle");
+  }
+  // Checkout loads the Turnstile widget from Cloudflare (script + iframe).
+  await page.goto("/checkout");
+  await expect(page.locator('input[name="cf-turnstile-response"]')).toHaveValue(/.+/, { timeout: 15_000 });
+  expect(blocked).toEqual([]);
 });

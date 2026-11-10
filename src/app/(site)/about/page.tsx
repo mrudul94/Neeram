@@ -7,7 +7,7 @@ import { site } from "@/data/content";
 export const metadata: Metadata = {
   title: "About Us: Coconut Oil from Kasaragod, Kerala",
   description:
-    "How Neeram started in August 2020, with 29 coconut producer companies in Kerala behind it: traditional coconut oil made at our own mill in Anakkallu, Kasaragod.",
+    "How Neeram started in August 2020: traditional coconut oil made at our own mill in Anakkallu, Kasaragod, from coconuts bought directly from local farmers.",
   ...pageLinks("/about"),
 };
 
@@ -17,14 +17,14 @@ const chapters = [
   {
     title: "The seed of an idea",
     body: [
-      "Before we became known for our pure coconut oil, our roots were tied to the sap of the coconut palm — Neera. As a collective of passionate farmer-producer companies in Kerala, we initially came together to process and promote Neera, working closely with local agricultural communities. We learned the intricate rhythms of the palm groves, understood what makes a perfect coconut, and built a deep trust with hundreds of farming families.",
+      "Before we became known for our pure coconut oil, our roots were tied to the sap of the coconut palm — Neera. We started out processing and promoting Neera, working closely with local agricultural communities. We learned the intricate rhythms of the palm groves, understood what makes a perfect coconut, and built a deep trust with hundreds of farming families.",
     ],
   },
   {
     title: "The transition to purity",
     body: [
       "When the agricultural landscape shifted, so did we. We realized that our true strength lay in our direct access to the finest, hand-picked coconuts and our unyielding commitment to unadulterated quality.",
-      "In May 2018, 29 coconut producer companies united with a single goal: to channel our expertise into creating an authentic, traditional coconut oil that families could trust blindly. On 21 August 2020, just in time for the festive spirit of Onam, Neeram was born.",
+      "In May 2018, we set out with a single goal: to channel our expertise into creating an authentic, traditional coconut oil that families could trust blindly. On 21 August 2020, just in time for the festive spirit of Onam, Neeram was born.",
     ],
     image: {
       src: "/images/about/neeram-oil-mill-opening-ceremony.webp",
@@ -50,10 +50,9 @@ const chapters = [
 ];
 
 const figures = [
-  { value: "29", label: "Coconut producer companies" },
-  { value: "2020", label: "Neeram born, 21 August, in time for Onam" },
-  { value: "15 t", label: "Copra the mill can crush a day" },
-  { value: "45 t", label: "Copra in store at the mill" },
+  { value: "2020", label: "Neeram born on 21 August, in time for Onam" },
+  { value: "15", unit: "tonnes", label: "Copra the mill can crush in a day" },
+  { value: "45", unit: "tonnes", label: "Copra in store at the mill" },
 ];
 
 // "Why Neeram", from the Neeram site's About page.
@@ -107,7 +106,7 @@ export default function AboutPage() {
 
       <section aria-label="The story" className="wrap border-t border-ink">
         {chapters.map((c, i) => (
-          <article key={c.title} className="grid gap-6 border-b border-ink py-12 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-16 md:py-16">
+          <article key={c.title} className="grid gap-6 border-b border-ink py-12 last:border-b-0 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-16 md:py-16">
             <header>
               <p className="eyebrow text-[0.6875rem] text-orange-text">Chapter {String(i + 1).padStart(2, "0")}</p>
               <h2 className="display mt-3 text-[clamp(2.5rem,4.5vw,3.75rem)] text-balance">{c.title}</h2>
@@ -136,15 +135,26 @@ export default function AboutPage() {
         ))}
       </section>
 
-      <section aria-label="Neeram in numbers" className="mt-16 bg-ink text-cream md:mt-24">
-        <dl className="wrap grid grid-cols-2 gap-x-6 gap-y-10 py-14 md:grid-cols-4 md:py-20">
-          {figures.map((f) => (
-            <div key={f.label} className="flex flex-col-reverse justify-end border-t border-cream/30 pt-4">
-              <dt className="mt-2 max-w-[12rem] text-[0.9375rem] text-cream/80">{f.label}</dt>
-              <dd className="display text-[clamp(3.25rem,6vw,5.5rem)] text-orange">{f.value}</dd>
-            </div>
-          ))}
-        </dl>
+      <section aria-labelledby="numbers-title" className="bg-ink text-cream">
+        <div className="wrap grid gap-10 py-14 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-16 md:py-20">
+          <header>
+            <Eyebrow>In numbers</Eyebrow>
+            <h2 id="numbers-title" className="display mt-4 text-[clamp(2.5rem,4.5vw,3.75rem)] text-balance">
+              The mill at Anakkallu
+            </h2>
+          </header>
+          <dl className="grid grid-cols-1 gap-y-8 sm:grid-cols-3 sm:gap-x-8">
+            {figures.map((f) => (
+              <div key={f.label} className="flex flex-col-reverse justify-end border-t border-cream/30 pt-5">
+                <dt className="mt-3 text-[0.9375rem] leading-snug text-balance text-cream/80">{f.label}</dt>
+                <dd className="flex items-baseline gap-2 text-orange">
+                  <span className="display text-[clamp(3.25rem,5vw,4.5rem)] leading-none">{f.value}</span>
+                  {f.unit && <span className="text-lg font-medium">{f.unit}</span>}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </section>
 
       <section aria-labelledby="who-title" className="wrap py-16 md:py-24">

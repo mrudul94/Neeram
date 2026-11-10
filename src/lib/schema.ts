@@ -51,7 +51,9 @@ export function websiteSchema() {
 }
 
 export function productSchema(product: Product) {
-  const sizes = product.packs?.map((p) => ({ name: p.label, id: `-${p.id}`, price: packPrice(product, p) })) ?? [{ name: product.sizeLabel, id: "", price: product.price }];
+  const sizes =
+    product.packs?.map((p) => ({ name: p.label, id: `-${p.id}`, price: packPrice(product, p), mrp: p.mrp })) ??
+    [{ name: product.sizeLabel, id: "", price: product.price, mrp: undefined }];
   const offers = !isAvailable(product)
     ? []
     : sizes
@@ -62,6 +64,10 @@ export function productSchema(product: Product) {
           sku: `NRM-${product.number}${s.id}`,
           price: s.price,
           priceCurrency: "INR",
+          // The printed MRP, so search results can show the sale price against it.
+          ...(s.mrp && s.mrp > s.price
+            ? { priceSpecification: { "@type": "UnitPriceSpecification", priceType: "https://schema.org/StrikethroughPrice", price: s.mrp, priceCurrency: "INR" } }
+            : {}),
           availability: "https://schema.org/InStock",
           itemCondition: "https://schema.org/NewCondition",
           url: productUrl(product),

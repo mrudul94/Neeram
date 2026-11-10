@@ -9,6 +9,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { NearView } from "@/components/NearView";
 import { OilBand } from "@/components/OilBand";
 import { Gallery } from "@/components/product/Gallery";
+import { OilStory } from "@/components/product/OilStory";
 import { Shelf } from "@/components/Shelf";
 import { WhatsAppNotify } from "@/components/WhatsAppNotify";
 import { Eyebrow, MalayalamDisplay, SpecTable, cx } from "@/components/ui";
@@ -27,10 +28,10 @@ export async function generateMetadata({ params }: PageProps<"/products/[slug]">
   const product = getProduct((await params).slug);
   if (!product) return {};
   const isOil = product.category === "Oil";
-  const title = !isAvailable(product) ? `${product.name} — coming soon` : isOil ? `${product.name} from Kasaragod, Kerala, 200 ml to 1 L` : `${product.name} (${product.sizeLabel})`;
+  const title = !isAvailable(product) ? `${product.name} — coming soon` : isOil ? "Kerala Coconut Oil, Pressed at Our Kasaragod Mill" : `${product.name} (${product.sizeLabel})`;
   // The mill is only confirmed for the oil, so the spices don't claim it.
   const description = isOil
-    ? `${product.description} Made at our own mill in Anakkallu, Kasaragod, Kerala. From ${formatPrice(lowestPrice(product))}.`
+    ? `Kerala coconut oil pressed at our Kasaragod mill from local farmers' coconuts. Nothing added. 200 ml to 1 L from ${formatPrice(lowestPrice(product))}. Order on WhatsApp.`
     : product.description;
   return {
     title,
@@ -84,7 +85,7 @@ function TitleBlock({ product }: { product: Product }) {
         No. {product.number} · {product.category}
         {product.category === "Oil" && " · Kasaragod, Kerala"}
       </Eyebrow>
-      <h1 className="display mt-4 text-[clamp(3.5rem,7vw,6rem)]">{product.name}</h1>
+      <h1 className="display mt-4 text-[clamp(3.5rem,7vw,6rem)]">{product.headline ?? product.name}</h1>
       <p className="mt-3 text-lg">
         <span lang="ml" className="font-ml">
           {product.nameMalayalam}
@@ -152,7 +153,11 @@ function AvailableProduct({ product }: { product: Product }) {
             <PurchasePanel slug={product.slug} />
           </div>
           <SpecTable specs={product.specs} className="mt-6" />
-          {site.fssaiLicence && <p className="mt-3 text-xs text-muted">FSSAI Lic. No. {site.fssaiLicence}</p>}
+          {site.fssaiLicence && (
+            <p className="mt-3 text-xs text-muted">
+              {product.category === "Oil" && "Sealed at our mill in Anakkallu · "}FSSAI Lic. No. {site.fssaiLicence}
+            </p>
+          )}
           <div>
             {accordions(product).map((a) => (
               <details key={a.title} className="group border-b border-ink">
@@ -169,10 +174,12 @@ function AvailableProduct({ product }: { product: Product }) {
         </div>
       </div>
 
-      <OilBand id="tempering" eyebrow="Cook with it" title={<>The tempering<br />that starts it.</>}>
+      {product.category === "Oil" && product.packs && <OilStory product={product} />}
+
+      <OilBand id="tempering" eyebrow="Coconut oil for cooking" title={<>The tempering<br />that starts it.</>}>
         <p className="mt-5 max-w-[32rem] font-serif text-lg text-cream/90">
-          Heat a spoon of coconut oil until it shimmers. Mustard seeds in; when they pop, curry leaves and a dried chilli. Pour it over
-          the dish.
+          Fry in it, temper with it, and finish thoran or avial with a spoonful at the end. For the tempering: heat a spoon of coconut
+          oil until it shimmers. Mustard seeds in; when they pop, curry leaves and a dried chilli. Pour it over the dish.
         </p>
         <ul className="mt-8 flex gap-6">
           {tempering.map((p) => (

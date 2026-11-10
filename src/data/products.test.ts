@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getPack, getProduct, hasSizes, isAvailable, lowestPrice, packPrice, packSize, products } from "./products";
+import { discountPercent, getPack, getProduct, hasSizes, isAvailable, lowestPrice, packMrp, packPrice, packSize, products } from "./products";
 
 const oil = getProduct("coconut-oil")!;
 const turmeric = getProduct("turmeric")!;
@@ -43,7 +43,7 @@ describe("getProduct", () => {
 
 describe("getPack", () => {
   it("returns the pack with the given id", () => {
-    expect(getPack(oil, "bottle-1l")?.price).toBe(340);
+    expect(getPack(oil, "bottle-1l")?.price).toBe(270);
   });
 
   it("falls back to the first pack when no id is given", () => {
@@ -71,7 +71,7 @@ describe("hasSizes", () => {
 
 describe("lowestPrice", () => {
   it("returns the cheapest pack price", () => {
-    expect(lowestPrice(oil)).toBe(100);
+    expect(lowestPrice(oil)).toBe(58);
   });
 
   it("returns the product price for a product without packs", () => {
@@ -80,10 +80,11 @@ describe("lowestPrice", () => {
 });
 
 describe("coconut oil 1 L packet", () => {
-  it("is on sale at ₹ 330", () => {
+  it("is on sale at ₹ 260, against an MRP of ₹ 330", () => {
     const pack = getPack(getProduct("coconut-oil")!, "pouch-1l");
     expect(pack?.label).toBe("1 L packet");
-    expect(pack?.price).toBe(330);
+    expect(pack?.price).toBe(260);
+    expect(pack?.mrp).toBe(330);
   });
 });
 
@@ -91,7 +92,7 @@ describe("packPrice", () => {
   const oil = getProduct("coconut-oil")!;
 
   it("uses the pack's own price", () => {
-    expect(packPrice(oil, getPack(oil, "bottle-1l"))).toBe(340);
+    expect(packPrice(oil, getPack(oil, "bottle-1l"))).toBe(270);
   });
 
   it("falls back to the product's price without a pack", () => {
@@ -108,5 +109,24 @@ describe("packSize", () => {
 
   it("leaves a bottle as just its size", () => {
     expect(packs.filter((p) => p.form !== "Packet").map(packSize)).toEqual(["500 ml", "1 L", "200 ml"]);
+  });
+});
+
+describe("MRP and discount", () => {
+  it("matches the client's price list for every coconut oil pack", () => {
+    const rows = oil.packs!.map((p) => [p.id, packPrice(oil, p), packMrp(oil, p), discountPercent(packPrice(oil, p), packMrp(oil, p))]);
+    expect(rows).toEqual([
+      ["bottle-500", 135, 200, 33],
+      ["bottle-1l", 270, 340, 21],
+      ["bottle-200", 58, 100, 42],
+      ["pouch-500", 130, 190, 32],
+      ["pouch-1l", 260, 330, 21],
+    ]);
+  });
+
+  it("shows no discount at MRP or while a price is unknown", () => {
+    expect(discountPercent(200, 200)).toBe(0);
+    expect(discountPercent(null, 200)).toBe(0);
+    expect(packMrp(turmeric)).toBeNull();
   });
 });

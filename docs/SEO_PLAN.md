@@ -27,7 +27,7 @@ Google says local results depend on three things: **relevance** (does it match t
 1. **Google Business Profile.** This is what appears on Google Maps, and is the most important step for local searches. Google allows it only if the business has a physical location customers can visit, or travels to customers. A rented mailing address doesn't qualify. Confirm which applies before applying; if customers can't visit the mill, ask whether the delivery model qualifies as a service area.
 2. **Real reviews.** Ask real customers to review the profile, for example with a link in the WhatsApp message after delivery. Never buy reviews or offer rewards for them.
 3. **Consistent details.** The same name, address and phone everywhere: website, Google, Facebook, Instagram, the pack.
-4. **Listings and mentions.** IndiaMART and similar directories if selling wholesale; local news about the 29 producer companies or the mill; the local farmer, startup or trade bodies Neeram really belongs to; shops that stock Neeram linking to the site.
+4. **Listings and mentions.** IndiaMART and similar directories if selling wholesale; local news about the mill; the local farmer, startup or trade bodies Neeram really belongs to; shops that stock Neeram linking to the site.
 5. **Useful content over time.** Real recipes and how-tos, such as tempering with coconut oil. Only add them when there's something genuinely useful to say.
 
 ## AI search (GEO / AEO)
