@@ -24,6 +24,17 @@ Left out on purpose: orders only reach Neeram when a customer sends the WhatsApp
   - **Then take action:** **Block** for `10 seconds`
   - Click **Deploy**. A real customer sends one or two requests per order, so this only stops floods.
 
+## 2b. Contact form email (Resend)
+
+The contact form (`/contact`) emails each message to Neeram through Resend. Until this is done, the live form says it couldn't send and shows the email address instead.
+
+- [ ] **Create the Resend account** at resend.com with the client's email, and invite the developer as a member.
+- [ ] **Verify the domain.** Resend → **Domains** → **Add domain** (for example `neeram.in`). Add the DNS records it shows in Cloudflare (the domain → **DNS**), then click **Verify**.
+- [ ] **Create an API key.** Resend → **API Keys** → **Create**, permission *Sending access*. Add it to the `neeram` Worker as a **secret** named `RESEND_API_KEY` (`npx wrangler secret put RESEND_API_KEY`).
+- [ ] **Set the sender.** Add a Worker variable (plain text, not secret) `CONTACT_EMAIL_FROM` = `Neeram website <website@neeram.in>`, on the verified domain. Messages go to `site.support.email` unless `CONTACT_EMAIL_TO` is set.
+- [ ] **Turn on Turnstile** (section 2). The contact form sends straight to the inbox, so it needs the bot check more than checkout does.
+- [ ] **Send a test message** from the live `/contact` page and check it arrives, and that pressing Reply answers the visitor.
+
 ## 3. Legal
 
 - [ ] **Lawyer review.** Have a lawyer review the Privacy Policy (`/privacy`) and Terms (`/terms`). Both are drafts written from how the site works, and are not legal advice. Ask them to confirm the FSSAI and packaged-goods details on product pages too, and whether checkout needs a tick-box.
@@ -38,7 +49,7 @@ Left out on purpose: orders only reach Neeram when a customer sends the WhatsApp
 - [ ] **Choose the Workers plan. (developer)** The built Worker is about **1.2 MB compressed** (measured with `npx wrangler deploy --dry-run`). Check the current Free-plan limits on worker size and CPU time per request at [developers.cloudflare.com/workers/platform/limits](https://developers.cloudflare.com/workers/platform/limits/). If either is too tight, use **Workers Paid** (from $5 a month), which is what OpenNext sites are usually run on.
 - [ ] **Deploy and attach the domain. (developer)** `npx wrangler login`, then `npm run deploy`. In Workers & Pages → neeram → **Settings** → **Domains & Routes**, add the custom domain.
 - [ ] **Set `NEXT_PUBLIC_SITE_URL`** to the real address (for example `https://neeram.in`) in `.env.production`, and remove any variable of that name in Cloudflare's build settings, so links shared on WhatsApp and search results point to the right place. **(developer)** Read at build time.
-- [ ] **Set `SITE_LIVE=1`** as a build variable and rebuild, only when the site is ready for the public. **(developer)** Until then every page is marked noindex and the sitemap is empty, so nothing can rank. Then submit `/sitemap.xml` in Google Search Console (`docs/SEO_PLAN.md`).
+- [x] **Set `SITE_LIVE=1`**: done in `.env.production` (19 November 2026), so every build can be indexed. **(developer)** Until then every page is marked noindex and the sitemap is empty, so nothing can rank. Then submit `/sitemap.xml` in Google Search Console (`docs/SEO_PLAN.md`).
 - [ ] **Workers Logs are on** (`observability` in `wrangler.jsonc`). Check you can open Workers & Pages → neeram → **Observability** and see requests after deploying.
 
 ## 5. Check it end to end

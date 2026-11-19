@@ -5,7 +5,8 @@ Read this before changing checkout, headers or dependencies. Last reviewed 10 No
 ## What there is to protect
 
 There are no accounts, logins or online payments. The only untrusted input that reaches the server is
-`POST /api/checkout`: a cart and the customer's name, phone, address and optional email. The assets are that
+`POST /api/checkout` (a cart and the customer's name, phone, address and optional email) and `POST /api/contact`
+(a name, email and message, emailed to Neeram through Resend; `RESEND_API_KEY` is a Worker secret). The assets are that
 personal data (in the Google Sheet, if one is set up) and the sheet's service-account key and the Turnstile
 secret (Worker secrets, never in the repository; `.dev.vars` is ignored by git).
 
@@ -17,13 +18,15 @@ secret (Worker secrets, never in the repository; `.dev.vars` is ignored by git).
 | Bad or oversized fields | Text only, allowlisted field names, length limits, phone/PIN/state formats | `pickDetails`, `validateDetails` |
 | Oversized or malformed bodies | Over 20,000 characters → 413; anything that isn't a JSON object → 400 | `src/app/api/checkout/route.ts` |
 | Formula injection in the sheet | Rows written with `valueInputOption=RAW` | `src/lib/sheet.ts` |
-| Bots | Honeypot field; Cloudflare Turnstile when its keys are set (optional, see `LAUNCH_CHECKLIST.md`) | `src/lib/bot-check.ts`, `src/lib/turnstile.ts` |
+| Bots | Honeypot field; Cloudflare Turnstile when its keys are set (optional for checkout, see `LAUNCH_CHECKLIST.md`) | `src/lib/bot-check.ts`, `src/lib/turnstile.ts` |
+| Contact form flooding the inbox or Resend's quota | On the live site the form sends nothing until Turnstile is set up; WAF rate-limit rule on `/api/` | `src/app/api/contact/route.ts` |
+| Other websites posting to our forms | Requests the browser marks `Sec-Fetch-Site: cross-site` get 403 | `fromOtherSite` in `src/lib/bot-check.ts` |
 | Script injection | React escaping; the one raw-HTML use (JSON-LD) escapes `<` | `src/components/JsonLd.tsx` |
 | Clickjacking, third-party scripts, MIME sniffing | Security headers on every response (below) | `next.config.ts` |
 
 ## Security headers
 
-`next.config.ts` sends a Content-Security-Policy, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`,
+`next.config.ts` turns off `X-Powered-By` and sends a Content-Security-Policy, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`,
 `Referrer-Policy`, `Permissions-Policy` and `Strict-Transport-Security` on every route.
 
 - The policy allows the site's own files and Cloudflare Turnstile only. **Adding any third-party script or

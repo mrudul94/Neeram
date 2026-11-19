@@ -39,6 +39,6 @@ export function robotsRules(live: boolean, url: string) {
 
 export function sitemapEntries(live: boolean, url: string) {
   if (!live) return [];
-  const paths = ["", "/shop", "/about", "/help", "/privacy", "/terms", ...products.map((p) => `/products/${p.slug}`)];
+  const paths = ["", "/shop", "/about", "/help", "/contact", "/privacy", "/terms", ...products.map((p) => `/products/${p.slug}`)];
   return paths.map((path) => ({ url: `${url}${path}` }));
 }

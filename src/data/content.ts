@@ -49,7 +49,7 @@ export const helpLinks = [
   { label: "Shipping & delivery", href: "/help#shipping" },
   { label: "Returns & refunds", href: "/help#returns" },
   { label: "Track an order", href: "/help#track" },
-  { label: "Contact us", href: "/help#contact" },
+  { label: "Contact us", href: "/contact" },
 ];
 
 export const legalLinks = [

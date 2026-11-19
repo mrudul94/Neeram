@@ -10,3 +10,9 @@ TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 GOOGLE_SERVICE_ACCOUNT_EMAIL=
 GOOGLE_PRIVATE_KEY=
 GOOGLE_SHEET_ID=
+
+# Resend: a key from resend.com to send contact-form messages for real. Empty: messages aren't sent.
+# Without a verified domain, the test sender only delivers to your own Resend login email.
+RESEND_API_KEY=
+CONTACT_EMAIL_FROM=
+CONTACT_EMAIL_TO=

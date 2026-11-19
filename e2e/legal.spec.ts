@@ -138,7 +138,7 @@ test("the coconut oil page has product, breadcrumb and FAQ markup with no placeh
   await expect(page.getByText(/^Yes\. We deliver all over India/)).toBeVisible();
 });
 
-for (const path of ["/", "/shop", "/about", "/help", "/privacy", "/terms", "/products/coconut-oil", "/products/turmeric"]) {
+for (const path of ["/", "/shop", "/about", "/help", "/contact", "/privacy", "/terms", "/products/coconut-oil", "/products/turmeric"]) {
   test(`${path} shares its own address as canonical and og:url`, async ({ page, baseURL }) => {
     await page.goto(path);
     const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");

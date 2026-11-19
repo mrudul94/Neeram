@@ -35,6 +35,8 @@ const nextConfig: NextConfig = {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
   cacheComponents: true,
+  // No "X-Powered-By: Next.js" header: it only tells attackers what to look up.
+  poweredByHeader: false,
   // The dev badge defaults to bottom-left, where it covers the feature caption.
   devIndicators: { position: "bottom-right" },
   partialPrefetching: true,

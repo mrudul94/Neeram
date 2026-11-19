@@ -22,7 +22,7 @@ Copy `.env.example` to `.env.local` to set the site URL (optional for local work
 | `src/data/content.ts` | Hero slides, site details (address, socials, about text). |
 | `src/app/(site)/` | Pages with the main header + footer: home, shop, product pages, help. |
 | `src/app/(checkout)/` | Checkout and order-confirmed pages (minimal header). |
-| `src/app/api/` | `checkout` (build the order's WhatsApp message). |
+| `src/app/api/` | `checkout` (build the order's WhatsApp message), `contact` (email a contact-form message through Resend). |
 | `src/components/home/BottleStage.tsx` | The scroll-spinning bottle. |
 | `src/store/cart.ts` | Cart (Zustand, persisted to `localStorage` as `neeram-cart`). |
 | `public/bottle/` | `neeram-coconut-oil-500ml-bottle*.webp`, the product photo at rest. The bottle frames (off, see `USE_FRAMES`) are in `design-originals/bottle/`. |
@@ -120,6 +120,13 @@ An optional Google Sheet for orders is still supported (`src/lib/records.ts`, `s
 `docs/ORDER_SHEET_SETUP.md`). If it is set up, orders that can't be saved are logged to Workers Logs in full, tagged
 `ORDER NOT SAVED TO SHEET`. In local development and tests orders go to `data/*.jsonl` (git-ignored) instead. Checkout
 has a honeypot field and a Cloudflare Turnstile check (`src/lib/turnstile.ts`).
+
+## Contact form (Resend)
+
+`/contact` posts to `/api/contact`, which checks the fields (`src/lib/contact.ts`), the honeypot and Turnstile, then emails
+the message to Neeram through Resend's API, with the visitor's address as reply-to. Settings: `RESEND_API_KEY` (secret),
+`CONTACT_EMAIL_FROM` and `CONTACT_EMAIL_TO` (see `.env.example`). Without a key, local runs and tests print the email
+in the terminal instead of sending it. The Turnstile script loads only once someone starts on the form.
 
 ## Images
 

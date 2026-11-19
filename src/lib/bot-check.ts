@@ -10,3 +10,14 @@ export function filledHoneypot(fields: unknown): boolean {
   const value = fields && typeof fields === "object" ? (fields as Record<string, unknown>)[HONEYPOT_FIELD] : undefined;
   return typeof value === "string" && value.trim() !== "";
 }
+
+/**
+ * True when a browser says the request came from another website (Sec-Fetch-Site: cross-site),
+ * e.g. a page elsewhere that makes its visitors post to our forms. Browsers set this header and
+ * page scripts can't change it. Requests without it (curl, old browsers) are left to the other checks.
+ */
+export function fromOtherSite(request: Request): boolean {
+  return request.headers.get("sec-fetch-site") === "cross-site";
+}
+
+export const CROSS_SITE_REFUSED = () => Response.json({ error: "Please send this from the Neeram website." }, { status: 403 });

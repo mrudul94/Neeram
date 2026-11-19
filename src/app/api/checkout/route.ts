@@ -1,5 +1,5 @@
 import { after } from "next/server";
-import { BOT_CHECK_FAILED, filledHoneypot } from "@/lib/bot-check";
+import { BOT_CHECK_FAILED, CROSS_SITE_REFUSED, filledHoneypot, fromOtherSite } from "@/lib/bot-check";
 import { newOrderNumber, orderMessage, pickDetails, priceLines, validateDetails, type CheckoutDetails, type CheckoutLine } from "@/lib/checkout";
 import { saveOrder } from "@/lib/records";
 import { verifyTurnstile } from "@/lib/turnstile";
@@ -12,6 +12,7 @@ const MAX_BODY = 20_000;
  * No payment is taken on the site: customers pay before delivery, after we confirm.
  */
 export async function POST(request: Request) {
+  if (fromOtherSite(request)) return CROSS_SITE_REFUSED();
   let body: { lines?: CheckoutLine[]; details?: unknown; turnstileToken?: unknown };
   try {
     const text = await request.text();

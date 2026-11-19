@@ -1,6 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 
-const pages = ["/", "/shop", "/about", "/help", "/privacy", "/terms", "/products/coconut-oil", "/products/turmeric", "/checkout"];
+const pages = ["/", "/shop", "/about", "/help", "/contact", "/privacy", "/terms", "/products/coconut-oil", "/products/turmeric", "/checkout"];
 
 const sidewaysScroll = (page: Page) => page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
 

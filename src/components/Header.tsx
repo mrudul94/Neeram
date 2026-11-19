@@ -10,6 +10,7 @@ import { BagIcon, CloseIcon, MenuIcon, cx } from "./ui";
 const nav = [
   { label: "Shop", href: "/shop" },
   { label: "About us", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Header() {

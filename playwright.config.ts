@@ -27,6 +27,8 @@ export default defineConfig({
     env: {
       ORDERS_TEST_MODE: "1",
       STORE_JSON_SUFFIX: "test",
+      // .env.production turns search indexing on; the test server stays a hidden test site.
+      SITE_LIVE: "0",
       NEXT_PUBLIC_TURNSTILE_SITE_KEY: "1x00000000000000000000AA",
       TURNSTILE_SECRET_KEY: "1x0000000000000000000000000000000AA",
     },

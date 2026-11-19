@@ -109,3 +109,33 @@ export function faqSchema(faqs: Faq[]) {
     mainEntity: known.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })),
   };
 }
+
+/** The Contact page: a ContactPage about Neeram, with its customer-service phone, email and hours. */
+export function contactPageSchema() {
+  const { phone, email } = site.support;
+  return {
+    "@context": CONTEXT,
+    "@type": "ContactPage",
+    name: "Contact Neeram",
+    url: absolute("/contact"),
+    about: { "@id": ORG_ID() },
+    mainEntity: compact({
+      "@type": "Organization",
+      "@id": ORG_ID(),
+      name: site.tradeName,
+      alternateName: site.name,
+      url: absolute("/"),
+      email,
+      telephone: phone,
+      contactPoint: [
+        compact({
+          "@type": "ContactPoint",
+          contactType: "customer service",
+          email,
+          telephone: phone,
+          areaServed: "IN",
+        }),
+      ],
+    }),
+  };
+}

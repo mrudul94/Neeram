@@ -48,7 +48,7 @@ export type TurnstileHandle = {
 };
 
 /**
- * Cloudflare Turnstile bot check, for checkout only (the script loads when this mounts). In the
+ * Cloudflare Turnstile bot check, for checkout and the contact form (the script loads when this mounts). In the
  * dashboard the widget is "Managed"; here it stays invisible unless Cloudflare wants a click.
  */
 export function Turnstile({ ref, className }: { ref?: Ref<TurnstileHandle>; className?: string }) {

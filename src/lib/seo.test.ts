@@ -48,7 +48,7 @@ describe("sitemapEntries", () => {
 
   it("lists the main pages and every product when live", () => {
     const urls = sitemapEntries(true, url).map((e) => e.url);
-    expect(urls).toEqual(expect.arrayContaining([url, `${url}/shop`, `${url}/about`, `${url}/help`, `${url}/privacy`, `${url}/terms`]));
+    expect(urls).toEqual(expect.arrayContaining([url, `${url}/shop`, `${url}/about`, `${url}/help`, `${url}/contact`, `${url}/privacy`, `${url}/terms`]));
     for (const p of products) expect(urls).toContain(`${url}/products/${p.slug}`);
   });
 

@@ -30,6 +30,7 @@ const sections: LegalSection[] = [
       <>
         <p>When you place an order: your name, mobile number, delivery address, any landmark or note you add, your email if you give it, and what you ordered.</p>
         <p>When you message us on WhatsApp to hear about new stock: your number and your message.</p>
+        <p>When you use our contact form: your name, email, any order number, and your message.</p>
         <p>We do not take card or bank details on this website. Nothing is charged here.</p>
       </>
     ),
@@ -51,6 +52,7 @@ const sections: LegalSection[] = [
       <ul className="list-disc space-y-2 pl-5">
         <li>WhatsApp: order and new-stock messages go through WhatsApp when you choose to send them, under WhatsApp&rsquo;s own terms.</li>
         <li>Cloudflare: hosts this website and keeps short-lived technical logs.</li>
+        <li>Resend: delivers messages from our contact form to our email inbox.</li>
         <li>Courier companies (DTDC and India Post): your name, number and address, to deliver your order.</li>
         <li>Our accountant: your order records, to keep our accounts.</li>
       </ul>
